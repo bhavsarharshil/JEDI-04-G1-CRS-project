@@ -5,6 +5,8 @@ package com.flipkart.service;
 
 import java.util.ArrayList;
 
+import com.flipkart.DAO.StudentDAOInterface;
+import com.flipkart.DAO.StudentDAOInterfaceIMPL;
 import com.flipkart.bean.Grades;
 import com.flipkart.bean.Student;
 
@@ -81,6 +83,13 @@ public class StudentOperation implements StudentInterface {
 		System.out.println("LIST OF ALL REGISTERED SECONDARY COURSES");
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public Student getStudentById(int id) {
+		// TODO Auto-generated method stub
+		StudentDAOInterface stdao = new StudentDAOInterfaceIMPL(); 
+		return stdao.getStudentById(id);
 	}
 
 }

@@ -4,7 +4,7 @@
 package com.flipkart.application;
 import java.util.Scanner;
 
-import com.flipkart.bean.*;
+import com.flipkart.bean.Student;
 import com.flipkart.service.*;
 /**
  * @author froz1
@@ -24,38 +24,39 @@ public class StudentCRSMenu {
 		System.out.println("Press -1 to Logout");
 	}
 	
-	public static void studentClient() 
+	public static void studentClient(Student student) 
 	{
 		Scanner input = new Scanner(System.in);
-		StudentInterface student = new StudentOperation(); 
+		StudentInterface studentI = new StudentOperation(); 
 //		Student student1 = new Student();
 		int choice;
 		System.out.println("===============WELCOME====================\n");
+		System.out.println("Welcome " + student.getName());
 		do
 		{
 			showChoices();
 			choice = input.nextInt();
 			switch (choice) {
 				case 1:
-					student.viewGrades(121);
+					studentI.viewGrades(121);
 					break;
 				case 2:
-					student.makePayment(null,null);
+					studentI.makePayment(null,null);
 					break;
 				case 3:
-					student.registerCourses(null,null);
+					studentI.registerCourses(null,null);
 					break;
 				case 4:
-					 student.addPrimaryCourse(null,1);
+					 studentI.addPrimaryCourse(null,1);
 					break;
 				case 5:
-					 student.removePrimaryCourse(null,1);
+					 studentI.removePrimaryCourse(null,1);
 					break;
 				case 6:
-					 student.addSecondaryCourse(null,1);
+					 studentI.addSecondaryCourse(null,1);
 					break;
 				case 7:
-					 student.removeSecondaryCourse(null,1);
+					 studentI.removeSecondaryCourse(null,1);
 					break;
 				case -1:
 					System.out.println("============================EXIT==============================");

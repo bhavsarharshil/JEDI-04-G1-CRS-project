@@ -1,5 +1,7 @@
 package com.flipkart.service;
 
+import com.flipkart.bean.Admin;
+
 public interface AdminInterface {
 	public void addCourse();
 	public void removeCourse();
@@ -8,5 +10,6 @@ public interface AdminInterface {
 	public void removeProfessor();
 	public void addStudent();
 	public void removeStudent();
+	public Admin getAdminById(int id);
 
 }

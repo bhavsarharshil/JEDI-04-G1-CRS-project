@@ -24,11 +24,11 @@ public class AdminCRSMenu {
 		System.out.println("Enter 7 to remove course");
 		System.out.println("Enter -1 to logout");
 	}
-	public static void AdminClient()
+	public static void AdminClient(Admin admin)
 	{
 		System.out.println("\n");
 		System.out.println("=========================================");
-		System.out.println("Welcome Admin!!");
+		System.out.println("Welcome Admin!!" + admin.getAdminName());
 		System.out.println("=========================================");
 		Scanner sc = new Scanner(System.in);
 		AdminOperation newadmin= new AdminOperation();

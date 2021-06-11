@@ -1,5 +1,7 @@
 package com.flipkart.service;
 
+import com.flipkart.DAO.ProfessorDAOInterface;
+import com.flipkart.DAO.ProfessorDAOInterfaceIMPL;
 import com.flipkart.bean.Professor;
 
 public class ProfessorInterfaceImpl implements ProfessorInterface {
@@ -51,10 +53,12 @@ public class ProfessorInterfaceImpl implements ProfessorInterface {
 	}
 
 	@Override
-	public Professor getProfessorByEmail(String Email) {
+	public Professor getProfessorById(int id) {
 		// TODO Auto-generated method stub
-		System.out.println("can't implement this now");
-		return null;
+		ProfessorDAOInterface profdao = new ProfessorDAOInterfaceIMPL();
+		return profdao.getProfessorById(id);
 	}
+
+	
 
 }

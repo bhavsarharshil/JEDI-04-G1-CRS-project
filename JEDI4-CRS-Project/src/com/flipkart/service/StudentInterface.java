@@ -26,4 +26,6 @@ public interface StudentInterface {
     
     public void viewSecondaryRegisteredCourses(Student student);
     
+    public Student getStudentById(int id);
+    
 }

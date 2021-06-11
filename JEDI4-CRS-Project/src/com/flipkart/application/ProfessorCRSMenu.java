@@ -7,8 +7,8 @@ import com.flipkart.service.*;
 public class ProfessorCRSMenu {
 	private static ProfessorInterface professorI = new ProfessorInterfaceImpl();
 	//static for testing
-	public static void professorClient() {
-		System.out.println("Welcome Professor "  );
+	public static void professorClient(Professor professor) {
+		System.out.println("Welcome Professor " + professor.getName()  );
 
 		int choice = 0;
 		Scanner input;

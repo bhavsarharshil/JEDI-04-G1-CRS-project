@@ -16,5 +16,5 @@ public interface ProfessorInterface {
 	public boolean addAssignedCourse(int courseId);
 	public boolean removeAssignedCourse(int courseId);
 	public boolean viewEnrolledStudentsInCourse(int courseId);
-	public Professor getProfessorByEmail(String Email);
+	public Professor getProfessorById(int id);
 }

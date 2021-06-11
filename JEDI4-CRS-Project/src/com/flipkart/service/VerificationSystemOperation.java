@@ -3,6 +3,7 @@
  */
 package com.flipkart.service;
 
+import com.flipkart.DAO.UserDAOInterfaceIMPL;
 /**
  * @author froz1
  *
@@ -10,20 +11,17 @@ package com.flipkart.service;
 public class VerificationSystemOperation implements VerificationSystem {
 
 	@Override
-	public String loginWithCredential(String username, String password) {
+	public String loginWithCredential(int username, String password) {
 		// TODO Auto-generated method stub
-		if(username.equals("prof"))
-		{
-			return "prof";
+		UserDAOInterfaceIMPL user = new UserDAOInterfaceIMPL();
+		try {
+			String role = user.verifyLoginCredentials(username,password);
+			return role;
 		}
-		else if(username.equals("admin"))
-		{
-			return "admin";
+		catch( Exception E) {
+			System.out.println("invalid credentials");
 		}
-		else
-		{
-			return "student";
-		}
+		return null;
 	}
 
 	@Override
