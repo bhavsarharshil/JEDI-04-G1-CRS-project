@@ -2,6 +2,8 @@
  * 
  */
 package com.flipkart.Application;
+import java.util.Scanner;
+
 import com.flipkart.bean.*;
 import com.flipkart.service.*;
 /**
@@ -38,10 +40,10 @@ public class AdminCRSMenu {
 				switch(choice)
 				{
 					case 1:
-						generateReportCard();
+//						generateReportCard();
 						break;
 					case 2:
-						addProfessor();
+//						addProfessor();
 						break;
 					case 3:				
 						removeProfessor();

@@ -25,10 +25,10 @@ public class CRSApplication {
 			int id=sc.nextInt();
 			System.out.println("Enter your password");
 			String password=sc.next();
-			loginWithCredentials(id,password);
+//			loginWithCredentials(id,password);
 		}
 		else if(a==2) {
-			viewCourseCatalog();
+//			viewCourseCatalog();
 		}
 		else {
 			System.out.println("Please enter a valid input");

@@ -2,9 +2,13 @@ package com.flipkart.application;
 
 import java.util.Scanner;
 
+import com.flipkart.bean.*;
+import com.flipkart.service.*;
+
 public class ProfessorCRSMenu {
 	public void professorClient(Professor professor) {
-		System.out.println("Welcome Professor " + getName());
+		System.out.println("Welcome Professor " + professor.getName() );
+
 		int choice;
 		Scanner input;
 		try {
@@ -34,7 +38,10 @@ public class ProfessorCRSMenu {
 			}
 		}
 	}
-	
+	public void init(String email) {
+		Professor professor = getProfessorByEmail(email);
+		professorClient(professor);
+	}
 	public static void showChoices() {
 		System.out.println("Please select an operation: ");
 		System.out.println("1. Grade Student");

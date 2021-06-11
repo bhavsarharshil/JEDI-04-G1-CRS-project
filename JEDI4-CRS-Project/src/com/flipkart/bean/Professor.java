@@ -9,9 +9,8 @@ import java.util.Vector;
  * @author hp
  *
  */
-public class Professor {
+public class Professor extends User {
 	private String department;
-	private String name;
 	private Vector<String> listOfCourseAssigned = new Vector<String>();
 	
 	public String getDepartment() {
