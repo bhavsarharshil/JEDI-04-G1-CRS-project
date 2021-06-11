@@ -7,7 +7,7 @@ package com.flipkart.bean;
  * @author harshil
  *
  */
-public class Admin {
+public class Admin extends User{
 	private int adminId;
 	private String adminName;
 	private String adminEmail;

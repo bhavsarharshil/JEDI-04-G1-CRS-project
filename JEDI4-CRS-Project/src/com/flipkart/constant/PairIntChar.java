@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.flipkart.bean;
+package com.flipkart.constant;
 
 /**
  * @author harshil
@@ -28,5 +28,4 @@ public class PairIntChar {
 		this.first=x;
 		this.second=y;
 	}
-	
 }

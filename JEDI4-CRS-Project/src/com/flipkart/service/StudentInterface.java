@@ -1,5 +1,10 @@
 package com.flipkart.service;
 
+import java.util.ArrayList;
+
+import com.flipkart.bean.Grades;
+import com.flipkart.bean.Student;
+
 public interface StudentInterface {
 	public void showCourses();
     

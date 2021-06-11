@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.flipkart.Application;
+package com.flipkart.application;
 import java.util.Scanner;
 
 import com.flipkart.bean.*;
@@ -12,7 +12,7 @@ import com.flipkart.service.*;
  */
 public class AdminCRSMenu {
 	
-	public void showChoices()
+	public static void showChoices()
 	{
 		System.out.println("Select an operation");
 		System.out.println("Enter 1 to generate report card of a student");
@@ -24,13 +24,14 @@ public class AdminCRSMenu {
 		System.out.println("Enter 7 to remove course");
 		System.out.println("Enter -1 to logout");
 	}
-	public void AdminClient()
+	public static void AdminClient()
 	{
 		System.out.println("\n");
 		System.out.println("=========================================");
 		System.out.println("Welcome Admin!!");
 		System.out.println("=========================================");
 		Scanner sc = new Scanner(System.in);
+		AdminOperation newadmin= new AdminOperation();
 			int choice = -1;
 			do
 			{		
@@ -40,35 +41,36 @@ public class AdminCRSMenu {
 				switch(choice)
 				{
 					case 1:
-//						generateReportCard();
+						newadmin.generateReportCard();
 						break;
 					case 2:
-//						addProfessor();
+						newadmin.addProfessor();
 						break;
 					case 3:				
-						removeProfessor();
+						newadmin.removeProfessor();
 						break;
 					case 4:
-						addStudents();
+						newadmin.addStudent();
 						break;
 					case 5:
-						removeStudents();
+						newadmin.removeStudent();
 						break;
 					case 6:
-						addCourse();
+						newadmin.addCourse();
 						break;
 					case 7:
-						removeCourse();
+						newadmin.removeCourse();
 						break;
 					case -1:
-						logger.info("Logged Out Successfully");
+						System.out.println("Logged Out Successfully");
 						break;
 					default:
-						logger.info("Invalid Choice");
+						System.out.println("Invalid Choice");
 						break;
 				}
 			}
 			while(choice != -1);
+			sc.close();
 		}
 
 }

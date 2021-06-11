@@ -9,7 +9,7 @@ import java.util.Vector;
  * @author utkarsh
  *
  */
-public class Student {
+public class Student extends User{
 	private int rollNo;
 	private boolean registrationStatus;
 	private Vector<Integer> enrolledCourses = new Vector<>();
