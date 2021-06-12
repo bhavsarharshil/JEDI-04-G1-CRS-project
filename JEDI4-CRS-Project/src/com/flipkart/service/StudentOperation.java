@@ -7,6 +7,8 @@ import java.util.ArrayList;
 
 import com.flipkart.DAO.StudentDAOInterface;
 import com.flipkart.DAO.StudentDAOInterfaceIMPL;
+import com.flipkart.DAO.CoursesDAOInterfaceIMPL;
+import com.flipkart.DAO.ProfessorDAOInterfaceIMPL;
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Grades;
 import com.flipkart.bean.Student;
@@ -18,10 +20,33 @@ import com.flipkart.bean.Student;
 public class StudentOperation implements StudentInterface {
 
 	StudentDAOInterface stdao = new StudentDAOInterfaceIMPL();
+
+	StudentDAOInterfaceIMPL studentDaoOperation = StudentDAOInterfaceIMPL.getInstance();
+
+    	CoursesDAOInterfaceIMPL coursesDaoOperation = CoursesDAOInterfaceIMPL.getInstance();
+    
+    	ProfessorDAOInterfaceIMPL professorDAOOperation = ProfessorDAOInterfaceIMPL.getInstance();
+
 	AdminInterface adminI = new AdminOperation();
 	@Override
 	public void showCourses() {
 		// TODO Auto-generated method stub
+		try{
+            		ArrayList<Course> courses = coursesDaoOperation.getAllCourses();
+            		System.out.println("====================AVAILABLE COURSES====================\n");
+            		System.out.println("Course ID    Course Name    Credits    Professor Allotted");
+            		courses.forEach((course) ->{
+            				String professorAllotted = professorDAOOperation.getProfessorByIdName(course.getProfessorAllotted());
+            		if(professorAllotted == null) {
+            			professorAllotted = "Not yet alloted";
+            		}
+            		System.out.println(String.format("%-9d    %-11s    %-7d    %-18s", course.getCourseID(), course.getCourseName(), course.getCredits(), professorAllotted));
+            	});
+            	System.out.println("=========================================================\n");
+        	}
+        	catch (Exception e){
+        		System.out.println(e.getMessage());
+        	}
 		
 	}
 
@@ -29,13 +54,35 @@ public class StudentOperation implements StudentInterface {
 	public ArrayList<Grades> viewGrades(int studentId) {
 		System.out.println("GRADES LIST");
 		// TODO Auto-generated method stub
-		return null;
+		ArrayList<Grades> grades = null;
+		
+		try{
+            grades = studentDaoOperation.getGrades(studentId);
+            System.out.println("======================GRADES===================\n");
+            System.out.println("Course ID    Course Name    Grade");
+            grades.forEach(grade -> {
+            	System.out.println(String.format("%-9d    %-11s    %-5s", grade.getCourseId(), grade.getCourseName(), grade.getGrade()));
+            });
+            System.out.println("=================================================\n");
+        }
+        catch(Exception e){
+        	System.out.println(e.getMessage());
+        }
+		System.out.println("GRADES LIST");
+    	return grades;
+		
 	}
 
 	@Override
 	public void makePayment(Student student, String method) {
-		System.out.println("Enter CREDENTIALS");
-		System.out.println("PAYMENT SUCCESSFULL");
+		try {
+			studentDaoOperation.setPaymentStatus(student,method);
+        	student.setPaymentStatus(true);
+        	System.out.println("PAYMENT SUCCESSFULL");
+        }
+        catch(Exception e) {
+        	System.out.println(e.getMessage());
+        }
 		// TODO Auto-generated method stub
 	}
 

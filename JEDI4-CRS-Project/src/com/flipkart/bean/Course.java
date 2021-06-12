@@ -18,7 +18,7 @@ public class Course {
     private int credits;
     
     ArrayList<PairStudentProfessor> listOfEnrolledStudents = new ArrayList<PairStudentProfessor>();
-    ArrayList<Professor> listOfProfessors=new ArrayList<Professor>();
+    private int professorAllotted;
 
     public int getCourseID() {
 		return courseID;
@@ -44,11 +44,12 @@ public class Course {
 	public void setListOfEnrolledStudents(ArrayList<PairStudentProfessor> listOfEnrolledStudents) {
 		this.listOfEnrolledStudents = listOfEnrolledStudents;
 	}
-	public ArrayList<Professor> getProfessorsAllotted() {
-		return listOfProfessors;
-	}
-	public void setProfessorsAllotted(ArrayList<Professor> professorsAllotted) {
-		this.listOfProfessors = professorsAllotted;
-	}
+	public void setProfessorAllotted(int professorID){
+        	this.professorAllotted = professorID;
+    	}
+
+    	public int getProfessorAllotted(){
+        	return professorAllotted;
+    	}
 
 }

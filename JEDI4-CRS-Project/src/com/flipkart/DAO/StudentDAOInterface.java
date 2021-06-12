@@ -3,6 +3,7 @@ package com.flipkart.DAO;
 import java.util.ArrayList;
 
 import com.flipkart.bean.Course;
+import com.flipkart.bean.Grades;
 import com.flipkart.bean.Student;
 
 public interface StudentDAOInterface {
@@ -15,4 +16,8 @@ public interface StudentDAOInterface {
 	public ArrayList<Course> getSecondaryRegisteredCourses(int studentId);
 	public boolean alreadyPresent(int studentId,int CourseId);
 	public void deleteFromSemiRegistration(int studentId);
+
+	public ArrayList<Grades> getGrades(int studentID);
+	
+	public void setPaymentStatus(Student student,String method);
 }

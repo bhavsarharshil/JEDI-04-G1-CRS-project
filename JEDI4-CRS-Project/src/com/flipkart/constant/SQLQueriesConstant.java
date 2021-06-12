@@ -20,5 +20,16 @@ public class SQLQueriesConstant {
 	public static final String INSERT_COURSE = "Insert into course values(?,?,?);";
 	public static final String DELETE_USER_BY_ID = "Delete from user where id=?";
 	public static final String DELETE_COURSE_BY_ID = "Delete from course where id=?";
+
+
+	public static final String GET_GRADES_QUERY = "SELECT grades.courseId, course.name as courseName, grades.grade, grades.studentId FROM grades INNER JOIN course ON grades.courseId = course.id AND grades.studentId=?";
+
+	public static final String SET_PAYMENT_STATUS_QUERY = "UPDATE payment set status = true , mode = method  WHERE id=?" ; 
+	
+	
+	public static final String GET_ALL_COURSES_QUERY = "SELECT cc.courseId, cc.courseName, cc.credits, c.professorId FROM course AS cc INNER JOIN courseprof AS c ON cc.id = c.courseid " ; 
+
+	public static final String GET_PROFESSOR_BY_ID_QUERY = "SELECT name FROM user WHERE id = ?";
+	
 	
 }

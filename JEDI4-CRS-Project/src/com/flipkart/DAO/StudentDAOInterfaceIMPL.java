@@ -7,12 +7,69 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.flipkart.bean.Course;
+import com.flipkart.bean.Grades;
 import com.flipkart.bean.Student;
 import com.flipkart.constant.SQLQueriesConstant;
 import com.flipkart.utils.DBConnection;
 
 public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
+	private static StudentDAOInterfaceIMPL instance = null;
+	Connection connection = null;
+	PreparedStatement ps = null;
+	public static StudentDAOInterfaceIMPL getInstance()
+	{
+		if(instance == null)
+		{
+			instance = new StudentDAOInterfaceIMPL();
+		}
+		return instance;
+	}
+	@Override
+	public ArrayList<Grades> getGrades(int studentID){
+		ArrayList<Grades> grades = new ArrayList<>();
+
+		try{
+			connection = DBConnection.getConnection();
+			ps = connection.prepareStatement(SQLQueriesConstant.GET_GRADES_QUERY);
+
+			ps.setInt(1,studentID);
+			ResultSet resultSet = ps.executeQuery();
+			while(resultSet.next()){
+				Grades grade = new Grades();
+				grade.setCourseID(resultSet.getInt("courseId"));
+				grade.setCourseName(resultSet.getString("courseName"));
+				grade.setGrade(resultSet.getString("grade"));
+				grade.setStudentId(resultSet.getInt("studentId"));
+				grades.add(grade);
+			}
+		}
+		catch(SQLException e) {
+			System.out.println(e.getMessage() + "\n");
+		}
+		catch(Exception e) {
+			System.out.println(e.getMessage() + "\n");
+		}
+
+		return grades;
+	}
 	
+	@Override
+	public void setPaymentStatus(Student student, String method) {
+		try{
+			connection = DBConnection.getConnection();
+			ps = connection.prepareStatement(SQLQueriesConstant.SET_PAYMENT_STATUS_QUERY);
+
+			ps.setInt(1, student.getId());
+			ps.executeUpdate();
+		}
+		catch(SQLException e) {
+			System.out.println(e.getMessage() + "\n");
+		}
+		catch(Exception e) {
+			System.out.println(e.getMessage() + "\n");
+		}
+	}
+
 
 	@Override
 	public Student getStudentById(int id) {
