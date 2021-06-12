@@ -10,5 +10,6 @@ public interface AdminInterface {
 	public void removeProfessor();
 	public void addStudent();
 	public void removeStudent();
+	public Admin getAdminById(int id);
 
 }

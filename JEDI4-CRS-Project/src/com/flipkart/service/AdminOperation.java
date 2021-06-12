@@ -10,6 +10,7 @@ import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.ReportCard;
 import com.flipkart.bean.Student;
+import com.flipkart.bean.Admin;
 /**
  * @author harshil
  *
@@ -116,5 +117,11 @@ public class AdminOperation implements AdminInterface {
 		adminInterface.removeStudent(student);
 	}
 	
+	@Override
+	public Admin getAdminById(int id) {
+		AdminDAOInterface addao = new AdminDAOInterfaceIMPL();
+
+		return addao.getAdminById(id);
+	}
 
 }
