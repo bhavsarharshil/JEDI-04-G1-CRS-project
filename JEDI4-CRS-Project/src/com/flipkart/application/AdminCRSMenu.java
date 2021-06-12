@@ -24,7 +24,7 @@ public class AdminCRSMenu {
 		System.out.println("Enter 7 to remove course");
 		System.out.println("Enter -1 to logout");
 	}
-	public static void AdminClient(Admin admin)
+	public  void AdminClient(Admin admin)
 	{
 		System.out.println("\n");
 		System.out.println("=========================================");
@@ -72,5 +72,4 @@ public class AdminCRSMenu {
 			while(choice != -1);
 			sc.close();
 		}
-
 }

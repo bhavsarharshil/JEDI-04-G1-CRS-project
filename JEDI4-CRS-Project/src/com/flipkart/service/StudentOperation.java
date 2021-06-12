@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import com.flipkart.DAO.StudentDAOInterface;
 import com.flipkart.DAO.StudentDAOInterfaceIMPL;
+import com.flipkart.bean.Course;
 import com.flipkart.bean.Grades;
 import com.flipkart.bean.Student;
 
@@ -16,6 +17,8 @@ import com.flipkart.bean.Student;
  */
 public class StudentOperation implements StudentInterface {
 
+	StudentDAOInterface stdao = new StudentDAOInterfaceIMPL();
+	AdminInterface adminI = new AdminOperation();
 	@Override
 	public void showCourses() {
 		// TODO Auto-generated method stub
@@ -37,59 +40,99 @@ public class StudentOperation implements StudentInterface {
 	}
 
 	@Override
-	public boolean addPrimaryCourse(Student student, int courseId) {
-		System.out.println("PRIMARY COURSE ADDED");
-		// TODO Auto-generated method stub
+	public boolean registerCourses(ArrayList<Integer> courseCart, int studentId) {
+		System.out.println("REGISTRATION COMPLETE");
+//		ArrayList<Course> primary = stdao.getPrimaryRegisteredCourses(studentId);
+//		ArrayList<Course> secondary = stdao.getSecondaryRegisteredCourses(studentId);
+//		adminI.approveStudent(studentId,primary,secondary);
+//		stdao.deleteFromSemiRegistration(studentId);
 		return false;
 	}
 
 	@Override
-	public boolean removePrimaryCourse(Student student, int courseId) {
-		System.out.println("PRIMARY COURSE REMOVED");
-		// TODO Auto-generated method stub
+	public boolean addPrimaryCourse(int studentId, int courseId) {
+		try {
+			stdao.addPrimaryCourse(studentId, courseId);
+			return true;
+		}catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
 		return false;
 	}
 
 	@Override
-	public boolean addSecondaryCourse(Student student, int courseId) {
-		System.out.println("SECONDARY COURSE ADDEDD");
-		// TODO Auto-generated method stub
+	public boolean removePrimaryCourse(int studentId, int courseId) {
+		try {
+			stdao.removePrimaryCourse(studentId, courseId);
+			return true;
+		}catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
 		return false;
 	}
 
 	@Override
-	public boolean removeSecondaryCourse(Student student, int courseId) {
-		System.out.println("SECONDARY COURSE REMOVED");
-		// TODO Auto-generated method stub
+	public boolean addSecondaryCourse(int studentId, int courseId) {
+		try {
+			stdao.addSecondaryCourse(studentId, courseId);
+			return true;
+		}catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
 		return false;
 	}
 
 	@Override
-	public boolean registerCourses(ArrayList<Integer> courseCart, Student student) {
-		System.out.println("REGISTERED FOR COURSES");
-		// TODO Auto-generated method stub
+	public boolean removeSecondaryCourse(int studentId, int courseId) {
+		try {
+			stdao.removeSecondaryCourse(studentId, courseId);
+			return true;
+		}catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
 		return false;
-	}
-
-	@Override
-	public void viewPrimaryRegisteredCourses(Student student) {
-		System.out.println("LIST OF ALL REGISTERED PRIMARY COURSES");
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void viewSecondaryRegisteredCourses(Student student) {
-		System.out.println("LIST OF ALL REGISTERED SECONDARY COURSES");
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public Student getStudentById(int id) {
 		// TODO Auto-generated method stub
-		StudentDAOInterface stdao = new StudentDAOInterfaceIMPL(); 
+//		StudentDAOInterface stdao = new StudentDAOInterfaceIMPL(); 
 		return stdao.getStudentById(id);
 	}
+	
+	@Override
+	public void viewPrimaryRegisteredCourses(int studentId) {
+		try {
+			ArrayList<Course> primaryCourses = stdao.getPrimaryRegisteredCourses(studentId);
+			if(primaryCourses.isEmpty()) {
+				System.out.println("You have not registered for any primary course");
+			}else {
+				System.out.println("LIST OF PRIMARY COURSES");
+				for(Course course : primaryCourses){
+					System.out.println(course.getCourseID() + "   " + course.getCourseName() + "   " + course.getCredits());
+				}
+			}
+		}catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
+	}
+
+	@Override
+	public void viewSecondaryRegisteredCourses(int studentId) {
+		try {
+		ArrayList<Course> secondaryCourses = stdao.getSecondaryRegisteredCourses(studentId);
+		if(secondaryCourses.isEmpty()) {
+			System.out.println("You have not registered for any secondary course");
+		}else {
+			System.out.println("LIST OF SECONDARY COURSES");
+			for(Course course : secondaryCourses){
+				System.out.println(course.getCourseID() + "   " + course.getCourseName() + "   " + course.getCredits());
+			}
+		}
+		}catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
+	}
+
 
 }

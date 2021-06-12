@@ -12,20 +12,20 @@ public interface StudentInterface {
 
     public void makePayment(Student student, String method);
 
-    public boolean addPrimaryCourse(Student student,int courseId);
+    public boolean addPrimaryCourse(int studentId,int courseId);
 
-    public boolean removePrimaryCourse(Student student,int courseId);
+    public boolean removePrimaryCourse(int studentId,int courseId);
     
-    public boolean addSecondaryCourse(Student student,int courseId);
+    public boolean addSecondaryCourse(int studentId,int courseId);
 
-    public boolean removeSecondaryCourse(Student student,int courseId);
+    public boolean removeSecondaryCourse(int studentId,int courseId);
     
-    public boolean registerCourses(ArrayList<Integer> courseCart, Student student);
+    public boolean registerCourses(ArrayList<Integer> courseCart, int studentId);
 
-    public void viewPrimaryRegisteredCourses(Student student);
+    public void viewPrimaryRegisteredCourses(int studentId);
     
-    public void viewSecondaryRegisteredCourses(Student student);
+    public void viewSecondaryRegisteredCourses(int studentId);
     
     public Student getStudentById(int id);
-    
+        
 }

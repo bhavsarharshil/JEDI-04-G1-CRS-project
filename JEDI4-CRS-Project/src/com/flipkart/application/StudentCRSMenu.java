@@ -21,15 +21,16 @@ public class StudentCRSMenu {
 		System.out.println("5. Remove Primary Course(");
 		System.out.println("6. Add Secondary Course");
 		System.out.println("7. Remove Secondary Course ");
+		System.out.println("8. View Primary registered Courses");
+		System.out.println("9. View Secondary registered Courses");
 		System.out.println("Press -1 to Logout");
 	}
 	
-	public static void studentClient(Student student) 
+	public  void studentClient(Student student) 
 	{
 		Scanner input = new Scanner(System.in);
 		StudentInterface studentI = new StudentOperation(); 
-//		Student student1 = new Student();
-		int choice;
+		int choice,cid;
 		System.out.println("===============WELCOME====================\n");
 		System.out.println("Welcome " + student.getName());
 		do
@@ -38,34 +39,48 @@ public class StudentCRSMenu {
 			choice = input.nextInt();
 			switch (choice) {
 				case 1:
-					studentI.viewGrades(121);
+					studentI.viewGrades(student.getId());
 					break;
 				case 2:
 					studentI.makePayment(null,null);
 					break;
 				case 3:
-					studentI.registerCourses(null,null);
+					studentI.registerCourses(null,student.getId());
 					break;
 				case 4:
-					 studentI.addPrimaryCourse(null,1);
+					 System.out.println("Enter the course ID ");
+					 cid = input.nextInt();
+					 studentI.addPrimaryCourse(student.getId(),cid);
 					break;
 				case 5:
-					 studentI.removePrimaryCourse(null,1);
+					 System.out.println("Enter the course ID ");
+					 cid = input.nextInt();
+					 studentI.removePrimaryCourse(student.getId(),cid);
 					break;
 				case 6:
-					 studentI.addSecondaryCourse(null,1);
+					 System.out.println("Enter the course ID ");
+					 cid = input.nextInt();
+					 studentI.addSecondaryCourse(student.getId(),cid);
 					break;
 				case 7:
-					 studentI.removeSecondaryCourse(null,1);
+					 System.out.println("Enter the course ID ");
+					 cid = input.nextInt();
+					 studentI.removeSecondaryCourse(student.getId(),cid);
+					break;
+				case 8:
+					studentI.viewPrimaryRegisteredCourses(student.getId());
+					break;
+				case 9:
+					studentI.viewSecondaryRegisteredCourses(student.getId());
 					break;
 				case -1:
-					System.out.println("============================EXIT==============================");
-					break;
+					System.out.println("============================Logged out successfully==============================");
+					return;
 				default:
 					System.out.println("Invalid Choice");
 					break;
 			}
 		} while (choice != -1);	
+		input.close();
 	}
-	
 }
