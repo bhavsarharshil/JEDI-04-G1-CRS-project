@@ -57,13 +57,7 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 		return admin;
 	}
 	
-	// JDBC driver name and database URL
-	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
-	static final String DB_URL = "jdbc:mysql://localhost/jedicrs";
 	
-	//  Database credentials
-	static final String USER = "root";
-	static final String PASS = "password";
 	
 	 
 	// Declare the Connection or prepaidstatement variable here 
@@ -75,7 +69,7 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 		   	System.out.println("Connecting to database...");
-		    conn = DriverManager.getConnection(DB_URL,USER,PASS);
+		    conn = DBConnection.getConnection();
 		    Statement stmt=conn.createStatement();
 		    ResultSet res=stmt.executeQuery("Select * from user;");
 		    while(res.next()) {
@@ -92,19 +86,18 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 	public boolean addProfessor(Professor professor) {
 		// TODO Auto-generated method stub
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
 		   	System.out.println("Connecting to database...");
-		    conn = DriverManager.getConnection(DB_URL,USER,PASS);
+		   	conn = DBConnection.getConnection();
 		    Statement stmt=conn.createStatement();
-		    ResultSet res=stmt.executeQuery("Insert into user values("+String.valueOf(professor.getId())+",\""+professor.getEmail()+"\""+",\""+professor.getPassword()+"\",\"professor\",0,\""+professor.getName()+"\");");
-		    if(res.isLast()) {
+		    int res=stmt.executeUpdate("Insert into user values("+String.valueOf(professor.getId())+",\""+professor.getEmail()+"\""+",\""+professor.getPassword()+"\",\"professor\",0,\""+professor.getName()+"\");");
+		    if(res==1) {
 		    	System.out.println("Professor successfully added.");
 		    	return true;
 		    }
 		    System.out.println("Unable to add Professor");
 		    return false;
 		}
-		catch (SQLException | ClassNotFoundException e) {
+		catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return false;
@@ -114,19 +107,18 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 	public boolean removeProfessor(Professor professor) {
 		// TODO Auto-generated method stub
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
 		   	System.out.println("Connecting to database...");
-		    conn = DriverManager.getConnection(DB_URL,USER,PASS);
+		   	conn = DBConnection.getConnection();
 		    Statement stmt=conn.createStatement();
-		    ResultSet res=stmt.executeQuery("delete from user where id="+String.valueOf(professor.getId())+";");
-		    if(res.isLast()) {
+		    int res=stmt.executeUpdate("delete from user where id="+String.valueOf(professor.getId())+";");
+		    if(res==1) {
 		    	System.out.println("Professor successfully deleted.");
 		    	return true;
 		    }
 		    System.out.println("Unable to delete Professor");
 		    return false;
 		}
-		catch (SQLException | ClassNotFoundException e) {
+		catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return false;
@@ -136,19 +128,18 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 	public boolean addStudent(Student student) {
 		// TODO Auto-generated method stub
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
 		   	System.out.println("Connecting to database...");
-		    conn = DriverManager.getConnection(DB_URL,USER,PASS);
+		   	conn = DBConnection.getConnection();
 		    Statement stmt=conn.createStatement();
-		    ResultSet res=stmt.executeQuery("Insert into user values("+String.valueOf(student.getId())+",\""+student.getEmail()+"\""+",\""+student.getPassword()+"\",\"student\",0,\""+student.getName()+"\");");
-		    if(res.isLast()) {
+		    int res=stmt.executeUpdate("Insert into user values("+String.valueOf(student.getId())+",\""+student.getEmail()+"\""+",\""+student.getPassword()+"\",\"student\",0,\""+student.getName()+"\");");
+		    if(res==1) {
 		    	System.out.println("Student successfully added.");
 		    	return true;
 		    }
 		    System.out.println("Unable to add Student");
 		    return false;
 		}
-		catch (SQLException | ClassNotFoundException e) {
+		catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return false;
@@ -158,19 +149,18 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 	public boolean removeStudent(Student student) {
 		// TODO Auto-generated method stub
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
 		   	System.out.println("Connecting to database...");
-		    conn = DriverManager.getConnection(DB_URL,USER,PASS);
+		   	conn = DBConnection.getConnection();
 		    Statement stmt=conn.createStatement();
-		    ResultSet res=stmt.executeQuery("delete from user where id="+String.valueOf(student.getId())+";");
-		    if(res.isLast()) {
+		    int res=stmt.executeUpdate("delete from user where id="+String.valueOf(student.getId())+";");
+		    if(res==1) {
 		    	System.out.println("Student successfully deleted.");
 		    	return true;
 		    }
 		    System.out.println("Unable to delete Student");
 		    return false;
 		}
-		catch (SQLException | ClassNotFoundException e) {
+		catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return false;
@@ -180,19 +170,18 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 	public boolean addCourse(Course course) {
 		// TODO Auto-generated method stub
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
 		   	System.out.println("Connecting to database...");
-		    conn = DriverManager.getConnection(DB_URL,USER,PASS);
+		   	conn = DBConnection.getConnection();
 		    Statement stmt=conn.createStatement();
-		    ResultSet res=stmt.executeQuery("Insert into course values("+course.getCourseID()+",\""+course.getCourseName()+"\","+course.getCredits()+");");
-		    if(res.isLast()) {
+		    int res=stmt.executeUpdate("Insert into course values("+course.getCourseID()+",\""+course.getCourseName()+"\","+course.getCredits()+");");
+		    if(res==1) {
 		    	System.out.println("Course successfully added.");
 		    	return true;
 		    }
 		    System.out.println("Unable to add course");
 		    return false;
 		}
-		catch (SQLException | ClassNotFoundException e) {
+		catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return false;
@@ -202,19 +191,18 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 	public boolean removeCourse(Course course) {
 		// TODO Auto-generated method stub
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
 		   	System.out.println("Connecting to database...");
-		    conn = DriverManager.getConnection(DB_URL,USER,PASS);
+		   	conn = DBConnection.getConnection();
 		    Statement stmt=conn.createStatement();
-		    ResultSet res=stmt.executeQuery("delete from course where id="+course.getCourseID()+";");
-		    if(res.isLast()) {
+		    int res=stmt.executeUpdate("delete from course where id="+course.getCourseID()+";");
+		    if(res==1) {
 		    	System.out.println("Course successfully added.");
 		    	return true;
 		    }
 		    System.out.println("Unable to add course");
 		    return false;
 		}
-		catch (SQLException | ClassNotFoundException e) {
+		catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return false;
