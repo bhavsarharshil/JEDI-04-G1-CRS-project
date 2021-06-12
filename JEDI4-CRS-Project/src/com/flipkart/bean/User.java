@@ -8,6 +8,7 @@ package com.flipkart.bean;
 public class User {
 	private int id;
 	private String email;
+	private String password;
 	private boolean isLoggedin;
 	private String role;
 	private String name;
@@ -40,5 +41,11 @@ public class User {
 	}
 	public void setLoggedin(boolean isLoggedin) {
 		this.isLoggedin = isLoggedin;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
 	}	
 }
