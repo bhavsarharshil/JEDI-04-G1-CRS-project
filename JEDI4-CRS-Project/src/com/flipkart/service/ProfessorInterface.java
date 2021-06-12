@@ -10,11 +10,11 @@ import com.flipkart.bean.Professor;
  *
  */
 public interface ProfessorInterface {
-	public boolean gradeStudents(int courseId);
-	public void viewGrades(int courseId);
-	public void showAssignedCourses(int professorId);
-	public boolean addAssignedCourse(int courseId);
-	public boolean removeAssignedCourse(int courseId);
-	public boolean viewEnrolledStudentsInCourse(int courseId);
+	public boolean gradeStudents();
+	public void viewGrades();
+	public void showAssignedCourses();
+	public boolean addAssignedCourse();
+	public boolean removeAssignedCourse();
+	public boolean viewEnrolledStudentsInCourse();
 	public Professor getProfessorById(int id);
 }
