@@ -124,4 +124,10 @@ public class AdminOperation implements AdminInterface {
 		return addao.getAdminById(id);
 	}
 
+	@Override
+	public void approveStudents() {
+		// TODO Auto-generated method stub
+		adminInterface.approveStudents();
+	}
+
 }

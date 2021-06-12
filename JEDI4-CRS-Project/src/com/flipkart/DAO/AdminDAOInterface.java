@@ -14,4 +14,5 @@ public interface AdminDAOInterface {
 	public boolean removeStudent(Student student);
 	public boolean addCourse(Course course);
 	public boolean removeCourse(Course course);
+	public void approveStudents();
 }

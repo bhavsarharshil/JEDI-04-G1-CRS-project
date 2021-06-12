@@ -15,7 +15,7 @@ public class DBConnection {
 	static final String DB_URL = "jdbc:mysql://localhost/jedicrs";
 	
 	static final String USER = "root";
-	static final String PASS = "honey@98";
+	static final String PASS = "password";
 	public static Connection conn = null;
 	public static Connection getConnection() {
 		
