@@ -63,7 +63,6 @@ public class ProfessorDAOInterfaceIMPL implements ProfessorDAOInterface {
 		PreparedStatement stmt = null;
 		try {
 			con = DBConnection.getConnection();
-			// String sqlQuery = "SELECT name FROM professor WHERE id = ?";
 			stmt = con.prepareStatement(SQLQueriesConstant.GET_PROFESSOR_BY_ID_QUERY);
 
 			stmt.setInt(1, professorID);
@@ -80,6 +79,273 @@ public class ProfessorDAOInterfaceIMPL implements ProfessorDAOInterface {
 
 		return professorName;
 	}
+	
+	@Override
+	public boolean gradeStudents(int courseID, int studentID,String grade) {
 
+		// TODO Auto-generated method stub
+		PreparedStatement stmt = null;
+		boolean update=false;
+		Connection conn = null;
+		try{
+			conn = DBConnection.getConnection();
+			stmt = conn.prepareStatement(SQLQueriesConstant.INSERT_GRADE);
+
+			stmt.setInt(1,studentID);
+			stmt.setInt(2,courseID);
+			stmt.setString(3, grade);
+			stmt.executeUpdate();
+
+			stmt.close();
+			conn.close();
+			update=true;
+			System.out.println("Grade added successfully\n\n");
+
+		}catch(SQLException se){
+			//Handle errors for JDBC
+			se.printStackTrace();
+		}catch(Exception e){
+			//Handle errors for Class.forName
+			e.printStackTrace();
+		}finally{
+			//finally block used to close resources
+			try{
+				if(stmt!=null)
+					stmt.close();
+			}catch(SQLException se2){
+			}// nothing we can do
+			try{
+				if(conn!=null)
+					conn.close();
+			}catch(SQLException se){
+				se.printStackTrace();
+			}//end finally try
+		}//end try
+		return update;
+	}
+
+	@Override
+	public void viewGrades(int courseID,int studentID) {
+		// TODO Auto-generated method stub
+		Connection conn = null;
+		PreparedStatement stmt = null;
+
+		try{
+
+			System.out.println("======Grades======");
+			conn = DBConnection.getConnection();
+			String sql = "SELECT * from grade WHERE courseid = ? AND studentid = ?";
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1,courseID);
+			stmt.setInt(2,studentID);
+			ResultSet rs = stmt.executeQuery();
+			while(rs.next())
+			{
+				courseID=rs.getInt("courseid");
+				studentID=rs.getInt("studentid");
+				String grade = rs.getString("grade");
+				System.out.print("courseID: " + courseID);
+				System.out.print(" stduentID: " + studentID);
+				System.out.println(" grade: " + grade);
+			}
+			stmt.close();
+			conn.close();
+
+		}catch(SQLException se){
+			se.printStackTrace();
+		}catch(Exception e){
+
+			e.printStackTrace();
+		}finally{
+
+			try{
+				if(stmt!=null)
+					stmt.close();
+			}catch(SQLException se2){
+			}
+			try{
+				if(conn!=null)
+					conn.close();
+			}catch(SQLException se){
+				se.printStackTrace();
+			}
+		}
+	}
+
+	@Override
+	public void showAssignedCourses(int profID) {
+		// TODO Auto-generated method stub
+		Connection conn = null;
+		PreparedStatement stmt = null;
+
+		try{
+
+			System.out.println("=======Assigned Courses=======");
+			conn = DBConnection.getConnection();
+			String sql = "SELECT * FROM courseprof WHERE profid = ?";
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1,profID);
+
+			ResultSet rs = stmt.executeQuery();
+			while(rs.next())
+			{
+				int courseID1  = rs.getInt("courseid");
+				System.out.println("ID: " + courseID1);
+			}
+
+			stmt.close();
+			conn.close();
+
+		}catch(SQLException se){
+
+			se.printStackTrace();
+		}catch(Exception e){
+
+			e.printStackTrace();
+		}finally{
+
+			try{
+				if(stmt!=null)
+					stmt.close();
+			}catch(SQLException se2){
+			}
+			try{
+				if(conn!=null)
+					conn.close();
+			}catch(SQLException se){
+				se.printStackTrace();
+			}
+		}
+	}
+
+	@Override
+	public boolean addAssignedCourse(int courseID,int profID) {
+		// TODO Auto-generated method stub
+		boolean added=false;
+		Connection conn = null;
+		PreparedStatement stmt = null;
+
+		try{
+			conn = DBConnection.getConnection();
+			// System.out.println("Creating statement...");
+			String sql="insert into courseprof values(?,?)";
+			stmt = conn.prepareStatement(sql);
+
+			stmt.setInt(1,courseID);
+			stmt.setInt(2,profID);
+			stmt.executeUpdate();
+			stmt.close();
+			conn.close();
+			added=true;
+			System.out.println("Course assigned successfully");
+
+		}catch(SQLException se){
+			se.printStackTrace();
+		}catch(Exception e){
+
+			e.printStackTrace();
+		}finally{
+
+			try{
+				if(stmt!=null)
+					stmt.close();
+			}catch(SQLException se2){
+			}
+			try{
+				if(conn!=null)
+					conn.close();
+			}catch(SQLException se){
+				se.printStackTrace();
+			}
+		}
+		return added;
+	}
+
+	@Override
+	public boolean removeAssignedCourse(int courseID,int profID) {
+		// TODO Auto-generated method stub
+		boolean remove=false;
+		Connection conn = null;
+		PreparedStatement stmt = null;
+
+		try{
+			conn = DBConnection.getConnection();
+			String sql = "DELETE FROM courseprof WHERE courseid= ? AND profid= ?";
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1,courseID);
+			stmt.setInt(2,profID);
+			stmt.executeUpdate();
+			stmt.close();
+			conn.close();
+			remove=true;
+			System.out.println("Course removed successfully");
+
+		}catch(SQLException se){
+
+			se.printStackTrace();
+		}catch(Exception e){
+
+			e.printStackTrace();
+		}finally{
+
+			try{
+				if(stmt!=null)
+					stmt.close();
+			}catch(SQLException se2){
+			}
+			try{
+				if(conn!=null)
+					conn.close();
+			}catch(SQLException se){
+				se.printStackTrace();
+			}
+		}
+		return remove;
+	}
+
+	@Override
+	public boolean viewEnrolledStudentsInCourse(int courseID) {
+		// TODO Auto-generated method stub
+		Connection conn = null;
+		PreparedStatement stmt = null;
+
+		try{
+
+			System.out.println("=====Enrolled Students in course"+String.valueOf(courseID)+"======");
+			conn = DBConnection.getConnection();
+			String sql = "SELECT * FROM studentcourse WHERE courseid=?" ;
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1,courseID);
+			ResultSet rs = stmt.executeQuery();
+			while(rs.next())
+			{
+				int studentID1  = rs.getInt("studentid");
+				System.out.println("ID: " + studentID1);
+			}
+
+			stmt.close();
+			conn.close();
+
+		}catch(SQLException se){
+			se.printStackTrace();
+		}catch(Exception e){
+
+			e.printStackTrace();
+		}finally{
+
+			try{
+				if(stmt!=null)
+					stmt.close();
+			}catch(SQLException se2){
+			}
+			try{
+				if(conn!=null)
+					conn.close();
+			}catch(SQLException se){
+				se.printStackTrace();
+			}
+		}
+		return false;
+	}
 	
 }

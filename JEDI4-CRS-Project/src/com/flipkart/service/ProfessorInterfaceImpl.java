@@ -4,59 +4,81 @@ import com.flipkart.DAO.ProfessorDAOInterface;
 import com.flipkart.DAO.ProfessorDAOInterfaceIMPL;
 import com.flipkart.bean.Professor;
 
+import java.util.Scanner;
+
 public class ProfessorInterfaceImpl implements ProfessorInterface {
-
+	private static ProfessorDAOInterface professorDAOInterface= new ProfessorDAOInterfaceIMPL();
 	@Override
-	public boolean gradeStudents(int courseId) {
+	public boolean gradeStudents(Professor professor) {
+
 		// TODO Auto-generated method stub
-		System.out.println("Select a course to grade");
-		return false;
+		int courseID,studentID;
+		String grade;
+		Scanner sc= new Scanner(System.in);
+		System.out.println("Enter the course ID");
+		courseID=sc.nextInt();
+		System.out.println("Enter the StudentID");
+		studentID=sc.nextInt();
+		System.out.println("Enter the grade");
+		grade=sc.next();
+//		sc.close();
+		return professorDAOInterface.gradeStudents(courseID, studentID, grade);
 	}
 
 	@Override
-	public void viewGrades(int courseId) {
+	public void viewGrades(Professor professor) {
 		// TODO Auto-generated method stub
-		
+		int courseID,studentID;
+		System.out.println("Enter the course ID and StudentID to view grade");
+		Scanner sc= new Scanner(System.in);
+		courseID=sc.nextInt();
+		studentID=sc.nextInt();
+		professorDAOInterface.viewGrades(courseID, studentID);
+//		sc.close();
 	}
 
 	@Override
-	public void showAssignedCourses(int professorId) {
+	public void showAssignedCourses(Professor professor) {
 		// TODO Auto-generated method stub
-		System.out.println("You have selected following courses");
-		System.out.println("1) course1");
-		System.out.println("1) course2");
-		
+		professorDAOInterface.showAssignedCourses(professor.getId());
+//		sc.close();
+
 	}
 
 	@Override
-	public boolean addAssignedCourse(int courseId) {
+	public boolean addAssignedCourse(Professor professor) {
 		// TODO Auto-generated method stub
-		System.out.println("Select courses to add");
-		System.out.println("1) course 1");
-		return false;
+		int courseID,profID;
+		System.out.println("enter the courseID");
+		Scanner sc= new Scanner(System.in);
+		courseID=sc.nextInt();
+		return professorDAOInterface.addAssignedCourse(courseID, professor.getId());
 	}
 
 	@Override
-	public boolean removeAssignedCourse(int courseId) {
+	public boolean removeAssignedCourse(Professor professor) {
 		// TODO Auto-generated method stub
-		System.out.println("Select course to remove");
-		System.out.println("1) course 1");
-		return false;
+		System.out.println("Enter courseID");
+		int courseID,profID;
+		Scanner sc= new Scanner(System.in);
+		courseID=sc.nextInt();
+		return professorDAOInterface.removeAssignedCourse(courseID, professor.getId());
 	}
 
 	@Override
-	public boolean viewEnrolledStudentsInCourse(int courseId) {
+	public boolean viewEnrolledStudentsInCourse(Professor professor) {
 		// TODO Auto-generated method stub
-		System.out.println("Following students are enrolled in your courses");
-		System.out.println("1) student1");
-		return false;
+		System.out.println("Enter course id");
+		int courseID;
+		Scanner sc= new Scanner(System.in);
+		courseID=sc.nextInt();
+		return professorDAOInterface.viewEnrolledStudentsInCourse(courseID);
 	}
 
 	@Override
 	public Professor getProfessorById(int id) {
 		// TODO Auto-generated method stub
-		ProfessorDAOInterface profdao = new ProfessorDAOInterfaceIMPL();
-		return profdao.getProfessorById(id);
+		return professorDAOInterface.getProfessorById(id);
 	}
 
 	

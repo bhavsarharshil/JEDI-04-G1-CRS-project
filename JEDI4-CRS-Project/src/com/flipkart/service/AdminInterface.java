@@ -11,6 +11,9 @@ public interface AdminInterface {
 	public void addStudent();
 	public void removeStudent();
 	public void approveStudents();
+	public void viewProfessors();
+	public void viewStudents();
+	public void viewCourses();
 	public Admin getAdminById(int id);
 
 }

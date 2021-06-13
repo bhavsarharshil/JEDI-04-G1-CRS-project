@@ -6,6 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
+import java.util.Date;
 
 import com.flipkart.bean.Admin;
 import com.flipkart.bean.Course;
@@ -223,11 +225,81 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 			stmt=conn.prepareStatement(SQLQueriesConstant.SELECT_SEM_REGISTRATION);
 			ResultSet rs=stmt.executeQuery();
 			while(rs.next()) {
+				stmt=conn.prepareStatement(SQLQueriesConstant.ADD_COURSE_STUDENT);
 				stmt.setInt(1,rs.getInt("studentid"));
 				stmt.setInt(2,rs.getInt("courseid"));
-				stmt=conn.prepareStatement(SQLQueriesConstant.ADD_COURSE_STUDENT);
+				int x=stmt.executeUpdate();
+				if(x!=1) {
+					System.out.println("Error in approving");
+					break;
+				}
 			}
+			stmt=conn.prepareStatement(SQLQueriesConstant.SELECT_DISTINCT_SEM_REGISTRATION);
+			rs=stmt.executeQuery();
+			Date cur_date=new Date();
+			while(rs.next()) {
+				stmt=conn.prepareStatement(SQLQueriesConstant.INSERT_PAYMENT);
+				stmt.setInt(1,(int)cur_date.getTime());
+				stmt.setInt(2,rs.getInt("studentid"));
+				stmt.setString(3, String.valueOf(LocalDate.now()));
+			}
+			stmt=conn.prepareStatement(SQLQueriesConstant.DELETE_SEM_REGISTRATION);
+			stmt.executeUpdate();
 			System.out.println("All students are approved");
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void viewProfessors() {
+		// TODO Auto-generated method stub
+		PreparedStatement stmt=null;
+		try {
+			conn=DBConnection.getConnection();
+			stmt=conn.prepareStatement(SQLQueriesConstant.SELECT_PROFESSORS);
+			ResultSet rs=stmt.executeQuery();
+			while(rs.next()) {
+				System.out.println(String.valueOf(rs.getInt("id"))+"\t"+rs.getString("name"));
+			}
+			System.out.println("\n\n");
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void viewStudents() {
+		// TODO Auto-generated method stub
+		PreparedStatement stmt=null;
+		try {
+			conn=DBConnection.getConnection();
+			stmt=conn.prepareStatement(SQLQueriesConstant.SELECT_STUDENTS);
+			ResultSet rs=stmt.executeQuery();
+			while(rs.next()) {
+				System.out.println(String.valueOf(rs.getInt("id"))+"\t"+rs.getString("name"));
+			}
+			System.out.println("\n\n");
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void viewCourses() {
+		// TODO Auto-generated method stub
+		PreparedStatement stmt=null;
+		try {
+			conn=DBConnection.getConnection();
+			stmt=conn.prepareStatement(SQLQueriesConstant.SELECT_COURSES);
+			ResultSet rs=stmt.executeQuery();
+			while(rs.next()) {
+				System.out.println(String.valueOf(rs.getInt("id"))+"\t"+rs.getString("name"));
+			}
+			System.out.println("\n\n");
 		}
 		catch (SQLException e) {
 			e.printStackTrace();

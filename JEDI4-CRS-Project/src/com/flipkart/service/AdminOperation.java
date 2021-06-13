@@ -130,4 +130,19 @@ public class AdminOperation implements AdminInterface {
 		adminInterface.approveStudents();
 	}
 
+	public void viewProfessors() {
+		// TODO Auto-generated method stub
+		adminInterface.viewProfessors();
+	}
+
+	public void viewStudents() {
+		// TODO Auto-generated method stub
+		adminInterface.viewStudents();
+	}
+
+	public void viewCourses() {
+		// TODO Auto-generated method stub
+		adminInterface.viewCourses();
+	}
+
 }

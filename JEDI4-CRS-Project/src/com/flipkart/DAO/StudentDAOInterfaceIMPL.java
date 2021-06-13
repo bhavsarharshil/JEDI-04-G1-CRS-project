@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import com.flipkart.bean.Course;
@@ -57,10 +58,25 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 	public void setPaymentStatus(Student student, String method) {
 		try{
 			connection = DBConnection.getConnection();
-			ps = connection.prepareStatement(SQLQueriesConstant.SET_PAYMENT_STATUS_QUERY);
-
+			ps = connection.prepareStatement(SQLQueriesConstant.GET_PAYMENT_STATUS);
 			ps.setInt(1, student.getId());
-			ps.executeUpdate();
+			ResultSet resultSet = ps.executeQuery();
+			int status = resultSet.getInt("status");
+			int amount = resultSet.getInt("amount");
+			if(status == 1)
+			{
+				System.out.println("Payment is already done !!");
+			}
+			else
+			{
+				System.out.println("Amount to be paid :" + String.valueOf(amount));
+				ps = connection.prepareStatement(SQLQueriesConstant.SET_PAYMENT_STATUS_QUERY);
+				ps.setString(1, method);
+				ps.setString(2, String.valueOf(LocalDate.now()));
+				ps.setInt(3, student.getId());
+				ps.executeUpdate();
+				System.out.println("Payment done successfully!!!");
+			}
 		}
 		catch(SQLException e) {
 			System.out.println(e.getMessage() + "\n");
@@ -121,7 +137,7 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 			}
 			PreparedStatement stmt = null;
 			Connection conn = DBConnection.getConnection();
-			stmt = conn.prepareStatement(SQLQueriesConstant.INSERT_SEMIREGISTRATION);
+			stmt = conn.prepareStatement(SQLQueriesConstant.INSERT_SEMREGISTRATION);
 			java.util.Date date = new java.util.Date();
 			java.sql.Timestamp sqlTime = new java.sql.Timestamp(date.getTime());
 			stmt.setInt(1, courseId);
@@ -153,7 +169,7 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 			}
 			PreparedStatement stmt = null;
 			Connection conn = DBConnection.getConnection();
-			stmt = conn.prepareStatement(SQLQueriesConstant.INSERT_SEMIREGISTRATION);
+			stmt = conn.prepareStatement(SQLQueriesConstant.INSERT_SEMREGISTRATION);
 			java.util.Date date = new java.util.Date();
 			java.sql.Timestamp sqlTime = new java.sql.Timestamp(date.getTime());
 			stmt.setInt(1, courseId);

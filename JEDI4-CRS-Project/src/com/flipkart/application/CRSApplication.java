@@ -10,6 +10,7 @@ import com.flipkart.bean.Student;
 import com.flipkart.bean.Admin;
 import com.flipkart.service.AdminInterface;
 import com.flipkart.service.AdminOperation;
+import com.flipkart.service.CourseInterfaceImpl;
 import com.flipkart.service.ProfessorInterface;
 import com.flipkart.service.ProfessorInterfaceImpl;
 import com.flipkart.service.StudentInterface;
@@ -30,7 +31,10 @@ public class CRSApplication {
 		Scanner sc=new Scanner(System.in);
 		while(true) {
 			System.out.println("==========Welcome to the CRS System==========");
-			System.out.println("Enter 1 to login \nEnter 2 to view the course catalog \nEnter 3 to register as a new student");
+			System.out.println("Enter 1 to login");
+			System.out.println("Enter 2 to view the course catalog");
+//			System.out.println("Enter 3 to register as a new student");
+			System.out.println("Enter -1 to exit");
 			int a=sc.nextInt();
 			if(a==1) {
 				System.out.println("Please enter your ID");
@@ -66,10 +70,18 @@ public class CRSApplication {
 				}
 			}
 			else if(a==2) {
-	//			viewCourseCatalog();
+				CourseInterfaceImpl courseClient=new CourseInterfaceImpl();
+				courseClient.viewCourseCatalog();
+			}
+//			else if(a==3) {
+//				
+//			}
+			else if(a==-1) {
+				System.out.println("Exiting the application");
+				break;
 			}
 			else {
-				System.out.println("NEW Registration");
+				System.out.println("Please enter a valid input");
 			}
 		}
 	}

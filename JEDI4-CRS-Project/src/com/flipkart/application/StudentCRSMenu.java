@@ -42,7 +42,27 @@ public class StudentCRSMenu {
 					studentI.viewGrades(student.getId());
 					break;
 				case 2:
-					studentI.makePayment(null,null);
+					System.out.println("Enter the payment method : ");
+					String method1 = input.nextLine();
+					if(method1.equals("offline"))
+						studentI.makePayment(student,method1);
+					else
+					{
+						System.out.println("======================Select Online Payment Method====================== ");
+						System.out.println("1. NetBanking");
+						System.out.println("2. Debit Card");
+						System.out.println("3. Credit Card");
+						System.out.println("4. Scholarship");
+						int c = input.nextInt();
+						if(c==1)
+							studentI.makePayment(student,"Netbanking");
+						else if(c==2)
+							studentI.makePayment(student,"Debit Card");
+						else if(c==3)
+							studentI.makePayment(student,"Credit Card");
+						else
+							studentI.makePayment(student,"Scholarship");
+					}
 					break;
 				case 3:
 					studentI.registerCourses(null,student.getId());

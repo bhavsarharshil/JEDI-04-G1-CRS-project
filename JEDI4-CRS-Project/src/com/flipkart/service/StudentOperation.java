@@ -78,7 +78,6 @@ public class StudentOperation implements StudentInterface {
 		try {
 			studentDaoOperation.setPaymentStatus(student,method);
         	student.setPaymentStatus(true);
-        	System.out.println("PAYMENT SUCCESSFULL");
         }
         catch(Exception e) {
         	System.out.println(e.getMessage());
