@@ -7,6 +7,9 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.Date;
 
+import org.apache.log4j.Logger;
+
+import com.flipkart.application.AdminCRSMenu;
 import com.flipkart.bean.Admin;
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
@@ -16,6 +19,7 @@ import com.flipkart.utils.DBConnection;
 
 public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 
+	public static Logger logger=Logger.getLogger(AdminDAOInterfaceIMPL.class);
 	/**
 	 * @param id
 	 * @return
@@ -25,10 +29,9 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 		// TODO Auto-generated method stub
 		Admin admin = new Admin();
 		PreparedStatement stmt = null;
-		Connection conn = DBConnection.getConnection();
 		
 		try {
-			
+			Connection conn = DBConnection.getConnection();
 			stmt = conn.prepareStatement(SQLQueriesConstant.GET_USER_BY_ID);
 			stmt.setInt(1, id);
 			ResultSet rs = stmt.executeQuery();
@@ -44,9 +47,9 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 				admin.setAdminName(rs.getString("name"));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.error(e.getMessage());
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error(e.getMessage());
 		}
 		finally{
 		      try{
@@ -54,7 +57,7 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 		        	 stmt.close();
 		      } 
 		      catch(SQLException se2){
-		    	  se2.printStackTrace();
+		    	  logger.error(se2.getMessage());
 		      }
 		      
 	   }
@@ -72,15 +75,19 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
    	public void viewReportCard(Student student) {
 		try {
 		    conn = DBConnection.getConnection();
-		    stmt=conn.prepareStatement(SQLQueriesConstant.SELECT_USERS);
-		    ResultSet res=stmt.executeQuery();
+		    stmt=conn.prepareStatement(SQLQueriesConstant.GET_GRADES_QUERY);
+			stmt.setInt(1,student.getId());
+			ResultSet res =stmt.executeQuery();
+		    System.out.println("=======Report Card=======");
+		    System.out.println("Course Name\t|\tGrade");
 		    while(res.next()) {
-		    	System.out.println(res.getInt("id")+"\t"+res.getString("role"));
+		    	System.out.println(res.getString("coursename")+"\t|\t"+res.getString("grade"));
 		    }
-		    System.out.println("Query executed");
-		}
-		catch (SQLException e) {
-			e.printStackTrace();
+		    System.out.println("__________________________________");
+		}catch (SQLException e) {
+			logger.error(e.getMessage());
+		}catch (Exception e) {
+			logger.error(e.getMessage());
 		}
 	}
 
@@ -101,9 +108,10 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 		    }
 		    System.out.println("Unable to add Professor");
 		    return false;
-		}
-		catch (SQLException e) {
-			e.printStackTrace();
+		}catch (SQLException e) {
+			logger.error(e.getMessage());
+		}catch (Exception e) {
+			logger.error(e.getMessage());
 		}
 		return false;
 	}
@@ -122,9 +130,10 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 		    }
 		    System.out.println("Unable to delete Professor");
 		    return false;
-		}
-		catch (SQLException e) {
-			e.printStackTrace();
+		}catch (SQLException e) {
+			logger.error(e.getMessage());
+		}catch (Exception e) {
+			logger.error(e.getMessage());
 		}
 		return false;
 	}
@@ -150,9 +159,10 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 		    }
 		    System.out.println("Unable to add Student");
 		    return false;
-		}
-		catch (SQLException e) {
-			e.printStackTrace();
+		}catch (SQLException e) {
+			logger.error(e.getMessage());
+		}catch (Exception e) {
+			logger.error(e.getMessage());
 		}
 		return false;
 	}
@@ -175,9 +185,10 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 		    }
 		    System.out.println("Unable to delete Student");
 		    return false;
-		}
-		catch (SQLException e) {
-			e.printStackTrace();
+		}catch (SQLException e) {
+			logger.error(e.getMessage());
+		}catch (Exception e) {
+			logger.error(e.getMessage());
 		}
 		return false;
 	}
@@ -198,9 +209,10 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 		    }
 		    System.out.println("Unable to add course");
 		    return false;
-		}
-		catch (SQLException e) {
-			e.printStackTrace();
+		}catch (SQLException e) {
+			logger.error(e.getMessage());
+		}catch (Exception e) {
+			logger.error(e.getMessage());
 		}
 		return false;
 	}
@@ -219,9 +231,10 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 		    }
 		    System.out.println("Unable to add course");
 		    return false;
-		}
-		catch (SQLException e) {
-			e.printStackTrace();
+		}catch (SQLException e) {
+			logger.error(e.getMessage());
+		}catch (Exception e) {
+			logger.error(e.getMessage());
 		}
 		return false;
 	}
@@ -256,9 +269,10 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 			stmt=conn.prepareStatement(SQLQueriesConstant.DELETE_SEM_REGISTRATION);
 			stmt.executeUpdate();
 			System.out.println("All students are approved");
-		}
-		catch (SQLException e) {
-			e.printStackTrace();
+		}catch (SQLException e) {
+			logger.error(e.getMessage());
+		}catch (Exception e) {
+			logger.error(e.getMessage());
 		}
 	}
 
@@ -271,9 +285,10 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 			stmt.setBoolean(1,true);
 			stmt.setInt(2,id);
 			stmt.executeUpdate();
-		}
-		catch (SQLException e) {
-			e.printStackTrace();
+		}catch (SQLException e) {
+			logger.error(e.getMessage());
+		}catch (Exception e) {
+			logger.error(e.getMessage());
 		}
 	}
 
@@ -289,9 +304,10 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 				System.out.println(String.valueOf(rs.getInt("id"))+"\t"+rs.getString("name"));
 			}
 			System.out.println("\n\n");
-		}
-		catch (SQLException e) {
-			e.printStackTrace();
+		}catch (SQLException e) {
+			logger.error(e.getMessage());
+		}catch (Exception e) {
+			logger.error(e.getMessage());
 		}
 	}
 
@@ -307,9 +323,10 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 				System.out.println(String.valueOf(rs.getInt("id"))+"\t"+rs.getString("name"));
 			}
 			System.out.println("\n\n");
-		}
-		catch (SQLException e) {
-			e.printStackTrace();
+		}catch (SQLException e) {
+			logger.error(e.getMessage());
+		}catch (Exception e) {
+			logger.error(e.getMessage());
 		}
 	}
 
@@ -325,9 +342,10 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 				System.out.println(String.valueOf(rs.getInt("id"))+"\t"+rs.getString("name"));
 			}
 			System.out.println("\n\n");
-		}
-		catch (SQLException e) {
-			e.printStackTrace();
+		}catch (SQLException e) {
+			logger.error(e.getMessage());
+		}catch (Exception e) {
+			logger.error(e.getMessage());
 		}
 	}
 	

@@ -2,7 +2,10 @@
  * 
  */
 package com.flipkart.application;
+import java.util.InputMismatchException;
 import java.util.Scanner;
+
+import org.apache.log4j.Logger;
 
 import com.flipkart.bean.*;
 import com.flipkart.service.*;
@@ -11,6 +14,7 @@ import com.flipkart.service.*;
  *
  */
 public class AdminCRSMenu {
+	public static Logger logger=Logger.getLogger(AdminCRSMenu.class);
 	
 	public static void showChoices()
 	{
@@ -41,51 +45,59 @@ public class AdminCRSMenu {
 			do
 			{		
 				showChoices();
-				choice = sc.nextInt();
-				
-				switch(choice)
-				{
-					case 1:
-						newadmin.generateReportCard();
-						break;
-					case 2:
-						newadmin.addProfessor();
-						break;
-					case 3:				
-						newadmin.removeProfessor();
-						break;
-					case 4:
-						newadmin.addStudent();
-						break;
-					case 5:
-						newadmin.removeStudent();
-						break;
-					case 6:
-						newadmin.addCourse();
-						break;
-					case 7:
-						newadmin.removeCourse();
-						break;
-					case 8:
-						newadmin.approveStudents();
-						break;
-					case 9:
-						newadmin.viewProfessors();
-						break;
-					case 10:
-						newadmin.viewStudents();
-						break;
-					case 11:
-						newadmin.viewCourses();
-						break;
-					case 12:
-						newadmin.approveStudentsRequest();
-						break;
-					case -1:
-						System.out.println("Logged Out Successfully");
-						break;
-					default:
-						System.out.println("Invalid Choice");
+				try {
+					choice = sc.nextInt();
+					
+					switch(choice)
+					{
+						case 1:
+							newadmin.generateReportCard();
+							break;
+						case 2:
+							newadmin.addProfessor();
+							break;
+						case 3:				
+							newadmin.removeProfessor();
+							break;
+						case 4:
+							newadmin.addStudent();
+							break;
+						case 5:
+							newadmin.removeStudent();
+							break;
+						case 6:
+							newadmin.addCourse();
+							break;
+						case 7:
+							newadmin.removeCourse();
+							break;
+						case 8:
+							newadmin.approveStudents();
+							break;
+						case 9:
+							newadmin.viewProfessors();
+							break;
+						case 10:
+							newadmin.viewStudents();
+							break;
+						case 11:
+							newadmin.viewCourses();
+							break;
+						case 12:
+							newadmin.approveStudentsRequest();
+							break;
+						case -1:
+							System.out.println("Logged Out Successfully\n");
+							break;
+						default:
+							System.out.println("Invalid Choice\n");
+					}
+				}catch(InputMismatchException e){
+					sc.next();
+					logger.error("The input formal is invalid\n");
+				}catch(Exception e) {
+					sc.next();
+					logger.error(e.getMessage());
 				}
 			}
 			while(choice != -1);
