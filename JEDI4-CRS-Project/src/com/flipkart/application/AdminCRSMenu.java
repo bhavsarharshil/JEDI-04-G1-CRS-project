@@ -80,6 +80,7 @@ public class AdminCRSMenu {
 						break;
 					case 12:
 						newadmin.approveStudentsRequest();
+						break;
 					case -1:
 						System.out.println("Logged Out Successfully");
 						break;
