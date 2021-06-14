@@ -52,7 +52,7 @@ public class UserDAOInterfaceIMPL implements UserDAOInterface{
 			
 		}
 		catch(SQLException E) {
-			E.printStackTrace();
+			System.out.println(E.getMessage());
 		}
 		catch(Exception e){
 		      //Handle errors for Class.forName

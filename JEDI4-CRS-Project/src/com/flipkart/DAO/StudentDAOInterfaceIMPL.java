@@ -82,7 +82,7 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 			return false;
 		}
 		catch (SQLException e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 		return false;
 	}

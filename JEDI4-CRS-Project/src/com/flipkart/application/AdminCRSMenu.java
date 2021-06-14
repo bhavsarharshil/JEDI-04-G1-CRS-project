@@ -33,7 +33,7 @@ public class AdminCRSMenu {
 	{
 		System.out.println("\n");
 		System.out.println("=========================================");
-		System.out.println("Welcome Admin!!" + admin.getAdminName());
+		System.out.println("Welcome Admin!" + admin.getAdminName());
 		System.out.println("=========================================");
 		Scanner sc = new Scanner(System.in);
 		AdminOperation newadmin= new AdminOperation();
@@ -89,6 +89,5 @@ public class AdminCRSMenu {
 				}
 			}
 			while(choice != -1);
-//			sc.close();
 		}
 }
