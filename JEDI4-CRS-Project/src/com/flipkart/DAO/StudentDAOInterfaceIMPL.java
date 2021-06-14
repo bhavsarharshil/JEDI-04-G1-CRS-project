@@ -13,6 +13,7 @@ import com.flipkart.bean.Course;
 import com.flipkart.bean.Grades;
 import com.flipkart.bean.Student;
 import com.flipkart.constant.SQLQueriesConstant;
+import com.flipkart.exception.CourseNotFound;
 import com.flipkart.utils.DBConnection;
 
 public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
@@ -81,7 +82,6 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 				System.out.println("Student successfully added.");
 				return true;
 			}
-//			System.out.println("Unable to add Student");
 			logger.error("Unable to add student");
 			return false;
 		}
@@ -164,10 +164,10 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 	@Override
 	public void addPrimaryCourse(int studentId, int courseId) {
 		try {
-			/*if(!courseDAO.getCourse(courseId)) {
-				System.out.println("Invalid Course ID");
-				return;
-			}*/
+			CoursesDAOInterface courseDAO = new CoursesDAOInterfaceIMPL();
+			if(!courseDAO.hasCourse(courseId)) {
+				throw new CourseNotFound("Invalid Course ID");
+			}
 			if(alreadyPresent(studentId, courseId)) {
 				System.out.println("You have already added this course");
 				return;
@@ -196,10 +196,10 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 	@Override
 	public void addSecondaryCourse(int studentId, int courseId) {
 		try {
-			/*if(!courseDAO.getCourse(courseId)) {
-				System.out.println("Invalid Course ID");
-				return;
-			}*/
+			CoursesDAOInterface courseDAO = new CoursesDAOInterfaceIMPL();
+			if(!courseDAO.hasCourse(courseId)) {
+				throw new CourseNotFound("Invalid Course ID");
+			}
 			if(alreadyPresent(studentId, courseId)) {
 				System.out.println("You have already added this course");
 				return;
@@ -227,15 +227,15 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 	
 	@Override
 	public void removePrimaryCourse(int studentId, int courseId) {
-		/*if(!courseDAO.getCourse(courseId)) {
-		System.out.println("Invalid Course ID");
-		return;
-		}*/
-		if(!alreadyPresent(studentId, courseId)) {
-			System.out.println("You have not registered for this course");
-			return;
-		}
 		try {
+			CoursesDAOInterface courseDAO = new CoursesDAOInterfaceIMPL();
+			if(!courseDAO.hasCourse(courseId)) {
+				throw new CourseNotFound("Invalid Course ID");
+			}
+			if(!alreadyPresent(studentId, courseId)) {
+				System.out.println("You have not registered for this course");
+				return;
+			}
 			PreparedStatement stmt = null;
 			Connection conn = DBConnection.getConnection();
 			stmt = conn.prepareStatement(SQLQueriesConstant.DELETE_PRIMARY_SM);
@@ -256,15 +256,15 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 	
 	@Override 
 	public void removeSecondaryCourse(int studentId, int courseId) {
-		/*if(!courseDAO.getCourse(courseId)) {
-		System.out.println("Invalid Course ID");
-		return;
-		}*/
-		if(!alreadyPresent(studentId, courseId)) {
-			System.out.println("You have not registered for this course");
-			return;
-		}
 		try {
+			CoursesDAOInterface courseDAO = new CoursesDAOInterfaceIMPL();
+			if(!courseDAO.hasCourse(courseId)) {
+				throw new CourseNotFound("Invalid Course ID");
+			}
+			if(!alreadyPresent(studentId, courseId)) {
+				System.out.println("You have not registered for this course");
+				return;
+			}
 			PreparedStatement stmt = null;
 			Connection conn = DBConnection.getConnection();
 			stmt = conn.prepareStatement(SQLQueriesConstant.DELETE_SECONDARY_SM);
@@ -357,7 +357,7 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 			Connection conn = DBConnection.getConnection();
 			stmt = conn.prepareStatement(SQLQueriesConstant.DELETE_SM_BY_ID);
 			stmt.setInt(1, studentId);
-			stmt.executeQuery();
+			stmt.executeUpdate();
 		}catch(SQLException e) {
 			logger.error(e.getMessage());
 		}catch(Exception e) {

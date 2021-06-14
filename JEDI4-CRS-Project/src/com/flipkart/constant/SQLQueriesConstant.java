@@ -29,7 +29,7 @@ public class SQLQueriesConstant {
 	public static final String DELETE_FROM_COURSEPROF = "DELETE FROM courseprof WHERE courseid= ? AND profid= ?";
 	public static final String SELECT_FROM_STUDENTCOURSE = "SELECT * FROM studentcourse WHERE courseid=?";
 	public static final String GET_ALL_COURSES_QUERY = "SELECT cc.id, cc.name, cc.credits, c.profId FROM course AS cc INNER JOIN courseprof AS c ON cc.id = c.courseid " ; 
-
+	public static final String GET_COURSE_BY_ID = "SELECT * from course where id = ?";
 	public static final String GET_PROFESSOR_BY_ID_QUERY = "SELECT name FROM user WHERE id = ?";
 	public static final String SELECT_PROFESSORS = "Select * from user where role=\"professor\"";
 	public static final String SELECT_STUDENTS = "Select * from user where role=\"student\"";

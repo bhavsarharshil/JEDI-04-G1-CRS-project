@@ -9,6 +9,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import org.apache.log4j.Logger;
+
 import com.flipkart.bean.Course;
 import com.flipkart.constant.SQLQueriesConstant;
 import com.flipkart.utils.DBConnection;
@@ -21,7 +23,7 @@ public class CoursesDAOInterfaceIMPL implements CoursesDAOInterface {
 	private static CoursesDAOInterfaceIMPL instance = null;
 	Connection connection = null;
 	PreparedStatement ps = null;
-
+	private static Logger logger = Logger.getLogger(CoursesDAOInterfaceIMPL.class);
 	
 	public static CoursesDAOInterfaceIMPL getInstance()
 	{
@@ -52,14 +54,27 @@ public class CoursesDAOInterfaceIMPL implements CoursesDAOInterface {
 			}
 		}
 		catch(SQLException e) {
-			System.out.println(e.getMessage() + "\n");
+			logger.error(e.getMessage());
 		}
 		catch(Exception e) {
-			System.out.println(e.getMessage() + "\n");
+			logger.error(e.getMessage());
 		}
 
 		return courses;
 		
 		// TODO Auto-generated method stub
+	}
+	@Override
+	public boolean hasCourse(int courseId) {
+		try {
+			connection = DBConnection.getConnection();
+			ps = connection.prepareStatement(SQLQueriesConstant.GET_COURSE_BY_ID);
+			ps.setInt(1, courseId);
+			ResultSet rs = ps.executeQuery();
+			if(rs.next())return true;
+		}catch(Exception e) {
+			logger.error(e.getMessage());
+		}
+		return false;
 	}
 }

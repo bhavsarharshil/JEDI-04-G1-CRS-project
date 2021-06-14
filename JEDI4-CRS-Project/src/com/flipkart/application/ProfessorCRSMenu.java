@@ -1,6 +1,9 @@
 package com.flipkart.application;
 
 import java.util.Scanner;
+
+import org.apache.log4j.Logger;
+
 import com.flipkart.bean.*;
 import com.flipkart.service.*;
 
@@ -13,6 +16,7 @@ public class ProfessorCRSMenu {
 		int choice = 0;
 		Scanner input= new Scanner(System.in);;
 		ProfessorInterface professorInterface = new ProfessorInterfaceImpl();
+		Logger logger = Logger.getLogger(ProfessorCRSMenu.class);
 		do {
 			showChoices();
 			choice = input.nextInt();
@@ -37,14 +41,11 @@ public class ProfessorCRSMenu {
 					professorInterface.viewEnrolledStudentsInCourse(professor);
 					break;
 				default:
-					System.out.println("Invalid Choice");
+					logger.error("Invalid Choice");
 					break;
 			}
 		}
 		while(choice != -1);
-//		input.close();
-
-
 	}
 
 	public static void showChoices() {

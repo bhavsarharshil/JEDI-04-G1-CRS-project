@@ -14,4 +14,5 @@ import com.flipkart.bean.Course;
 public interface CoursesDAOInterface {
 	
 	public ArrayList<Course> getAllCourses();
+	public boolean hasCourse(int courseId);
 }

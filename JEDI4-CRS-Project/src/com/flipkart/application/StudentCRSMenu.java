@@ -4,6 +4,8 @@
 package com.flipkart.application;
 import java.util.Scanner;
 
+import org.apache.log4j.Logger;
+
 import com.flipkart.bean.Student;
 import com.flipkart.service.*;
 /**
@@ -29,7 +31,8 @@ public class StudentCRSMenu {
 	public  void studentClient(Student student) 
 	{
 		Scanner input = new Scanner(System.in);
-		StudentInterface studentI = new StudentOperation(); 
+		StudentInterface studentI = new StudentOperation();
+		Logger logger = Logger.getLogger(StudentCRSMenu.class);
 		int choice,cid;
 		System.out.println("===============WELCOME====================\n");
 		System.out.println("Welcome " + student.getName());
@@ -97,7 +100,7 @@ public class StudentCRSMenu {
 					System.out.println("============================Logged out successfully==============================");
 					return;
 				default:
-					System.out.println("Invalid Choice");
+					logger.error("Invalid Choice");
 					break;
 			}
 		} while (choice != -1);	
