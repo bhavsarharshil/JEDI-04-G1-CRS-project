@@ -3,7 +3,9 @@ package com.flipkart.service;
 import com.flipkart.DAO.ProfessorDAOInterface;
 import com.flipkart.DAO.ProfessorDAOInterfaceIMPL;
 import com.flipkart.bean.Professor;
+import com.flipkart.exception.CourseAssignedException;
 import com.flipkart.exception.ProfessorException;
+import com.flipkart.exception.StudentCountException;
 
 import java.util.Scanner;
 
@@ -33,10 +35,26 @@ public class ProfessorInterfaceImpl implements ProfessorInterface {
 			System.out.println("Enter the grade");
 			grade=sc.next();
 			//		sc.close();
+			
 			//throw new ProfessorException("HAHAAH");
-			return professorDAOInterface.gradeStudents(courseID, studentID, grade);
+			int no_students = 0;
+			no_students = professorDAOInterface.getStudentCount(courseID);
+			//insert DAO func
+			if(no_students>0)
+			{
+				return professorDAOInterface.gradeStudents(courseID, studentID, grade);
+			}
+			else
+			{
+				throw new StudentCountException("No Students to Grade!!!");
+			}
 		}
-		
+		catch(StudentCountException e)
+		{
+			logger.info("\n\n");
+			logger.error(e.getMessage());
+			logger.info("\n\n");
+		}
 		catch (Exception e) {
 			logger.info(e.getMessage());
 		}
@@ -55,9 +73,23 @@ public class ProfessorInterfaceImpl implements ProfessorInterface {
 			Scanner sc= new Scanner(System.in);
 			courseID=sc.nextInt();
 			studentID=sc.nextInt();
-			professorDAOInterface.viewGrades(courseID, studentID);
+			int no_students = professorDAOInterface.getStudentCount(courseID);
+			if(no_students>0)
+			{
+				professorDAOInterface.viewGrades(courseID, studentID);
+			}
+			else
+			{
+				throw new StudentCountException("No Students in the given course!!!");
+			}
+			
 		}
-		
+		catch(StudentCountException e)
+		{
+			logger.info("\n\n");
+			logger.error(e.getMessage());
+			logger.info("\n\n");
+		}
 		catch (Exception e) {
 			logger.info(e.getMessage());
 		}
@@ -94,7 +126,23 @@ public class ProfessorInterfaceImpl implements ProfessorInterface {
 			System.out.println("enter the courseID");
 			Scanner sc= new Scanner(System.in);
 			courseID=sc.nextInt();
-			return professorDAOInterface.addAssignedCourse(courseID, professor.getId());
+			boolean coursePresence = false;
+			coursePresence = professorDAOInterface.getCoursePresence(courseID);
+			if(coursePresence == false)
+			{
+				return professorDAOInterface.addAssignedCourse(courseID, professor.getId());
+			}
+			else
+			{
+				throw new CourseAssignedException("Course is already assigned to some other professor . ");
+			}
+			
+		}
+		catch(CourseAssignedException e)
+		{
+			logger.info("\n\n");
+			logger.error(e.getMessage());
+			logger.info("\n\n");
 		}
 		catch (Exception e) {
 			logger.info(e.getMessage());
@@ -115,7 +163,23 @@ public class ProfessorInterfaceImpl implements ProfessorInterface {
 			int courseID,profID;
 			Scanner sc= new Scanner(System.in);
 			courseID=sc.nextInt();
-			return professorDAOInterface.removeAssignedCourse(courseID, professor.getId());
+			boolean coursePresence = false;
+			coursePresence = professorDAOInterface.getCoursePresence(courseID);
+			if(coursePresence == true)
+			{
+				return professorDAOInterface.removeAssignedCourse(courseID, professor.getId());
+			}
+			else
+			{
+				throw new CourseAssignedException("Course was already removed. ");
+			}
+			
+		}
+		catch(CourseAssignedException e)
+		{
+			logger.info("\n\n");
+			logger.error(e.getMessage());
+			logger.info("\n\n");
 		}
 		catch (Exception e) {
 			logger.info(e.getMessage());
@@ -136,8 +200,26 @@ public class ProfessorInterfaceImpl implements ProfessorInterface {
 			int courseID;
 			Scanner sc= new Scanner(System.in);
 			courseID=sc.nextInt();
-			return professorDAOInterface.viewEnrolledStudentsInCourse(courseID);
+			
+			int no_students = 0;
+			no_students = professorDAOInterface.getStudentCount(courseID);
+			//insert DAO func
+			if(no_students>0)
+			{
+				return professorDAOInterface.viewEnrolledStudentsInCourse(courseID);
+			}
+			else
+			{
+				throw new ProfessorException("No student is currently enrolled in the course!!!");
+			}
+			
 		}
+		catch(StudentCountException e)
+		{
+			logger.info("\n\n");
+			logger.error(e.getMessage());
+			logger.info("\n\n");
+		}s
 		catch (Exception e) {
 			logger.info(e.getMessage());
 		}

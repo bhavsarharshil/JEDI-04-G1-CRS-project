@@ -45,4 +45,12 @@ public class SQLQueriesConstant {
     public static final String APPROVE_STUDENTS_REQUEST = "UPDATE student SET isApproved = ? WHERE id = ?;";
 	public static final String VEIFY_STUDENT_APPROVAL = "SELECT isApproved FROM student where id = ?;";
 	public static final String VIEW_UNAPPROVED_STUDENTS = "SELECT user.id,user.name FROM student INNER JOIN user ON student.id=user.id WHERE isApproved = 0;";
+	
+	
+	public static final String GET_STUDENT_COUNT = "SELECT COUNT(DISTINCT(studentid) as total from studentcourse where courseid=?;" ;
+	
+	public static final String GET_COURSE_STATUS = "select * from courseprof where courseid=?;";
+	
+	
+	
 }

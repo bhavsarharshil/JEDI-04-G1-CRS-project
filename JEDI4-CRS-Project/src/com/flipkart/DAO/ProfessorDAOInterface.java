@@ -11,4 +11,7 @@ public interface ProfessorDAOInterface {
 	public boolean addAssignedCourse(int courseID,int profID);
 	public boolean removeAssignedCourse(int courseID,int profID);
 	public boolean viewEnrolledStudentsInCourse(int courseID);
+	
+	public int getStudentCount(int courseID);
+	public boolean getCoursePresence(int courseID);
 }
