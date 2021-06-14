@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import org.apache.log4j.Logger;
+
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Grades;
 import com.flipkart.bean.Student;
@@ -14,6 +16,7 @@ import com.flipkart.constant.SQLQueriesConstant;
 import com.flipkart.utils.DBConnection;
 
 public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
+	private static Logger logger = Logger.getLogger(StudentDAOInterface.class);
 	private static StudentDAOInterfaceIMPL instance = null;
 	Connection connection = null;
 	PreparedStatement ps = null;
@@ -45,10 +48,10 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 			}
 		}
 		catch(SQLException e) {
-			System.out.println(e.getMessage() + "\n");
+			logger.error(e.getMessage());
 		}
 		catch(Exception e) {
-			System.out.println(e.getMessage() + "\n");
+			logger.error(e.getMessage());
 		}
 
 		return grades;
@@ -78,11 +81,12 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 				System.out.println("Student successfully added.");
 				return true;
 			}
-			System.out.println("Unable to add Student");
+//			System.out.println("Unable to add Student");
+			logger.error("Unable to add student");
 			return false;
 		}
 		catch (SQLException e) {
-			System.out.println(e.getMessage());
+			logger.error(e.getMessage());
 		}
 		return false;
 	}
@@ -112,10 +116,10 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 			}
 		}
 		catch(SQLException e) {
-			System.out.println(e.getMessage() + "\n");
+			logger.error(e.getMessage());
 		}
 		catch(Exception e) {
-			System.out.println(e.getMessage() + "\n");
+			logger.error(e.getMessage());
 		}
 	}
 
@@ -140,9 +144,9 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 				student.setName(rs.getString("name"));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.error(e.getMessage());
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error(e.getMessage());
 		}
 		finally{
 		      try{
@@ -150,7 +154,7 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 		        	 stmt.close();
 		      } 
 		      catch(SQLException se2){
-		    	  se2.printStackTrace();
+		    	  logger.error(se2.getMessage());
 		      }
 		      
 	   }
@@ -182,10 +186,10 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 				System.out.println("Course " + courseId + " added successfully\n");
 			}
 		}catch(SQLException e) {
-			System.out.println(e.getMessage());
+			logger.error(e.getMessage());
 		}
 		catch(Exception e) {
-			System.out.println(e.getMessage());
+			logger.error(e.getMessage());
 		}
 	}
 	
@@ -214,10 +218,10 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 				System.out.println("Course " + courseId + " added successfully\n");
 			}
 		}catch(SQLException e) {
-			System.out.println(e.getMessage());
+			logger.error(e.getMessage());
 		}
 		catch(Exception e) {
-			System.out.println(e.getMessage());
+			logger.error(e.getMessage());
 		}
 	}
 	
@@ -244,9 +248,9 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 				System.out.println("You have added this course as secondary");
 			}
 		}catch(SQLException e) {
-			System.out.println(e.getMessage());
+			logger.error(e.getMessage());
 		}catch(Exception e) {
-			System.out.println(e.getMessage());
+			logger.error(e.getMessage());
 		}
 	}
 	
@@ -273,9 +277,9 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 				System.out.println("You have added this course as primary");
 			}
 		}catch(SQLException e) {
-			System.out.println(e.getMessage());
+			logger.error(e.getMessage());
 		}catch(Exception e) {
-			System.out.println(e.getMessage());
+			logger.error(e.getMessage());
 		}
 	}
 	@Override
@@ -295,9 +299,9 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 				primaryCourses.add(course);
 			}
 		}catch(SQLException e) {
-			System.out.println(e.getMessage());
+			logger.error(e.getMessage());
 		}catch(Exception e) {
-			System.out.println(e.getMessage());
+			logger.error(e.getMessage());
 		}
 		return primaryCourses;
 	}
@@ -319,9 +323,9 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 				secondaryCourses.add(course);
 			}
 		}catch(SQLException e) {
-			System.out.println(e.getMessage());
+			logger.error(e.getMessage());
 		}catch(Exception e) {
-			System.out.println(e.getMessage());
+			logger.error(e.getMessage());
 		}
 		return secondaryCourses;
 	}
@@ -338,9 +342,9 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 			}
 			rs.close();
 		}catch(SQLException e) {
-			System.out.println(e.getMessage());
+			logger.error(e.getMessage());
 		}catch(Exception e) {
-			System.out.println(e.getMessage());
+			logger.error(e.getMessage());
 		}
 		return true;
 	}
@@ -355,9 +359,9 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 			stmt.setInt(1, studentId);
 			stmt.executeQuery();
 		}catch(SQLException e) {
-			System.out.println(e.getMessage());
+			logger.error(e.getMessage());
 		}catch(Exception e) {
-			System.out.println(e.getMessage());
+			logger.error(e.getMessage());
 		}
 	}
 	

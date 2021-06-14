@@ -6,6 +6,8 @@ package com.flipkart.service;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import org.apache.log4j.Logger;
+
 import com.flipkart.DAO.StudentDAOInterface;
 import com.flipkart.DAO.StudentDAOInterfaceIMPL;
 import com.flipkart.DAO.CoursesDAOInterfaceIMPL;
@@ -27,6 +29,7 @@ public class StudentOperation implements StudentInterface {
     	CoursesDAOInterfaceIMPL coursesDaoOperation = CoursesDAOInterfaceIMPL.getInstance();
     
     	ProfessorDAOInterfaceIMPL professorDAOOperation = ProfessorDAOInterfaceIMPL.getInstance();
+    	private static Logger logger = Logger.getLogger(StudentOperation.class);
 
 	AdminInterface adminI = new AdminOperation();
 	@Override
@@ -46,7 +49,7 @@ public class StudentOperation implements StudentInterface {
             	System.out.println("=========================================================\n");
         	}
         	catch (Exception e){
-        		System.out.println(e.getMessage());
+        		logger.error(e.getMessage());
         	}
 		
 	}
@@ -67,7 +70,7 @@ public class StudentOperation implements StudentInterface {
             System.out.println("=================================================\n");
         }
         catch(Exception e){
-        	System.out.println(e.getMessage());
+        	logger.error(e.getMessage());
         }
 		System.out.println("GRADES LIST");
     	return grades;
@@ -89,10 +92,14 @@ public class StudentOperation implements StudentInterface {
 	@Override
 	public boolean registerCourses(ArrayList<Integer> courseCart, int studentId) {
 		System.out.println("REGISTRATION COMPLETE");
+		/*try {
 //		ArrayList<Course> primary = stdao.getPrimaryRegisteredCourses(studentId);
 //		ArrayList<Course> secondary = stdao.getSecondaryRegisteredCourses(studentId);
 //		adminI.approveStudent(studentId,primary,secondary);
 //		stdao.deleteFromSemiRegistration(studentId);
+		}catch(Exception e) {
+			logger.error(e.getMessage());
+		}*/
 		return false;
 	}
 
@@ -102,7 +109,7 @@ public class StudentOperation implements StudentInterface {
 			stdao.addPrimaryCourse(studentId, courseId);
 			return true;
 		}catch(Exception e) {
-			System.out.println(e.getMessage());
+			logger.error(e.getMessage());
 		}
 		return false;
 	}
@@ -113,7 +120,7 @@ public class StudentOperation implements StudentInterface {
 			stdao.removePrimaryCourse(studentId, courseId);
 			return true;
 		}catch(Exception e) {
-			System.out.println(e.getMessage());
+			logger.error(e.getMessage());
 		}
 		return false;
 	}
@@ -124,7 +131,7 @@ public class StudentOperation implements StudentInterface {
 			stdao.addSecondaryCourse(studentId, courseId);
 			return true;
 		}catch(Exception e) {
-			System.out.println(e.getMessage());
+			logger.error(e.getMessage());
 		}
 		return false;
 	}
@@ -135,21 +142,21 @@ public class StudentOperation implements StudentInterface {
 			stdao.removeSecondaryCourse(studentId, courseId);
 			return true;
 		}catch(Exception e) {
-			System.out.println(e.getMessage());
+			logger.error(e.getMessage());
 		}
 		return false;
 	}
 
 	@Override
 	public Student getStudentById(int id) {
-		// TODO Auto-generated method stub
-//		StudentDAOInterface stdao = new StudentDAOInterfaceIMPL(); 
+		
 		return stdao.getStudentById(id);
 	}
 
 	@Override
 	public void addStudent() {
 //		 TODO Auto-generated method stub
+		try {
 		Scanner sc=new Scanner(System.in);
 		Student student=new Student();
 		System.out.println("Enter new student id");
@@ -173,6 +180,9 @@ public class StudentOperation implements StudentInterface {
 		int semester = sc.nextInt();
 		student.setSemester(semester);
 		stdao.addStudent(student);
+		}catch(Exception e) {
+			logger.error(e.getMessage());
+		}
 	}
 
 	@Override
@@ -188,7 +198,7 @@ public class StudentOperation implements StudentInterface {
 				}
 			}
 		}catch(Exception e) {
-			System.out.println(e.getMessage());
+			logger.error(e.getMessage());
 		}
 	}
 
@@ -205,7 +215,7 @@ public class StudentOperation implements StudentInterface {
 			}
 		}
 		}catch(Exception e) {
-			System.out.println(e.getMessage());
+			logger.error(e.getMessage());
 		}
 	}
 
