@@ -36,6 +36,7 @@ CREATE TABLE `course` (
 
 LOCK TABLES `course` WRITE;
 /*!40000 ALTER TABLE `course` DISABLE KEYS */;
+INSERT INTO `course` VALUES (501,'mathematics',3),(502,'physics',5);
 /*!40000 ALTER TABLE `course` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -62,7 +63,36 @@ CREATE TABLE `courseprof` (
 
 LOCK TABLES `courseprof` WRITE;
 /*!40000 ALTER TABLE `courseprof` DISABLE KEYS */;
+INSERT INTO `courseprof` VALUES (501,301);
 /*!40000 ALTER TABLE `courseprof` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `grade`
+--
+
+DROP TABLE IF EXISTS `grade`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `grade` (
+  `studentid` int(11) NOT NULL,
+  `courseid` int(11) NOT NULL,
+  `grade` char(1) DEFAULT NULL,
+  PRIMARY KEY (`studentid`,`courseid`),
+  KEY `courseid` (`courseid`),
+  CONSTRAINT `grade_ibfk_1` FOREIGN KEY (`studentid`) REFERENCES `user` (`id`),
+  CONSTRAINT `grade_ibfk_2` FOREIGN KEY (`courseid`) REFERENCES `course` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `grade`
+--
+
+LOCK TABLES `grade` WRITE;
+/*!40000 ALTER TABLE `grade` DISABLE KEYS */;
+INSERT INTO `grade` VALUES (201,501,'A');
+/*!40000 ALTER TABLE `grade` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -144,6 +174,7 @@ CREATE TABLE `studentcourse` (
 
 LOCK TABLES `studentcourse` WRITE;
 /*!40000 ALTER TABLE `studentcourse` DISABLE KEYS */;
+INSERT INTO `studentcourse` VALUES (201,501);
 /*!40000 ALTER TABLE `studentcourse` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -171,7 +202,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'admin@jedi.com','admin','admin',0,'admin');
+INSERT INTO `user` VALUES (1,'admin@jedi.com','admin','admin',1,'admin'),(201,'student1@jedi.com','password','student',1,'student1'),(301,'prof1@jedi.com','password','professor',1,'prof1'),(302,'prof2@jedi.com','password','professor',1,'prof2');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -184,4 +215,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-06-11 20:59:22
+-- Dump completed on 2021-06-14  9:18:48
