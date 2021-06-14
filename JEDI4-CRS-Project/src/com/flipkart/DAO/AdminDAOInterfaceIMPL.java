@@ -142,35 +142,6 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 	 * @param student
 	 * @return
 	 */
-	@Override
-	public boolean addStudent(Student student) {
-		// TODO Auto-generated method stub
-		try {
-			conn = DBConnection.getConnection();
-		    stmt=conn.prepareStatement(SQLQueriesConstant.INSERT_STUDENT_USER);
-		    stmt.setInt(1, student.getId());
-		    stmt.setString(2, student.getEmail());
-		    stmt.setString(3, student.getPassword());
-		    stmt.setString(4, student.getName());
-		    int res=stmt.executeUpdate();
-		    if(res==1) {
-		    	System.out.println("Student successfully added.");
-		    	return true;
-		    }
-		    System.out.println("Unable to add Student");
-		    return false;
-		}catch (SQLException e) {
-			logger.error(e.getMessage());
-		}catch (Exception e) {
-			logger.error(e.getMessage());
-		}
-		return false;
-	}
-
-	/**
-	 * @param student
-	 * @return
-	 */
 		@Override
 	public boolean removeStudent(Student student) {
 		// TODO Auto-generated method stub

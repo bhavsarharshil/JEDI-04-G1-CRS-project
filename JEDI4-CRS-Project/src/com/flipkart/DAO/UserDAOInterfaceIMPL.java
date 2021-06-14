@@ -1,11 +1,9 @@
 package com.flipkart.DAO;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.flipkart.service.VerificationSystem;
 import org.apache.log4j.Logger;
 
 import com.flipkart.constant.SQLQueriesConstant;
@@ -34,13 +32,17 @@ public class UserDAOInterfaceIMPL implements UserDAOInterface{
 					PreparedStatement stmt2 = conn.prepareStatement(SQLQueriesConstant.VEIFY_STUDENT_APPROVAL);
 					stmt2.setInt(1,id);
 					ResultSet rs2 = stmt2.executeQuery();
-					boolean app = rs2.getBoolean("isApproved");
-					if(app) {
-						System.out.println("login successful");
-						return rs.getString("role");
+					if(rs2.next()) {
+						boolean approval = rs2.getBoolean("isApproved");
+						if (approval) {
+							System.out.println("login successful");
+							return rs.getString("role");
+						} else {
+							logger.error("student approval pending");
+							return "invalid";
+						}
 					}
 					else{
-						logger.error("student approval pending");
 						return "invalid";
 					}
 				}

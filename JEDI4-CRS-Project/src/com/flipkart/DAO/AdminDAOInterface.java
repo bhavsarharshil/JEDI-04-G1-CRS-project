@@ -10,7 +10,6 @@ public interface AdminDAOInterface {
 	public void viewReportCard(Student student);
 	public boolean addProfessor(Professor professor);
 	public boolean removeProfessor(Professor professor);
-	public boolean addStudent(Student student);
 	public boolean removeStudent(Student student);
 	public boolean addCourse(Course course);
 	public boolean removeCourse(Course course);

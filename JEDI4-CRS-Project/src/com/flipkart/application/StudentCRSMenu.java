@@ -34,8 +34,9 @@ public class StudentCRSMenu {
 		StudentInterface studentI = new StudentOperation();
 		Logger logger = Logger.getLogger(StudentCRSMenu.class);
 		int choice,cid;
-		System.out.println("===============WELCOME====================\n");
+		System.out.println("=========================================");
 		System.out.println("Welcome " + student.getName());
+		System.out.println("=========================================");
 		do
 		{
 			showChoices();

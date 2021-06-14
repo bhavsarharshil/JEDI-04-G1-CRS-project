@@ -2,3 +2,16 @@
 
 
 14:19:02,322 ERROR CRSApplication,main:76 - Invalid Credentials
+15:32:47,657 ERROR StudentDAOInterface,main:89 - Duplicate entry '5' for key 'user.PRIMARY'
+15:35:45,583 ERROR CRSApplication,main:76 - Invalid Credentials
+15:38:38,698 ERROR CRSApplication,main:76 - Invalid Credentials
+15:39:58,600 ERROR CRSApplication,main:76 - Invalid Credentials
+15:41:48,709 ERROR CRSApplication,main:76 - Invalid Credentials
+15:44:13,361 ERROR CRSApplication,main:77 - Invalid Credentials
+15:44:58,484 ERROR CRSApplication,main:77 - Invalid Credentials
+15:46:07,849 ERROR CRSApplication,main:77 - Invalid Credentials
+15:47:10,600 ERROR CRSApplication,main:77 - Invalid Credentials
+15:47:52,409 ERROR CRSApplication,main:77 - Invalid Credentials
+15:48:44,219 ERROR CRSApplication,main:77 - Invalid Credentials
+15:50:04,003 ERROR CRSApplication,main:77 - Invalid Credentials
+15:51:18,449 ERROR CRSApplication,main:77 - Invalid Credentials

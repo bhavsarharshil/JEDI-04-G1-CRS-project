@@ -132,30 +132,8 @@ public class AdminOperation implements AdminInterface {
 	@Override
 	public void addStudent() {
 		// TODO Auto-generated method stub
-		try {
-			Student student=new Student();
-			System.out.println("Enter new student id");
-			int id=sc.nextInt();
-			student.setId(id);
-			System.out.println("Enter student email");
-			String email=sc.next();
-			student.setEmail(email);
-			System.out.println("Enter password");
-			String password=sc.next();
-			student.setPassword(password);
-			student.setRole("student");
-			student.setLoggedin(false);
-			System.out.println("Enter student name");
-			String name=sc.next();
-			student.setName(name);
-			adminInterface.addStudent(student);
-		}catch(InputMismatchException e){
-			sc.next();
-			logger.error("The input formal is invalid\n");
-		}catch(Exception e) {
-			sc.next();
-			logger.error(e.getMessage());
-		}
+		StudentInterface si = new StudentOperation();
+		si.addStudent();
 	}
 
 	@Override
