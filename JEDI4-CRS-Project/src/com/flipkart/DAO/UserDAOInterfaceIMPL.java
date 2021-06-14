@@ -22,12 +22,29 @@ public class UserDAOInterfaceIMPL implements UserDAOInterface{
 			stmt.setString(2, password);
 			ResultSet rs = stmt.executeQuery();
 			if(rs.next()) {
-				System.out.println("login successfull");
+
 				stmt = conn.prepareStatement(SQLQueriesConstant.LOG_IN);
 				stmt.setInt(1, id);
 				stmt.setString(2, password);
 				stmt.executeUpdate();
-				return rs.getString("role");
+				if(rs.getString("role").equals("student")){
+					PreparedStatement stmt2 = conn.prepareStatement(SQLQueriesConstant.VEIFY_STUDENT_APPROVAL);
+					stmt2.setInt(1,id);
+					ResultSet rs2 = stmt2.executeQuery();
+					boolean app = rs2.getBoolean("isApproved");
+					if(app) {
+						System.out.println("login successful");
+						return rs.getString("role");
+					}
+					else{
+						return "student approval pending";
+					}
+				}
+				else{
+					System.out.println("login successful");
+					return rs.getString("role");
+				}
+
 			}
 			else {
 				return "invalid";

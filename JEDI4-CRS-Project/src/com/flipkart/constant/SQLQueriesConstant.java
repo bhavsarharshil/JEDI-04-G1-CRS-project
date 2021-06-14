@@ -39,4 +39,5 @@ public class SQLQueriesConstant {
 	public static final String INSERT_STUDENT_STUDENT = "INSERT INTO student values(?,?,?,?,?);";
 
     public static final String APPROVE_STUDENTS_REQUEST = "UPDATE student SET isApproved = ? WHERE id = ?;";
+	public static final String VEIFY_STUDENT_APPROVAL = "SELECT isApproved FROM student where id = ?";
 }
