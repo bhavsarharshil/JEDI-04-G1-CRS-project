@@ -15,3 +15,15 @@
 15:48:44,219 ERROR CRSApplication,main:77 - Invalid Credentials
 15:50:04,003 ERROR CRSApplication,main:77 - Invalid Credentials
 15:51:18,449 ERROR CRSApplication,main:77 - Invalid Credentials
+15:56:12,248  INFO ProfessorDAOInterfaceIMPL,main:112 - Table 'jedicrs.grade' doesn't exist
+15:56:40,893  INFO ProfessorDAOInterfaceIMPL,main:162 - Table 'jedicrs.grade' doesn't exist
+15:56:46,367 ERROR ProfessorCRSMenu,main:47 - Invalid Choice
+15:56:48,799 ERROR CRSApplication,main:97 - The input format is invalid
+
+
+15:57:30,467 ERROR CRSApplication,main:97 - The input format is invalid
+
+
+15:58:00,293 ERROR UserDAOInterface,main:41 - student approval pending
+15:58:00,293 ERROR CRSApplication,main:77 - Invalid Credentials
+16:05:35,271 ERROR AdminDAOInterfaceIMPL,main:262 - Column 'id' in field list is ambiguous

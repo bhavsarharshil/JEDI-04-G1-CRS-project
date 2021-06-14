@@ -248,6 +248,24 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 	}
 
 	@Override
+	public void viewUnapprovedStudent() {
+		PreparedStatement stmt=null;
+		try {
+			conn=DBConnection.getConnection();
+			stmt=conn.prepareStatement(SQLQueriesConstant.VIEW_UNAPPROVED_STUDENTS);
+			ResultSet rs=stmt.executeQuery();
+			while(rs.next()) {
+				System.out.println(rs.getInt("user.1id")+" "+rs.getString("user.name"));
+			}
+
+		}catch (SQLException e) {
+			logger.error(e.getMessage());
+		}catch (Exception e) {
+			logger.error(e.getMessage());
+		}
+	}
+
+	@Override
 	public void approveStudentsRequest(int id) {
 		PreparedStatement stmt=null;
 		try {

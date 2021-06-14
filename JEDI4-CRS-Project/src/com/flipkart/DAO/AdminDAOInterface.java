@@ -17,6 +17,6 @@ public interface AdminDAOInterface {
 	public void viewStudents();
 	public void viewCourses();
 	public void approveStudents();
-
+	public void viewUnapprovedStudent();
 	public void approveStudentsRequest(int id);
 }

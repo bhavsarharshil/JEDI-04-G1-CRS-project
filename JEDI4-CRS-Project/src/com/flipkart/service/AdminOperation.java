@@ -162,10 +162,12 @@ public class AdminOperation implements AdminInterface {
 
 	@Override
 	public void approveStudentsRequest() {
+		AdminDAOInterface addao = new AdminDAOInterfaceIMPL();
 		try {
+			addao.viewUnapprovedStudent();
 			System.out.println("Enter Student id to approve");
 			int id = sc.nextInt();
-			AdminDAOInterface addao = new AdminDAOInterfaceIMPL();
+
 			addao.approveStudentsRequest(id);
 		}catch(InputMismatchException e){
 			sc.next();
