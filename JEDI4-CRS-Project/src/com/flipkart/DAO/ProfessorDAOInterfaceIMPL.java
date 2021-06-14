@@ -362,5 +362,50 @@ public class ProfessorDAOInterfaceIMPL implements ProfessorDAOInterface {
 		}
 		return false;
 	}
+
+	@Override
+	public int getStudentCount(int courseID) {
+		// TODO Auto-generated method stub
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		try
+		{
+			conn = DBConnection.getConnection();
+			String sql = SQLQueriesConstant.GET_STUDENT_COUNT;
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1,courseID);
+			ResultSet rs = stmt.executeQuery();
+			
+			int count = rs.getInt("total");
+			
+			return count ; 
+		}
+		catch(SQLException se){
+			logger.info(se.getMessage());
+		}
+		return 0;
+	}
+
+	@Override
+	public boolean getCoursePresence(int courseID) {
+		// TODO Auto-generated method stub
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		try
+		{
+			conn = DBConnection.getConnection();
+			String sql = SQLQueriesConstant.GET_COURSE_STATUS;
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1,courseID);
+			ResultSet rs = stmt.executeQuery();
+			
+			boolean status = rs.next();
+			return status;
+		}
+		catch(SQLException se){
+			logger.info(se.getMessage());
+		};
+		return false;
+	}
 	
 }
