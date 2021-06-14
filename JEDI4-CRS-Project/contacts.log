@@ -4,3 +4,10 @@
 15:14:40,196 ERROR CRSApplication,main:76 - Invalid Credentials
 15:15:28,669 ERROR CRSApplication,main:76 - Invalid Credentials
 15:15:44,590 ERROR CRSApplication,main:76 - Invalid Credentials
+15:50:59,538 ERROR CRSApplication,main:76 - Invalid Credentials
+15:53:04,571 ERROR StudentDAOInterface,main:119 - Illegal operation on empty result set.
+15:53:11,125 ERROR StudentDAOInterface,main:192 - Invalid Course ID
+15:53:16,038 ERROR StudentDAOInterface,main:253 - Invalid Course ID
+15:53:20,259 ERROR StudentDAOInterface,main:224 - Invalid Course ID
+15:53:25,500 ERROR StudentDAOInterface,main:302 - Table 'jedicrs.semregistration' doesn't exist
+15:53:31,524 ERROR StudentDAOInterface,main:326 - Table 'jedicrs.semregistration' doesn't exist

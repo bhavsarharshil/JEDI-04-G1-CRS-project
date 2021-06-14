@@ -34,6 +34,7 @@ public class UserDAOInterfaceIMPL implements UserDAOInterface{
 					PreparedStatement stmt2 = conn.prepareStatement(SQLQueriesConstant.VEIFY_STUDENT_APPROVAL);
 					stmt2.setInt(1,id);
 					ResultSet rs2 = stmt2.executeQuery();
+					rs2.next();
 					boolean app = rs2.getBoolean("isApproved");
 					if(app) {
 						System.out.println("login successful");
