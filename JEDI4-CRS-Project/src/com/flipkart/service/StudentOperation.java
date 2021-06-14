@@ -32,6 +32,10 @@ public class StudentOperation implements StudentInterface {
     	private static Logger logger = Logger.getLogger(StudentOperation.class);
 
 	AdminInterface adminI = new AdminOperation();
+
+	/**
+	 *
+	 */
 	@Override
 	public void showCourses() {
 		// TODO Auto-generated method stub
@@ -54,6 +58,10 @@ public class StudentOperation implements StudentInterface {
 		
 	}
 
+	/**
+	 * @param studentId
+	 * @return
+	 */
 	@Override
 	public ArrayList<Grades> viewGrades(int studentId) {
 		System.out.println("GRADES LIST");
@@ -77,6 +85,10 @@ public class StudentOperation implements StudentInterface {
 		
 	}
 
+	/**
+	 * @param student
+	 * @param method
+	 */
 	@Override
 	public void makePayment(Student student, String method) {
 		try {
@@ -89,6 +101,11 @@ public class StudentOperation implements StudentInterface {
 		// TODO Auto-generated method stub
 	}
 
+	/**
+	 * @param courseCart
+	 * @param studentId
+	 * @return
+	 */
 	@Override
 	public boolean registerCourses(ArrayList<Integer> courseCart, int studentId) {
 		System.out.println("REGISTRATION COMPLETE");
@@ -103,6 +120,11 @@ public class StudentOperation implements StudentInterface {
 		return false;
 	}
 
+	/**
+	 * @param studentId
+	 * @param courseId
+	 * @return
+	 */
 	@Override
 	public boolean addPrimaryCourse(int studentId, int courseId) {
 		try {
@@ -114,6 +136,11 @@ public class StudentOperation implements StudentInterface {
 		return false;
 	}
 
+	/**
+	 * @param studentId
+	 * @param courseId
+	 * @return
+	 */
 	@Override
 	public boolean removePrimaryCourse(int studentId, int courseId) {
 		try {
@@ -125,6 +152,11 @@ public class StudentOperation implements StudentInterface {
 		return false;
 	}
 
+	/**
+	 * @param studentId
+	 * @param courseId
+	 * @return
+	 */
 	@Override
 	public boolean addSecondaryCourse(int studentId, int courseId) {
 		try {
@@ -136,6 +168,11 @@ public class StudentOperation implements StudentInterface {
 		return false;
 	}
 
+	/**
+	 * @param studentId
+	 * @param courseId
+	 * @return
+	 */
 	@Override
 	public boolean removeSecondaryCourse(int studentId, int courseId) {
 		try {
@@ -147,12 +184,19 @@ public class StudentOperation implements StudentInterface {
 		return false;
 	}
 
+	/**
+	 * @param id
+	 * @return
+	 */
 	@Override
 	public Student getStudentById(int id) {
 		
 		return stdao.getStudentById(id);
 	}
 
+	/**
+	 *
+	 */
 	@Override
 	public void addStudent() {
 //		 TODO Auto-generated method stub
@@ -185,6 +229,9 @@ public class StudentOperation implements StudentInterface {
 		}
 	}
 
+	/**
+	 * @param studentId
+	 */
 	@Override
 	public void viewPrimaryRegisteredCourses(int studentId) {
 		try {
@@ -202,6 +249,9 @@ public class StudentOperation implements StudentInterface {
 		}
 	}
 
+	/**
+	 * @param studentId
+	 */
 	@Override
 	public void viewSecondaryRegisteredCourses(int studentId) {
 		try {

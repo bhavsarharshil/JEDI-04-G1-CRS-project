@@ -13,6 +13,12 @@ import org.apache.log4j.Logger;
  */
 public class VerificationSystemOperation implements VerificationSystem {
 	public static Logger logger=Logger.getLogger(VerificationSystem.class);
+
+	/**
+	 * @param username
+	 * @param password
+	 * @return
+	 */
 	@Override
 	public String loginWithCredential(int username, String password) {
 		// TODO Auto-generated method stub
@@ -27,6 +33,13 @@ public class VerificationSystemOperation implements VerificationSystem {
 		return null;
 	}
 
+	/**
+	 * @param id
+	 * @param email
+	 * @param password
+	 * @param name
+	 * @return
+	 */
 	@Override
 	public boolean registerStudent(int id, String email, String password, String name) {
 		// TODO Auto-generated method stub
@@ -34,6 +47,13 @@ public class VerificationSystemOperation implements VerificationSystem {
 		return false;
 	}
 
+	/**
+	 * @param id
+	 * @param email
+	 * @param password
+	 * @param name
+	 * @return
+	 */
 	@Override
 	public boolean registerProfessor(int id, String email, String password, String name) {
 		// TODO Auto-generated method stub

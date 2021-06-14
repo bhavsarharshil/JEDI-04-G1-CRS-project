@@ -8,18 +8,29 @@ import com.flipkart.bean.*;
 
 public class CourseInterfaceImpl implements CourseInterface {
 
+	/**
+	 * @param courseId
+	 * @return
+	 */
 	@Override
 	public Vector<Student> studentsEnrolled(int courseId) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+	/**
+	 * @param courseId
+	 * @return
+	 */
 	@Override
 	public Course getCourseById(int courseId) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+	/**
+	 *
+	 */
 	@Override
 	public void viewCourseCatalog() {
 		// TODO Auto-generated method stub

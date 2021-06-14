@@ -22,6 +22,10 @@ public class AdminOperation implements AdminInterface {
 	public static Logger logger=Logger.getLogger(AdminOperation.class);
 	AdminDAOInterfaceIMPL adminInterface=new AdminDAOInterfaceIMPL();
 	Scanner sc=new Scanner(System.in);
+
+	/**
+	 *
+	 */
 	@Override
 	public void addCourse() {
 		// TODO Auto-generated method stub
@@ -46,6 +50,9 @@ public class AdminOperation implements AdminInterface {
 		}
 	}
 
+	/**
+	 *
+	 */
 	@Override
 	public void removeCourse() {
 		// TODO Auto-generated method stub
@@ -64,6 +71,9 @@ public class AdminOperation implements AdminInterface {
 		}
 	}
 
+	/**
+	 *
+	 */
 	@Override
 	public void generateReportCard() {
 		// TODO Auto-generated method stub
@@ -82,6 +92,9 @@ public class AdminOperation implements AdminInterface {
 		}
 	}
 
+	/**
+	 *
+	 */
 	@Override
 	public void addProfessor() {
 		// TODO Auto-generated method stub
@@ -111,6 +124,9 @@ public class AdminOperation implements AdminInterface {
 		}
 	}
 
+	/**
+	 *
+	 */
 	@Override
 	public void removeProfessor() {
 		// TODO Auto-generated method stub
@@ -129,6 +145,9 @@ public class AdminOperation implements AdminInterface {
 		}
 	}
 
+	/**
+	 *
+	 */
 	@Override
 	public void addStudent() {
 		// TODO Auto-generated method stub
@@ -136,6 +155,9 @@ public class AdminOperation implements AdminInterface {
 		si.addStudent();
 	}
 
+	/**
+	 *
+	 */
 	@Override
 	public void removeStudent() {
 		// TODO Auto-generated method stub
@@ -153,13 +175,20 @@ public class AdminOperation implements AdminInterface {
 			logger.error(e.getMessage());
 		}
 	}
-	
+
+	/**
+	 * @param id
+	 * @return
+	 */
 	@Override
 	public Admin getAdminById(int id) {
 		AdminDAOInterface addao = new AdminDAOInterfaceIMPL();
 		return addao.getAdminById(id);
 	}
 
+	/**
+	 *
+	 */
 	@Override
 	public void approveStudentsRequest() {
 		AdminDAOInterface addao = new AdminDAOInterfaceIMPL();
@@ -178,22 +207,34 @@ public class AdminOperation implements AdminInterface {
 		}
 	}
 
+	/**
+	 *
+	 */
 	@Override
 	public void approveStudents() {
 		// TODO Auto-generated method stub
 		adminInterface.approveStudents();
 	}
 
+	/**
+	 *
+	 */
 	public void viewProfessors() {
 		// TODO Auto-generated method stub
 		adminInterface.viewProfessors();
 	}
 
+	/**
+	 *
+	 */
 	public void viewStudents() {
 		// TODO Auto-generated method stub
 		adminInterface.viewStudents();
 	}
 
+	/**
+	 *
+	 */
 	public void viewCourses() {
 		// TODO Auto-generated method stub
 		adminInterface.viewCourses();
