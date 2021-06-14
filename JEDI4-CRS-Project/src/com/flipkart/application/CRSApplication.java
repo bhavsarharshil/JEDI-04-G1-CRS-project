@@ -33,7 +33,7 @@ public class CRSApplication {
 			System.out.println("==========Welcome to the CRS System==========");
 			System.out.println("Enter 1 to login");
 			System.out.println("Enter 2 to view the course catalog");
-//			System.out.println("Enter 3 to register as a new student");
+			System.out.println("Enter 3 to register as a new student");
 			System.out.println("Enter -1 to exit");
 			int a=sc.nextInt();
 			if(a==1) {
@@ -73,9 +73,9 @@ public class CRSApplication {
 				CourseInterfaceImpl courseClient=new CourseInterfaceImpl();
 				courseClient.viewCourseCatalog();
 			}
-//			else if(a==3) {
-//				
-//			}
+			else if(a==3) {
+
+			}
 			else if(a==-1) {
 				System.out.println("Exiting the application");
 				break;

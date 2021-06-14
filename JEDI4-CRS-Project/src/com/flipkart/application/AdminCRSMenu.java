@@ -26,6 +26,7 @@ public class AdminCRSMenu {
 		System.out.println("Enter 9 to view professors");
 		System.out.println("Enter 10 to view students");
 		System.out.println("Enter 11 to view courses");
+		System.out.println("Enter 12 to approve student request");
 		System.out.println("Enter -1 to logout");
 	}
 	public  void AdminClient(Admin admin)
@@ -77,6 +78,8 @@ public class AdminCRSMenu {
 					case 11:
 						newadmin.viewCourses();
 						break;
+					case 12:
+						newadmin.approveStudentsRequest();
 					case -1:
 						System.out.println("Logged Out Successfully");
 						break;

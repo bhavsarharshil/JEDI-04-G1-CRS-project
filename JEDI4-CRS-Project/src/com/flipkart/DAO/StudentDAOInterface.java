@@ -18,6 +18,6 @@ public interface StudentDAOInterface {
 	public void deleteFromSemiRegistration(int studentId);
 
 	public ArrayList<Grades> getGrades(int studentID);
-	
+	public boolean addStudent(Student student);
 	public void setPaymentStatus(Student student,String method);
 }

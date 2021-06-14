@@ -125,6 +125,14 @@ public class AdminOperation implements AdminInterface {
 	}
 
 	@Override
+	public void approveStudentsRequest() {
+		System.out.println("Enter Student id to approve");
+		int id = sc.nextInt();
+		AdminDAOInterface addao = new AdminDAOInterfaceIMPL();
+		addao.approveStudentsRequest(id);
+	}
+
+	@Override
 	public void approveStudents() {
 		// TODO Auto-generated method stub
 		adminInterface.approveStudents();

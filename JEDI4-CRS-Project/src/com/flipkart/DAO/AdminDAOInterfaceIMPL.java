@@ -1,11 +1,9 @@
 package com.flipkart.DAO;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.Date;
 
@@ -16,8 +14,12 @@ import com.flipkart.bean.Student;
 import com.flipkart.constant.SQLQueriesConstant;
 import com.flipkart.utils.DBConnection;
 
-public class AdminDAOInterfaceIMPL implements AdminDAOInterface {	
-	
+public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
+
+	/**
+	 * @param id
+	 * @return
+	 */
 	@Override
 	public Admin getAdminById(int id) {
 		// TODO Auto-generated method stub
@@ -127,12 +129,16 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 		return false;
 	}
 
+	/**
+	 * @param student
+	 * @return
+	 */
 	@Override
 	public boolean addStudent(Student student) {
 		// TODO Auto-generated method stub
 		try {
 			conn = DBConnection.getConnection();
-		    stmt=conn.prepareStatement(SQLQueriesConstant.INSERT_STUDENT);
+		    stmt=conn.prepareStatement(SQLQueriesConstant.INSERT_STUDENT_USER);
 		    stmt.setInt(1, student.getId());
 		    stmt.setString(2, student.getEmail());
 		    stmt.setString(3, student.getPassword());
@@ -151,6 +157,10 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 		return false;
 	}
 
+	/**
+	 * @param student
+	 * @return
+	 */
 		@Override
 	public boolean removeStudent(Student student) {
 		// TODO Auto-generated method stub
@@ -246,6 +256,21 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 			stmt=conn.prepareStatement(SQLQueriesConstant.DELETE_SEM_REGISTRATION);
 			stmt.executeUpdate();
 			System.out.println("All students are approved");
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void approveStudentsRequest(int id) {
+		PreparedStatement stmt=null;
+		try {
+			conn=DBConnection.getConnection();
+			stmt=conn.prepareStatement(SQLQueriesConstant.APPROVE_STUDENTS_REQUEST);
+			stmt.setBoolean(1,true);
+			stmt.setInt(2,id);
+			stmt.executeUpdate();
 		}
 		catch (SQLException e) {
 			e.printStackTrace();

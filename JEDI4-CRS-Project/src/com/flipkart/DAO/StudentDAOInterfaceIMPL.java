@@ -53,7 +53,40 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 
 		return grades;
 	}
-	
+
+	@Override
+	public boolean addStudent(Student student) {
+		// TODO Auto-generated method stub
+		PreparedStatement stmt,stmt2 = null;
+		Connection conn = null;
+		try {
+			conn = DBConnection.getConnection();
+			stmt=conn.prepareStatement(SQLQueriesConstant.INSERT_STUDENT_USER);
+			stmt.setInt(1, student.getId());
+			stmt.setString(2, student.getEmail());
+			stmt.setString(3, student.getPassword());
+			stmt.setString(4, student.getName());
+			stmt2 = conn.prepareStatement(SQLQueriesConstant.INSERT_STUDENT_STUDENT);
+			stmt2.setInt(1,student.getId());
+			stmt2.setBoolean(2,false);
+			stmt2.setString(3,student.getBranch());
+			stmt2.setInt(4,student.getAdmission_year());
+			stmt2.setInt(5,student.getSemester());
+			int res=stmt.executeUpdate();
+			int res2 = stmt2.executeUpdate();
+			if(res==1 && res2==1) {
+				System.out.println("Student successfully added.");
+				return true;
+			}
+			System.out.println("Unable to add Student");
+			return false;
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
 	@Override
 	public void setPaymentStatus(Student student, String method) {
 		try{

@@ -4,6 +4,7 @@
 package com.flipkart.service;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import com.flipkart.DAO.StudentDAOInterface;
 import com.flipkart.DAO.StudentDAOInterfaceIMPL;
@@ -145,7 +146,35 @@ public class StudentOperation implements StudentInterface {
 //		StudentDAOInterface stdao = new StudentDAOInterfaceIMPL(); 
 		return stdao.getStudentById(id);
 	}
-	
+
+	@Override
+	public void addStudent() {
+//		 TODO Auto-generated method stub
+		Scanner sc=new Scanner(System.in);
+		Student student=new Student();
+		System.out.println("Enter new student id");
+		int id=sc.nextInt();
+		student.setId(id);
+		System.out.println("Enter student email");
+		String email=sc.next();
+		student.setEmail(email);
+		System.out.println("Enter password");
+		String password=sc.next();
+		student.setPassword(password);
+		student.setRole("student");
+		student.setLoggedin(false);
+		System.out.println("Enter student name");
+		String name=sc.next();
+		student.setName(name);
+		System.out.println("Enter branch");
+		String branch = sc.next();
+		student.setBranch(branch);
+		System.out.println("Enter semester");
+		int semester = sc.nextInt();
+		student.setSemester(semester);
+		stdao.addStudent(student);
+	}
+
 	@Override
 	public void viewPrimaryRegisteredCourses(int studentId) {
 		try {

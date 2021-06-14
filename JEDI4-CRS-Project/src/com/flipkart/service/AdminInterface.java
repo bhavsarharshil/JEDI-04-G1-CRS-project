@@ -16,4 +16,5 @@ public interface AdminInterface {
 	public void viewCourses();
 	public Admin getAdminById(int id);
 
+	public void approveStudentsRequest();
 }

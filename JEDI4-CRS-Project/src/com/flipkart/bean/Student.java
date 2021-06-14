@@ -14,7 +14,33 @@ public class Student extends User{
 	private boolean registrationStatus;
 	private Vector<Integer> enrolledCourses = new Vector<>();
 	private boolean paymentStatus;
-	
+	private String branch;
+	private int semester;
+	private int admission_year;
+	public String getBranch() {
+		return branch;
+	}
+
+	public int getSemester() {
+		return semester;
+	}
+
+	public void setSemester(int semester) {
+		this.semester = semester;
+	}
+
+	public int getAdmission_year() {
+		return admission_year;
+	}
+
+	public void setAdmission_year(int admission_year) {
+		this.admission_year = admission_year;
+	}
+
+	public void setBranch(String branch) {
+		this.branch = branch;
+	}
+
 	public int getRollNo() {
 		return rollNo;
 	}

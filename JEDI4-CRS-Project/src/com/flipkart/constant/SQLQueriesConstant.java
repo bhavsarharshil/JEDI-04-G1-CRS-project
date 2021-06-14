@@ -16,7 +16,7 @@ public class SQLQueriesConstant {
 	public static final String ADD_COURSE_STUDENT = "Insert into studentcourse values(?,?);";
 	public static final String SELECT_USERS = "Select * from user;";
 	public static final String INSERT_PROFESSOR = "Insert into user values(?,?,?,\"professor\",0,?);";
-	public static final String INSERT_STUDENT = "Insert into user values(?,?,?,\"student\",0,?);";
+	public static final String INSERT_STUDENT_USER = "Insert into user values(?,?,?,\"student\",0,?);";
 	public static final String INSERT_COURSE = "Insert into course values(?,?,?);";
 	public static final String DELETE_USER_BY_ID = "Delete from user where id=?";
 	public static final String DELETE_COURSE_BY_ID = "Delete from course where id=?";
@@ -36,6 +36,7 @@ public class SQLQueriesConstant {
 	public static final String SELECT_DISTINCT_SEM_REGISTRATION = "Select distinct(studentid) from semregistration";
 	public static final String INSERT_PAYMENT = "Insert into payment values(?,?,\"null\",?,\"null\",5000,0)";
 	public static final String INSERT_GRADE = "insert into grade values(?,?,?)";
-	
-	
+	public static final String INSERT_STUDENT_STUDENT = "INSERT INTO student values(?,?,?,?,?);";
+
+    public static final String APPROVE_STUDENTS_REQUEST = "UPDATE student SET isApproved = ? WHERE id = ?;";
 }
