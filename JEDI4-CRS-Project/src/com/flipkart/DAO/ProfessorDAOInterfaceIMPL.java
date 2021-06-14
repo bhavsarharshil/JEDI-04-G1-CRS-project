@@ -1,15 +1,21 @@
 package com.flipkart.DAO;
 
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import org.apache.log4j.Logger;
 
 import com.flipkart.bean.Professor;
 import com.flipkart.utils.DBConnection;
 import com.flipkart.constant.SQLQueriesConstant;
 public class ProfessorDAOInterfaceIMPL implements ProfessorDAOInterface {
 	private static ProfessorDAOInterfaceIMPL instance = null;
+	
+	private static Logger logger = Logger.getLogger(ProfessorDAOInterfaceIMPL.class);
+	
 	public static ProfessorDAOInterfaceIMPL getInstance() {
 		if (instance == null) {
 			instance = new ProfessorDAOInterfaceIMPL();
@@ -38,9 +44,9 @@ public class ProfessorDAOInterfaceIMPL implements ProfessorDAOInterface {
 				professor.setName(rs.getString("name"));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.info(e.getMessage());
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.info(e.getMessage());
 		}
 		finally{
 		      try{
@@ -72,9 +78,9 @@ public class ProfessorDAOInterfaceIMPL implements ProfessorDAOInterface {
 				professorName = resultSet.getString("name");
 			}
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+			logger.info(e.getMessage());
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			logger.info(e.getMessage());
 		}
 
 		return professorName;
@@ -103,22 +109,23 @@ public class ProfessorDAOInterfaceIMPL implements ProfessorDAOInterface {
 
 		}catch(SQLException se){
 			//Handle errors for JDBC
-			se.printStackTrace();
+			logger.info(se.getMessage());
 		}catch(Exception e){
 			//Handle errors for Class.forName
-			e.printStackTrace();
+			logger.info(e.getMessage());
 		}finally{
 			//finally block used to close resources
 			try{
 				if(stmt!=null)
 					stmt.close();
 			}catch(SQLException se2){
+				logger.info(se2.getMessage());
 			}// nothing we can do
 			try{
 				if(conn!=null)
 					conn.close();
 			}catch(SQLException se){
-				se.printStackTrace();
+				logger.info(se.getMessage());
 			}//end finally try
 		}//end try
 		return update;
@@ -134,7 +141,7 @@ public class ProfessorDAOInterfaceIMPL implements ProfessorDAOInterface {
 
 			System.out.println("======Grades======");
 			conn = DBConnection.getConnection();
-			String sql = "SELECT * from grade WHERE courseid = ? AND studentid = ?";
+			String sql = SQLQueriesConstant.GRADES_QUERY_WITH_ID;
 			stmt = conn.prepareStatement(sql);
 			stmt.setInt(1,courseID);
 			stmt.setInt(2,studentID);
@@ -152,22 +159,23 @@ public class ProfessorDAOInterfaceIMPL implements ProfessorDAOInterface {
 			conn.close();
 
 		}catch(SQLException se){
-			se.printStackTrace();
+			logger.info(se.getMessage());
 		}catch(Exception e){
 
-			e.printStackTrace();
+			logger.info(e.getMessage());
 		}finally{
 
 			try{
 				if(stmt!=null)
 					stmt.close();
 			}catch(SQLException se2){
+				logger.info(se2.getMessage());
 			}
 			try{
 				if(conn!=null)
 					conn.close();
 			}catch(SQLException se){
-				se.printStackTrace();
+				logger.info(se.getMessage());
 			}
 		}
 	}
@@ -182,7 +190,7 @@ public class ProfessorDAOInterfaceIMPL implements ProfessorDAOInterface {
 
 			System.out.println("=======Assigned Courses=======");
 			conn = DBConnection.getConnection();
-			String sql = "SELECT * FROM courseprof WHERE profid = ?";
+			String sql =SQLQueriesConstant.GET_PROF_WITH_ID;
 			stmt = conn.prepareStatement(sql);
 			stmt.setInt(1,profID);
 
@@ -198,22 +206,23 @@ public class ProfessorDAOInterfaceIMPL implements ProfessorDAOInterface {
 
 		}catch(SQLException se){
 
-			se.printStackTrace();
+			logger.info(se.getMessage());
 		}catch(Exception e){
 
-			e.printStackTrace();
+			logger.info(e.getMessage());
 		}finally{
 
 			try{
 				if(stmt!=null)
 					stmt.close();
 			}catch(SQLException se2){
+				logger.info(se2.getMessage());
 			}
 			try{
 				if(conn!=null)
 					conn.close();
 			}catch(SQLException se){
-				se.printStackTrace();
+				logger.info(se.getMessage());
 			}
 		}
 	}
@@ -228,7 +237,7 @@ public class ProfessorDAOInterfaceIMPL implements ProfessorDAOInterface {
 		try{
 			conn = DBConnection.getConnection();
 			// System.out.println("Creating statement...");
-			String sql="insert into courseprof values(?,?)";
+			String sql=SQLQueriesConstant.INSERT_INTO_COURSEPROF;
 			stmt = conn.prepareStatement(sql);
 
 			stmt.setInt(1,courseID);
@@ -240,22 +249,24 @@ public class ProfessorDAOInterfaceIMPL implements ProfessorDAOInterface {
 			System.out.println("Course assigned successfully");
 
 		}catch(SQLException se){
-			se.printStackTrace();
+			logger.info(se.getMessage());
 		}catch(Exception e){
 
-			e.printStackTrace();
+			logger.info(e.getMessage());
 		}finally{
 
 			try{
 				if(stmt!=null)
 					stmt.close();
-			}catch(SQLException se2){
+			}
+			catch(SQLException se2){
+				logger.info(se2.getMessage());
 			}
 			try{
 				if(conn!=null)
 					conn.close();
 			}catch(SQLException se){
-				se.printStackTrace();
+				logger.info(se.getMessage());
 			}
 		}
 		return added;
@@ -270,7 +281,7 @@ public class ProfessorDAOInterfaceIMPL implements ProfessorDAOInterface {
 
 		try{
 			conn = DBConnection.getConnection();
-			String sql = "DELETE FROM courseprof WHERE courseid= ? AND profid= ?";
+			String sql = SQLQueriesConstant.DELETE_FROM_COURSEPROF;
 			stmt = conn.prepareStatement(sql);
 			stmt.setInt(1,courseID);
 			stmt.setInt(2,profID);
@@ -282,22 +293,24 @@ public class ProfessorDAOInterfaceIMPL implements ProfessorDAOInterface {
 
 		}catch(SQLException se){
 
-			se.printStackTrace();
+			logger.info(se.getMessage());
 		}catch(Exception e){
 
-			e.printStackTrace();
+			logger.info(e.getMessage());
 		}finally{
 
 			try{
 				if(stmt!=null)
 					stmt.close();
-			}catch(SQLException se2){
+			}catch(SQLException se2)
+			{
+				logger.info(se2.getMessage());
 			}
 			try{
 				if(conn!=null)
 					conn.close();
 			}catch(SQLException se){
-				se.printStackTrace();
+				logger.info(se.getMessage());
 			}
 		}
 		return remove;
@@ -313,7 +326,7 @@ public class ProfessorDAOInterfaceIMPL implements ProfessorDAOInterface {
 
 			System.out.println("=====Enrolled Students in course"+String.valueOf(courseID)+"======");
 			conn = DBConnection.getConnection();
-			String sql = "SELECT * FROM studentcourse WHERE courseid=?" ;
+			String sql = SQLQueriesConstant.SELECT_FROM_STUDENTCOURSE;
 			stmt = conn.prepareStatement(sql);
 			stmt.setInt(1,courseID);
 			ResultSet rs = stmt.executeQuery();
@@ -327,22 +340,24 @@ public class ProfessorDAOInterfaceIMPL implements ProfessorDAOInterface {
 			conn.close();
 
 		}catch(SQLException se){
-			se.printStackTrace();
+			logger.info(se.getMessage());
 		}catch(Exception e){
 
-			e.printStackTrace();
+			logger.info(e.getMessage());
 		}finally{
 
 			try{
 				if(stmt!=null)
 					stmt.close();
-			}catch(SQLException se2){
+			}catch(SQLException se2)
+			{
+				logger.info(se2.getMessage());
 			}
 			try{
 				if(conn!=null)
 					conn.close();
 			}catch(SQLException se){
-				se.printStackTrace();
+				logger.info(se.getMessage());
 			}
 		}
 		return false;
