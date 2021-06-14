@@ -11,7 +11,10 @@ public class ProfessorCRSMenu {
 
 	//static for testing
 	public static void professorClient(Professor professor) {
-		System.out.println("Welcome Professor");
+
+		System.out.println("=========================================");
+		System.out.println("Welcome "+professor.getName());
+		System.out.println("=========================================");
 
 		int choice = 0;
 		Scanner input= new Scanner(System.in);;

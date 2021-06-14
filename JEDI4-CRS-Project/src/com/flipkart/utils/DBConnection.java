@@ -14,8 +14,8 @@ public class DBConnection {
 	static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver"; 
 	static final String DB_URL = "jdbc:mysql://localhost/jedicrs";
 	
-	static final String USER = "root";
-	static final String PASS = "honey@98";
+	static final String USER = "jedi";
+	static final String PASS = "Flipkart@jedi4";
 	public static Connection conn = null;
 	public static Connection getConnection() {
 		

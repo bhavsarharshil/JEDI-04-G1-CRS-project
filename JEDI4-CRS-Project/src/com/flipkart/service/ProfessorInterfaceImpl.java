@@ -12,6 +12,11 @@ import org.apache.log4j.Logger;
 public class ProfessorInterfaceImpl implements ProfessorInterface {
 	private static Logger logger = Logger.getLogger(ProfessorInterfaceImpl.class);
 	private static ProfessorDAOInterface professorDAOInterface= new ProfessorDAOInterfaceIMPL();
+
+	/**
+	 * @param professor
+	 * @return
+	 */
 	@Override
 	public boolean gradeStudents(Professor professor) {
 
@@ -38,6 +43,9 @@ public class ProfessorInterfaceImpl implements ProfessorInterface {
 		return false;
 	}
 
+	/**
+	 * @param professor
+	 */
 	@Override
 	public void viewGrades(Professor professor) {
 		// TODO Auto-generated method stub
@@ -56,6 +64,9 @@ public class ProfessorInterfaceImpl implements ProfessorInterface {
 //		sc.close();
 	}
 
+	/**
+	 * @param professor
+	 */
 	@Override
 	public void showAssignedCourses(Professor professor) {
 		// TODO Auto-generated method stub
@@ -69,6 +80,10 @@ public class ProfessorInterfaceImpl implements ProfessorInterface {
 
 	}
 
+	/**
+	 * @param professor
+	 * @return
+	 */
 	@Override
 	public boolean addAssignedCourse(Professor professor) {
 		// TODO Auto-generated method stub
@@ -87,6 +102,10 @@ public class ProfessorInterfaceImpl implements ProfessorInterface {
 		return false;
 	}
 
+	/**
+	 * @param professor
+	 * @return
+	 */
 	@Override
 	public boolean removeAssignedCourse(Professor professor) {
 		// TODO Auto-generated method stub
@@ -104,6 +123,10 @@ public class ProfessorInterfaceImpl implements ProfessorInterface {
 		return false;
 	}
 
+	/**
+	 * @param professor
+	 * @return
+	 */
 	@Override
 	public boolean viewEnrolledStudentsInCourse(Professor professor) {
 		// TODO Auto-generated method stub
@@ -121,6 +144,10 @@ public class ProfessorInterfaceImpl implements ProfessorInterface {
 		return false;
 	}
 
+	/**
+	 * @param id
+	 * @return
+	 */
 	@Override
 	public Professor getProfessorById(int id) {
 		// TODO Auto-generated method stub

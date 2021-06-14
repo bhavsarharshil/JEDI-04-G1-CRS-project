@@ -1,11 +1,9 @@
 package com.flipkart.DAO;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.flipkart.service.VerificationSystem;
 import org.apache.log4j.Logger;
 
 import com.flipkart.constant.SQLQueriesConstant;
@@ -14,8 +12,6 @@ public class UserDAOInterfaceIMPL implements UserDAOInterface{
 	public static Logger logger=Logger.getLogger(UserDAOInterface.class);
 	@Override
 	public String verifyLoginCredentials(int id, String password) {
-		// TODO Auto-generated method stub
-		
 		PreparedStatement stmt = null;
 		Connection conn = DBConnection.getConnection();
 		try {
@@ -25,7 +21,6 @@ public class UserDAOInterfaceIMPL implements UserDAOInterface{
 			stmt.setString(2, password);
 			ResultSet rs = stmt.executeQuery();
 			if(rs.next()) {
-
 				stmt = conn.prepareStatement(SQLQueriesConstant.LOG_IN);
 				stmt.setInt(1, id);
 				stmt.setString(2, password);
@@ -39,9 +34,19 @@ public class UserDAOInterfaceIMPL implements UserDAOInterface{
 					if(app) {
 						System.out.println("login successful");
 						return rs.getString("role");
+
+					if(rs2.next()) {
+						boolean approval = rs2.getBoolean("isApproved");
+						if (approval) {
+							System.out.println("login successful");
+							return rs.getString("role");
+						} else {
+							logger.error("student approval pending");
+							return "invalid";
+						}
+
 					}
 					else{
-						logger.error("student approval pending");
 						return "invalid";
 					}
 				}
@@ -54,7 +59,7 @@ public class UserDAOInterfaceIMPL implements UserDAOInterface{
 			else {
 				return "invalid";
 			}
-			
+		}
 		}
 		catch(SQLException E) {
 			System.out.println(E.getMessage());
