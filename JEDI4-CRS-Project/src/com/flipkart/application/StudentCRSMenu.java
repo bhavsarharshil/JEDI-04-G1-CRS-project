@@ -2,6 +2,7 @@
  * 
  */
 package com.flipkart.application;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import org.apache.log4j.Logger;
@@ -18,7 +19,7 @@ public class StudentCRSMenu {
 		System.out.println("======================Select an operation====================== ");
 		System.out.println("1. View grades");
 		System.out.println("2. Make payment");
-		System.out.println("3.Register For Courses");
+		System.out.println("3. Register For Courses");
 		System.out.println("4. Add Primary Course");
 		System.out.println("5. Remove Primary Course(");
 		System.out.println("6. Add Secondary Course");
@@ -33,13 +34,14 @@ public class StudentCRSMenu {
 		Scanner input = new Scanner(System.in);
 		StudentInterface studentI = new StudentOperation();
 		Logger logger = Logger.getLogger(StudentCRSMenu.class);
-		int choice,cid;
+		int choice = 0, cid;
 		System.out.println("=========================================");
 		System.out.println("Welcome " + student.getName());
 		System.out.println("=========================================");
 		do
 		{
 			showChoices();
+			try {
 			choice = input.nextInt();
 			switch (choice) {
 				case 1:
@@ -47,9 +49,11 @@ public class StudentCRSMenu {
 					break;
 				case 2:
 					System.out.println("Enter the payment method : ");
-					String method1 = input.nextLine();
-					if(method1.equals("offline"))
-						studentI.makePayment(student,method1);
+					System.out.println("1. Online");
+					System.out.println("2. Offline");
+					int method1 = input.nextInt();
+					if(method1 == 2)
+						studentI.makePayment(student,"offline");
 					else
 					{
 						System.out.println("======================Select Online Payment Method====================== ");
@@ -103,6 +107,13 @@ public class StudentCRSMenu {
 				default:
 					logger.error("Invalid Choice");
 					break;
+			}
+			}catch(InputMismatchException e) {
+				input.next();
+				logger.error("The input format is invalid\n\n");
+			}catch(Exception e) {
+				input.next();
+				logger.error(e.getMessage());
 			}
 		} while (choice != -1);	
 		input.close();

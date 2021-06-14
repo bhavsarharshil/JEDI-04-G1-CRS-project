@@ -51,7 +51,7 @@ public class CRSApplication {
 					VerificationSystem newverfiy=new VerificationSystemOperation();
 					//loginWithCredentials(id,password);
 					String person=newverfiy.loginWithCredential(id, password);
-					System.out.println(person);
+//					System.out.println(person);
 					if(person.equals("student"))
 					{
 						StudentCRSMenu newclient =new StudentCRSMenu();

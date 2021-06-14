@@ -15,7 +15,6 @@ public class UserDAOInterfaceIMPL implements UserDAOInterface{
 		PreparedStatement stmt = null;
 		Connection conn = DBConnection.getConnection();
 		try {
-			
 			stmt = conn.prepareStatement(SQLQueriesConstant.VERIFY_LOGIN_QUERY);
 			stmt.setInt(1, id);
 			stmt.setString(2, password);
@@ -34,34 +33,20 @@ public class UserDAOInterfaceIMPL implements UserDAOInterface{
 					if(app) {
 						System.out.println("login successful");
 						return rs.getString("role");
-
-					if(rs2.next()) {
-						boolean approval = rs2.getBoolean("isApproved");
-						if (approval) {
-							System.out.println("login successful");
-							return rs.getString("role");
-						} else {
-							logger.error("student approval pending");
-							return "invalid";
-						}
-
 					}
 					else{
 						return "invalid";
 					}
-				}
-				else{
+				 }
+				 else{
 					System.out.println("login successful");
 					return rs.getString("role");
-				}
-
+				 }
 			}
 			else {
 				return "invalid";
 			}
-		}
-		}
-		catch(SQLException E) {
+		}catch(SQLException E) {
 			System.out.println(E.getMessage());
 		}
 		catch(Exception e){

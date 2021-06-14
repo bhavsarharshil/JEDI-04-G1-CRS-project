@@ -13,6 +13,8 @@ public class SQLQueriesConstant {
 	public static final String DELETE_SM_BY_ID = "DELETE FROM semregistration WHERE studentid=?";
 	public static final String SELECT_SEM_REGISTRATION = "Select courseid,studentid from semregistration where isPrimary=1;";
 	public static final String DELETE_SEM_REGISTRATION = "Delete from semregistration;";
+	public static final String GET_PRIMARY_COURSE_NO = "SELECT DISTINCT COUNT(courseid) FROM semregistration WHERE studentid=? and isPrimary = 1;";
+	public static final String GET_SECONDARY_COURSE_NO = "SELECT DISTINCT COUNT(courseid) FROM semregistration WHERE studentid=? and isPrimary = 0;";
 	public static final String ADD_COURSE_STUDENT = "Insert into studentcourse values(?,?);";
 	public static final String SELECT_USERS = "Select * from user;";
 	public static final String INSERT_PROFESSOR = "Insert into user values(?,?,?,\"professor\",0,?);";

@@ -13,6 +13,7 @@ import com.flipkart.bean.Course;
 import com.flipkart.bean.Grades;
 import com.flipkart.bean.Student;
 import com.flipkart.constant.SQLQueriesConstant;
+import com.flipkart.exception.CourseLimitReached;
 import com.flipkart.exception.CourseNotFound;
 import com.flipkart.utils.DBConnection;
 
@@ -164,12 +165,15 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 	@Override
 	public void addPrimaryCourse(int studentId, int courseId) {
 		try {
+			if(countPrimaryCourses(studentId) >= 4) {
+				throw new CourseLimitReached("You can only add 4 primary courses.");
+			}
 			CoursesDAOInterface courseDAO = new CoursesDAOInterfaceIMPL();
 			if(!courseDAO.hasCourse(courseId)) {
 				throw new CourseNotFound("Invalid Course ID");
 			}
 			if(alreadyPresent(studentId, courseId)) {
-				System.out.println("You have already added this course");
+				logger.error("You have already added this course");
 				return;
 			}
 			PreparedStatement stmt = null;
@@ -196,12 +200,15 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 	@Override
 	public void addSecondaryCourse(int studentId, int courseId) {
 		try {
+			if(countSecondaryCourses(studentId) >= 2) {
+				throw new CourseLimitReached("You can only add 2 secondary courses.");
+			}
 			CoursesDAOInterface courseDAO = new CoursesDAOInterfaceIMPL();
 			if(!courseDAO.hasCourse(courseId)) {
 				throw new CourseNotFound("Invalid Course ID");
 			}
 			if(alreadyPresent(studentId, courseId)) {
-				System.out.println("You have already added this course");
+				logger.error("You have already added this course");
 				return;
 			}
 			PreparedStatement stmt = null;
@@ -233,7 +240,7 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 				throw new CourseNotFound("Invalid Course ID");
 			}
 			if(!alreadyPresent(studentId, courseId)) {
-				System.out.println("You have not registered for this course");
+				logger.error("You have not registered for this course");
 				return;
 			}
 			PreparedStatement stmt = null;
@@ -262,7 +269,7 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 				throw new CourseNotFound("Invalid Course ID");
 			}
 			if(!alreadyPresent(studentId, courseId)) {
-				System.out.println("You have not registered for this course");
+				logger.error("You have not registered for this course");
 				return;
 			}
 			PreparedStatement stmt = null;
@@ -295,7 +302,6 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 				Course course = new Course();
 				course.setCourseID(rs.getInt(1));
 				course.setCourseName(rs.getString(2));
-				course.setCredits(rs.getInt(3));
 				primaryCourses.add(course);
 			}
 		}catch(SQLException e) {
@@ -319,7 +325,6 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 				Course course = new Course();
 				course.setCourseID(rs.getInt(1));
 				course.setCourseName(rs.getString(2));
-				course.setCredits(rs.getInt(3));
 				secondaryCourses.add(course);
 			}
 		}catch(SQLException e) {
@@ -329,6 +334,8 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 		}
 		return secondaryCourses;
 	}
+	
+	@Override
 	public boolean alreadyPresent(int studentId,int courseId) {
 		try {
 			PreparedStatement stmt = null;
@@ -365,4 +372,36 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 		}
 	}
 	
+	public int countPrimaryCourses(int studentId) {
+		try {
+			PreparedStatement stmt = null;
+			Connection conn = DBConnection.getConnection();
+			stmt = conn.prepareStatement(SQLQueriesConstant.GET_PRIMARY_COURSE_NO);
+			stmt.setInt(1, studentId);
+			ResultSet rs = stmt.executeQuery();
+			rs.next();
+			return rs.getInt(1);
+		}catch(SQLException e) {
+			logger.error(e.getMessage());
+		}catch(Exception e) {
+			logger.error(e.getMessage());
+		}
+		return 0;
+	}
+	public int countSecondaryCourses(int studentId) {
+		try {
+			PreparedStatement stmt = null;
+			Connection conn = DBConnection.getConnection();
+			stmt = conn.prepareStatement(SQLQueriesConstant.GET_SECONDARY_COURSE_NO);
+			stmt.setInt(1, studentId);
+			ResultSet rs = stmt.executeQuery();
+			rs.next();
+			return rs.getInt(1);
+		}catch(SQLException e) {
+			logger.error(e.getMessage());
+		}catch(Exception e) {
+			logger.error(e.getMessage());
+		}
+		return 0;
+	}
 }

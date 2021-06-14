@@ -64,7 +64,7 @@ public class StudentOperation implements StudentInterface {
 	 */
 	@Override
 	public ArrayList<Grades> viewGrades(int studentId) {
-		System.out.println("GRADES LIST");
+//		System.out.println("GRADES LIST");
 		// TODO Auto-generated method stub
 		ArrayList<Grades> grades = null;
 		
@@ -80,7 +80,6 @@ public class StudentOperation implements StudentInterface {
         catch(Exception e){
         	logger.error(e.getMessage());
         }
-		System.out.println("GRADES LIST");
     	return grades;
 		
 	}

@@ -11,3 +11,36 @@
 15:53:20,259 ERROR StudentDAOInterface,main:224 - Invalid Course ID
 15:53:25,500 ERROR StudentDAOInterface,main:302 - Table 'jedicrs.semregistration' doesn't exist
 15:53:31,524 ERROR StudentDAOInterface,main:326 - Table 'jedicrs.semregistration' doesn't exist
+17:57:21,049 ERROR CRSApplication,main:77 - Invalid Credentials
+18:12:03,596 ERROR StudentDAOInterface,main:119 - Illegal operation on empty result set.
+18:13:14,217 ERROR CRSApplication,main:97 - The input format is invalid
+
+
+18:13:23,794 ERROR CRSApplication,main:77 - Invalid Credentials
+18:13:43,564 ERROR CRSApplication,main:97 - The input format is invalid
+
+
+18:20:58,063 ERROR StudentCRSMenu,main:113 - The input format is invalid
+
+
+18:21:08,135 ERROR StudentCRSMenu,main:108 - Invalid Choice
+18:24:43,891 ERROR StudentDAOInterface,main:119 - Illegal operation on empty result set.
+18:24:52,539 ERROR StudentDAOInterface,main:192 - Invalid Course ID
+19:01:41,339 ERROR StudentDAOInterface,main:196 - You can only add 4 primary courses.
+19:04:05,279 ERROR StudentDAOInterface,main:196 - You can only add 4 primary courses.
+19:04:20,054 ERROR StudentDAOInterface,main:228 - Invalid Course ID
+19:07:09,047 ERROR CRSApplication,main:77 - Invalid Credentials
+19:07:41,814 ERROR StudentDAOInterface,main:384 - Before start of result set
+19:08:40,234 ERROR StudentDAOInterface,main:400 - Before start of result set
+19:09:42,230 ERROR StudentDAOInterface,main:400 - Before start of result set
+19:10:24,889 ERROR StudentDAOInterface,main:401 - Before start of result set
+19:10:25,048 ERROR StudentDAOInterface,main:211 - You have already added this course
+19:12:38,880 ERROR StudentDAOInterface,main:400 - Before start of result set
+19:12:38,883 ERROR StudentDAOInterface,main:231 - You can only add 2 secondary courses.
+19:13:24,247 ERROR StudentDAOInterface,main:400 - [Ljava.lang.StackTraceElement;@78b729e6
+19:13:24,250 ERROR StudentDAOInterface,main:231 - You can only add 2 secondary courses.
+19:14:06,435 ERROR StudentDAOInterface,main:231 - You can only add 2 secondary courses.
+19:15:41,767 ERROR StudentDAOInterface,main:231 - You can only add 2 secondary courses.
+19:16:45,769 ERROR StudentDAOInterface,main:231 - You can only add 2 secondary courses.
+19:17:11,283 ERROR StudentDAOInterface,main:384 - Before start of result set
+19:17:55,218 ERROR StudentDAOInterface,main:196 - You can only add 4 primary courses.

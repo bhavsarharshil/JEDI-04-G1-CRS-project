@@ -16,8 +16,10 @@ public interface StudentDAOInterface {
 	public ArrayList<Course> getSecondaryRegisteredCourses(int studentId);
 	public boolean alreadyPresent(int studentId,int CourseId);
 	public void deleteFromSemiRegistration(int studentId);
-
 	public ArrayList<Grades> getGrades(int studentID);
 	public boolean addStudent(Student student);
 	public void setPaymentStatus(Student student,String method);
+	public int countPrimaryCourses(int studentId);
+	public int countSecondaryCourses(int studentId);
 }
+
