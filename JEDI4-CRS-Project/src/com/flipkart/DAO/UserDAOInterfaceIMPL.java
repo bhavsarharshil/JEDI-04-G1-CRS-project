@@ -5,10 +5,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.flipkart.service.VerificationSystem;
+import org.apache.log4j.Logger;
+
 import com.flipkart.constant.SQLQueriesConstant;
 import com.flipkart.utils.DBConnection;
 public class UserDAOInterfaceIMPL implements UserDAOInterface{
-
+	public static Logger logger=Logger.getLogger(UserDAOInterface.class);
 	@Override
 	public String verifyLoginCredentials(int id, String password) {
 		// TODO Auto-generated method stub
@@ -37,7 +40,8 @@ public class UserDAOInterfaceIMPL implements UserDAOInterface{
 						return rs.getString("role");
 					}
 					else{
-						return "student approval pending";
+						logger.error("student approval pending");
+						return "invalid";
 					}
 				}
 				else{

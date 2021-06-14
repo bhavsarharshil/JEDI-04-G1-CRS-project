@@ -73,7 +73,7 @@ public class CRSApplication {
 						newclient.AdminClient(admin);
 					}
 					else {
-						System.out.println("Invalid credentials!");
+						logger.error("Invalid Credentials");
 					}
 				}
 				else if(a==2) {
