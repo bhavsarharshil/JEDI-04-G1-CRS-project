@@ -74,7 +74,8 @@ public class CRSApplication {
 				courseClient.viewCourseCatalog();
 			}
 			else if(a==3) {
-
+				StudentOperation studentClient=new StudentOperation();
+				studentClient.addStudent();
 			}
 			else if(a==-1) {
 				System.out.println("Exiting the application");

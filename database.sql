@@ -16,6 +16,31 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `admin`
+--
+
+DROP TABLE IF EXISTS `admin`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `admin` (
+  `id` int(11) NOT NULL,
+  `joining_date` date DEFAULT NULL,
+  `address` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `admin_ibfk_1` FOREIGN KEY (`id`) REFERENCES `user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `admin`
+--
+
+LOCK TABLES `admin` WRITE;
+/*!40000 ALTER TABLE `admin` DISABLE KEYS */;
+/*!40000 ALTER TABLE `admin` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `course`
 --
 
@@ -96,6 +121,30 @@ INSERT INTO `grade` VALUES (201,501,'A');
 UNLOCK TABLES;
 
 --
+-- Table structure for table `notification`
+--
+
+DROP TABLE IF EXISTS `notification`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `notification` (
+  `info` varchar(50) DEFAULT NULL,
+  `date` date DEFAULT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `notification`
+--
+
+LOCK TABLES `notification` WRITE;
+/*!40000 ALTER TABLE `notification` DISABLE KEYS */;
+/*!40000 ALTER TABLE `notification` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `payment`
 --
 
@@ -110,7 +159,9 @@ CREATE TABLE `payment` (
   `paymentdate` date DEFAULT NULL,
   `amount` int(11) DEFAULT NULL,
   `status` tinyint(1) DEFAULT NULL,
-  PRIMARY KEY (`paymentid`)
+  PRIMARY KEY (`paymentid`),
+  KEY `studentid` (`studentid`),
+  CONSTRAINT `payment_ibfk_1` FOREIGN KEY (`studentid`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -121,6 +172,32 @@ CREATE TABLE `payment` (
 LOCK TABLES `payment` WRITE;
 /*!40000 ALTER TABLE `payment` DISABLE KEYS */;
 /*!40000 ALTER TABLE `payment` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `professor`
+--
+
+DROP TABLE IF EXISTS `professor`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `professor` (
+  `id` int(11) NOT NULL,
+  `joining_date` date DEFAULT NULL,
+  `department` varchar(50) DEFAULT NULL,
+  `location` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `professor_ibfk_1` FOREIGN KEY (`id`) REFERENCES `user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `professor`
+--
+
+LOCK TABLES `professor` WRITE;
+/*!40000 ALTER TABLE `professor` DISABLE KEYS */;
+/*!40000 ALTER TABLE `professor` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -149,6 +226,34 @@ CREATE TABLE `semregistration` (
 LOCK TABLES `semregistration` WRITE;
 /*!40000 ALTER TABLE `semregistration` DISABLE KEYS */;
 /*!40000 ALTER TABLE `semregistration` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `student`
+--
+
+DROP TABLE IF EXISTS `student`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `student` (
+  `id` int(11) NOT NULL,
+  `isApproved` tinyint(1) DEFAULT NULL,
+  `branch` varchar(50) DEFAULT NULL,
+  `admission_year` int(11) DEFAULT NULL,
+  `semester` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `student_ibfk_1` FOREIGN KEY (`id`) REFERENCES `user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `student`
+--
+
+LOCK TABLES `student` WRITE;
+/*!40000 ALTER TABLE `student` DISABLE KEYS */;
+INSERT INTO `student` VALUES (202,1,'cs',0,2);
+/*!40000 ALTER TABLE `student` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -202,7 +307,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'admin@jedi.com','admin','admin',1,'admin'),(201,'student1@jedi.com','password','student',1,'student1'),(301,'prof1@jedi.com','password','professor',1,'prof1'),(302,'prof2@jedi.com','password','professor',1,'prof2');
+INSERT INTO `user` VALUES (1,'admin@jedi.com','admin','admin',1,'admin'),(201,'student1@jedi.com','password','student',1,'student1'),(202,'student2@jedi.com','password','student',1,'student2'),(301,'prof1@jedi.com','password','professor',1,'prof1'),(302,'prof2@jedi.com','password','professor',1,'prof2');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -215,4 +320,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-06-14  9:18:48
+-- Dump completed on 2021-06-14 12:16:24
