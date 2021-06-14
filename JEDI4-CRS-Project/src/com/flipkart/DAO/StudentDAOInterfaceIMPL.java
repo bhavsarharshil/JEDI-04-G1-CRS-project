@@ -30,6 +30,11 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 		}
 		return instance;
 	}
+
+	/**
+	 * @param studentID id of student
+	 * @return array list of grades
+	 */
 	@Override
 	public ArrayList<Grades> getGrades(int studentID){
 		ArrayList<Grades> grades = new ArrayList<>();
@@ -59,6 +64,10 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 		return grades;
 	}
 
+	/**
+	 * @param student student bean
+	 * @return boolean: true if student added successfully
+	 */
 	@Override
 	public boolean addStudent(Student student) {
 		// TODO Auto-generated method stub
@@ -92,6 +101,10 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 		return false;
 	}
 
+	/**
+	 * @param student student bean
+	 * @param method payment method
+	 */
 	@Override
 	public void setPaymentStatus(Student student, String method) {
 		try{
@@ -124,7 +137,10 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 		}
 	}
 
-
+	/**
+	 * @param id id of student
+	 * @return Student bean
+	 */
 	@Override
 	public Student getStudentById(int id) {
 		// TODO Auto-generated method stub
@@ -161,7 +177,11 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 	   }
 		return student;
 	}
-	
+	/**
+	 * @param studentId id of student
+	 * @param courseId id of course
+	 * method to add primary course
+	 */
 	@Override
 	public void addPrimaryCourse(int studentId, int courseId) {
 		try {
@@ -196,7 +216,11 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 			logger.error(e.getMessage());
 		}
 	}
-	
+	/**
+	 * @param studentId id of student
+	 * @param courseId id of course
+	 * method to add secondary course
+	 */
 	@Override
 	public void addSecondaryCourse(int studentId, int courseId) {
 		try {
@@ -231,7 +255,11 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 			logger.error(e.getMessage());
 		}
 	}
-	
+	/**
+	 * @param studentId id of student
+	 * @param courseId id of course
+	 * method to remove primary course
+	 */
 	@Override
 	public void removePrimaryCourse(int studentId, int courseId) {
 		try {
@@ -260,7 +288,11 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 			logger.error(e.getMessage());
 		}
 	}
-	
+	/**
+	 * @param studentId id of student
+	 * @param courseId id of course
+	 * method to remove secondary course
+	 */
 	@Override 
 	public void removeSecondaryCourse(int studentId, int courseId) {
 		try {
@@ -289,6 +321,11 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 			logger.error(e.getMessage());
 		}
 	}
+
+	/**
+	 * @param studentId
+	 * @return array list of registered primary course
+	 */
 	@Override
 	public ArrayList<Course> getPrimaryRegisteredCourses(int studentId) {
 		ArrayList<Course> primaryCourses = new ArrayList<Course>();
@@ -311,7 +348,11 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 		}
 		return primaryCourses;
 	}
-	
+
+	/**
+	 * @param studentId id of student
+	 * @return array list of secondary registered course
+	 */
 	@Override
 	public ArrayList<Course> getSecondaryRegisteredCourses(int studentId) {
 		ArrayList<Course> secondaryCourses = new ArrayList<Course>();
@@ -334,7 +375,12 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 		}
 		return secondaryCourses;
 	}
-	
+
+	/**
+	 * @param studentId id of student
+	 * @param courseId id of course
+	 * @return boolean: true if student already registered for course
+	 */
 	@Override
 	public boolean alreadyPresent(int studentId,int courseId) {
 		try {
@@ -356,6 +402,10 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 		return true;
 	}
 
+	/**
+	 * @param studentId id of student
+	 * method to delete from semregistration
+	 */
 	@Override
 	public void deleteFromSemiRegistration(int studentId) {
 		// NOT TESTED
@@ -371,7 +421,11 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 			logger.error(e.getMessage());
 		}
 	}
-	
+
+	/**
+	 * @param studentId id of student
+	 * @return number of primary courses
+	 */
 	public int countPrimaryCourses(int studentId) {
 		try {
 			PreparedStatement stmt = null;
@@ -388,6 +442,11 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 		}
 		return 0;
 	}
+
+	/**
+	 * @param studentId id of student
+	 * @return number of secondary courses
+	 */
 	public int countSecondaryCourses(int studentId) {
 		try {
 			PreparedStatement stmt = null;

@@ -12,6 +12,9 @@ import java.util.Vector;
 public class Student extends User{
 	private int rollNo;
 	private boolean registrationStatus;
+	/**
+	 * vector of courses student is enrolled in
+	 */
 	private Vector<Integer> enrolledCourses = new Vector<>();
 	private boolean paymentStatus;
 	private String branch;

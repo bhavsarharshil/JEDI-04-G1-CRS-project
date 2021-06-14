@@ -11,6 +11,9 @@ import java.util.Vector;
  */
 public class Professor extends User {
 	private String department;
+	/**
+	 * vector of courses assigned to professor
+	 */
 	private Vector<String> listOfCourseAssigned = new Vector<String>();
 	
 	public String getDepartment() {

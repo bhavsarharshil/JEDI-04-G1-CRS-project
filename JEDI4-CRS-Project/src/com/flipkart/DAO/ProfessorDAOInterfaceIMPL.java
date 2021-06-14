@@ -22,7 +22,10 @@ public class ProfessorDAOInterfaceIMPL implements ProfessorDAOInterface {
 		}
 		return instance;
 	}
-	
+	/**
+	 * @param id id of professor
+	 * @return Professor bean
+	 */
 	@Override
 	public Professor getProfessorById(int id) {
 		// TODO Auto-generated method stub
@@ -60,7 +63,11 @@ public class ProfessorDAOInterfaceIMPL implements ProfessorDAOInterface {
 	   }
 		return professor;
 	}
-	
+
+	/**
+	 * @param professorID
+	 * @return professor name
+	 */
 	@Override
 	public String getProfessorByIdName(int professorID)
 	{
@@ -85,7 +92,10 @@ public class ProfessorDAOInterfaceIMPL implements ProfessorDAOInterface {
 
 		return professorName;
 	}
-	
+	/**
+	 * @param professor
+	 * @return boolean : true if graded correctly
+	 */
 	@Override
 	public boolean gradeStudents(int courseID, int studentID,String grade) {
 
@@ -131,6 +141,11 @@ public class ProfessorDAOInterfaceIMPL implements ProfessorDAOInterface {
 		return update;
 	}
 
+	/**
+	 * @param courseID id of course
+	 * @param studentID id of student
+	 * method to view grades
+	 */
 	@Override
 	public void viewGrades(int courseID,int studentID) {
 		// TODO Auto-generated method stub
@@ -180,6 +195,10 @@ public class ProfessorDAOInterfaceIMPL implements ProfessorDAOInterface {
 		}
 	}
 
+	/**
+	 * @param profID id of professor
+	 * method to show courses taught by professors
+	 */
 	@Override
 	public void showAssignedCourses(int profID) {
 		// TODO Auto-generated method stub
@@ -227,6 +246,11 @@ public class ProfessorDAOInterfaceIMPL implements ProfessorDAOInterface {
 		}
 	}
 
+	/**
+	 * @param courseID id of course
+	 * @param profID id of professor
+	 * @return boolean:m true if course assigned correctly
+	 */
 	@Override
 	public boolean addAssignedCourse(int courseID,int profID) {
 		// TODO Auto-generated method stub
@@ -272,6 +296,11 @@ public class ProfessorDAOInterfaceIMPL implements ProfessorDAOInterface {
 		return added;
 	}
 
+	/**
+	 * @param courseID id of course
+	 * @param profID id of professor
+	 * @return boolean: true id assigned course removed correctly
+	 */
 	@Override
 	public boolean removeAssignedCourse(int courseID,int profID) {
 		// TODO Auto-generated method stub
@@ -363,6 +392,10 @@ public class ProfessorDAOInterfaceIMPL implements ProfessorDAOInterface {
 		return false;
 	}
 
+	/**
+	 * @param courseID id of course
+	 * @return number of students enrolled
+	 */
 	@Override
 	public int getStudentCount(int courseID) {
 		// TODO Auto-generated method stub
@@ -386,9 +419,13 @@ public class ProfessorDAOInterfaceIMPL implements ProfessorDAOInterface {
 		return 0;
 	}
 
+	/**
+	 * @param courseID
+	 * @return boolean: true if course already taught by some professor
+	 */
 	@Override
 	public boolean getCoursePresence(int courseID) {
-		// TODO Auto-generated method stub
+		// TODO Auto-generated smethod stub
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		try

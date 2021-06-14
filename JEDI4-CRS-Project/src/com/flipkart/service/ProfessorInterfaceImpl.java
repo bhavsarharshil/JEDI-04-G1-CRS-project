@@ -17,7 +17,7 @@ public class ProfessorInterfaceImpl implements ProfessorInterface {
 
 	/**
 	 * @param professor
-	 * @return
+	 * @return boolean : true if graded correctly
 	 */
 	@Override
 	public boolean gradeStudents(Professor professor) {
@@ -63,6 +63,7 @@ public class ProfessorInterfaceImpl implements ProfessorInterface {
 
 	/**
 	 * @param professor
+	 * method to view grades
 	 */
 	@Override
 	public void viewGrades(Professor professor) {
@@ -98,6 +99,7 @@ public class ProfessorInterfaceImpl implements ProfessorInterface {
 
 	/**
 	 * @param professor
+	 * method to show courses taught by professor
 	 */
 	@Override
 	public void showAssignedCourses(Professor professor) {
@@ -114,7 +116,7 @@ public class ProfessorInterfaceImpl implements ProfessorInterface {
 
 	/**
 	 * @param professor
-	 * @return
+	 * @return boolean: true if course assigned correctly
 	 */
 	@Override
 	public boolean addAssignedCourse(Professor professor) {
@@ -152,7 +154,7 @@ public class ProfessorInterfaceImpl implements ProfessorInterface {
 
 	/**
 	 * @param professor
-	 * @return
+	 * @return boolean: true if professor removed from course correctly
 	 */
 	@Override
 	public boolean removeAssignedCourse(Professor professor) {
@@ -189,7 +191,7 @@ public class ProfessorInterfaceImpl implements ProfessorInterface {
 
 	/**
 	 * @param professor
-	 * @return
+	 * @return boolean: true if enrolled students viewed correctly
 	 */
 	@Override
 	public boolean viewEnrolledStudentsInCourse(Professor professor) {
@@ -210,7 +212,7 @@ public class ProfessorInterfaceImpl implements ProfessorInterface {
 			}
 			else
 			{
-				throw new ProfessorException("No student is currently enrolled in the course!!!");
+				throw new StudentCountException("No student is currently enrolled in the course!!!");
 			}
 			
 		}
@@ -219,7 +221,7 @@ public class ProfessorInterfaceImpl implements ProfessorInterface {
 			logger.info("\n\n");
 			logger.error(e.getMessage());
 			logger.info("\n\n");
-		}s
+		}
 		catch (Exception e) {
 			logger.info(e.getMessage());
 		}
@@ -227,8 +229,8 @@ public class ProfessorInterfaceImpl implements ProfessorInterface {
 	}
 
 	/**
-	 * @param id
-	 * @return
+	 * @param id id of professor
+	 * @return Professor bean
 	 */
 	@Override
 	public Professor getProfessorById(int id) {

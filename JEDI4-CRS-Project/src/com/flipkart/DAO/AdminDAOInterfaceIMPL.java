@@ -21,8 +21,8 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 
 	public static Logger logger=Logger.getLogger(AdminDAOInterfaceIMPL.class);
 	/**
-	 * @param id
-	 * @return
+	 * @param id id of professor
+	 * @return Admin bean
 	 */
 	@Override
 	public Admin getAdminById(int id) {
@@ -70,7 +70,9 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 	// Declare the Connection or prepaidstatement variable here 
    	Connection conn = null;
    	PreparedStatement stmt = null;
-	   	
+	/**
+	 * method to view report card
+	 */
    	@Override
    	public void viewReportCard(Student student) {
 		try {
@@ -90,7 +92,9 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 			logger.error(e.getMessage());
 		}
 	}
-
+	/**
+	 * method to add professor
+	 */
 	@Override
 	public boolean addProfessor(Professor professor) {
 		// TODO Auto-generated method stub
@@ -115,7 +119,9 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 		}
 		return false;
 	}
-
+	/**
+	 *method to remove professor
+	 */
 	@Override
 	public boolean removeProfessor(Professor professor) {
 		// TODO Auto-generated method stub
@@ -139,8 +145,7 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 	}
 
 	/**
-	 * @param student
-	 * @return
+	 *method to remove student
 	 */
 		@Override
 	public boolean removeStudent(Student student) {
@@ -163,7 +168,9 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 		}
 		return false;
 	}
-
+	/**
+	 * method to add course
+	 */
 	@Override
 	public boolean addCourse(Course course) {
 		// TODO Auto-generated method stub
@@ -187,7 +194,9 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 		}
 		return false;
 	}
-
+	/**
+	 * method to remove course
+	 */
 	@Override
 	public boolean removeCourse(Course course) {
 		// TODO Auto-generated method stub
@@ -209,7 +218,9 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 		}
 		return false;
 	}
-
+	/**
+	 *method to approve courses of students
+	 */
 	@Override
 	public void approveStudents() {
 		// TODO Auto-generated method stub
@@ -246,7 +257,9 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 			logger.error(e.getMessage());
 		}
 	}
-
+	/**
+	 *method to view unapproved students
+	 */
 	@Override
 	public void viewUnapprovedStudent() {
 		PreparedStatement stmt=null;
@@ -264,7 +277,9 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 			logger.error(e.getMessage());
 		}
 	}
-
+	/**
+	 *method to approve registration of students
+	 */
 	@Override
 	public void approveStudentsRequest(int id) {
 		PreparedStatement stmt=null;
@@ -280,7 +295,9 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 			logger.error(e.getMessage());
 		}
 	}
-
+	/**
+	 *method to view all professors
+	 */
 	@Override
 	public void viewProfessors() {
 		// TODO Auto-generated method stub
@@ -299,7 +316,9 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 			logger.error(e.getMessage());
 		}
 	}
-
+	/**
+	 *method to view all students
+	 */
 	@Override
 	public void viewStudents() {
 		// TODO Auto-generated method stub
@@ -318,7 +337,9 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 			logger.error(e.getMessage());
 		}
 	}
-
+	/**
+	 *method to view all courses
+	 */
 	@Override
 	public void viewCourses() {
 		// TODO Auto-generated method stub
@@ -328,7 +349,7 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 			stmt=conn.prepareStatement(SQLQueriesConstant.SELECT_COURSES);
 			ResultSet rs=stmt.executeQuery();
 			while(rs.next()) {
-				System.out.println(String.valueOf(rs.getInt("id"))+"\t"+rs.getString("name"));
+				System.out.println(rs.getInt("id") +"\t"+rs.getString("name"));
 			}
 			System.out.println("\n\n");
 		}catch (SQLException e) {

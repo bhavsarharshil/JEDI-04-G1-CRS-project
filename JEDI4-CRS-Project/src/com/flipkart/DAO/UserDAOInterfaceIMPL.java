@@ -10,6 +10,12 @@ import com.flipkart.constant.SQLQueriesConstant;
 import com.flipkart.utils.DBConnection;
 public class UserDAOInterfaceIMPL implements UserDAOInterface{
 	public static Logger logger=Logger.getLogger(UserDAOInterface.class);
+
+	/**
+	 * @param id id of user
+	 * @param password password of user
+	 * @return role of user admin, student or professor
+	 */
 	@Override
 	public String verifyLoginCredentials(int id, String password) {
 		PreparedStatement stmt = null;

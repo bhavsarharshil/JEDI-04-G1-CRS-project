@@ -13,6 +13,9 @@ import com.flipkart.constant.PairCourseChar;
  */
 public class ReportCard {
 	private int studentId;
+	/**
+	 * array list containing grades and corresponding course
+	 */
 	private ArrayList<PairCourseChar> grades = new ArrayList<PairCourseChar>();
 	
 	

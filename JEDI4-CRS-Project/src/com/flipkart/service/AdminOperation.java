@@ -24,7 +24,7 @@ public class AdminOperation implements AdminInterface {
 	Scanner sc=new Scanner(System.in);
 
 	/**
-	 *
+	 * method to add course
 	 */
 	@Override
 	public void addCourse() {
@@ -51,7 +51,7 @@ public class AdminOperation implements AdminInterface {
 	}
 
 	/**
-	 *
+	 * method to remove course
 	 */
 	@Override
 	public void removeCourse() {
@@ -72,7 +72,7 @@ public class AdminOperation implements AdminInterface {
 	}
 
 	/**
-	 *
+	 * method to generate report card
 	 */
 	@Override
 	public void generateReportCard() {
@@ -93,7 +93,7 @@ public class AdminOperation implements AdminInterface {
 	}
 
 	/**
-	 *
+	 * method to add professor
 	 */
 	@Override
 	public void addProfessor() {
@@ -125,7 +125,7 @@ public class AdminOperation implements AdminInterface {
 	}
 
 	/**
-	 *
+	 *method to remove professor
 	 */
 	@Override
 	public void removeProfessor() {
@@ -146,7 +146,7 @@ public class AdminOperation implements AdminInterface {
 	}
 
 	/**
-	 *
+	 * method to add student
 	 */
 	@Override
 	public void addStudent() {
@@ -156,7 +156,7 @@ public class AdminOperation implements AdminInterface {
 	}
 
 	/**
-	 *
+	 *method to remove student
 	 */
 	@Override
 	public void removeStudent() {
@@ -177,8 +177,8 @@ public class AdminOperation implements AdminInterface {
 	}
 
 	/**
-	 * @param id
-	 * @return
+	 * @param id id of professor
+	 * @return Admin bean
 	 */
 	@Override
 	public Admin getAdminById(int id) {
@@ -187,7 +187,7 @@ public class AdminOperation implements AdminInterface {
 	}
 
 	/**
-	 *
+	 *method to approve registration of students
 	 */
 	@Override
 	public void approveStudentsRequest() {
@@ -208,7 +208,7 @@ public class AdminOperation implements AdminInterface {
 	}
 
 	/**
-	 *
+	 *method to approve courses of students
 	 */
 	@Override
 	public void approveStudents() {
@@ -217,7 +217,7 @@ public class AdminOperation implements AdminInterface {
 	}
 
 	/**
-	 *
+	 *method to view all professors
 	 */
 	public void viewProfessors() {
 		// TODO Auto-generated method stub
@@ -225,7 +225,7 @@ public class AdminOperation implements AdminInterface {
 	}
 
 	/**
-	 *
+	 *method to view all students
 	 */
 	public void viewStudents() {
 		// TODO Auto-generated method stub
@@ -233,7 +233,7 @@ public class AdminOperation implements AdminInterface {
 	}
 
 	/**
-	 *
+	 *method to view all courses
 	 */
 	public void viewCourses() {
 		// TODO Auto-generated method stub

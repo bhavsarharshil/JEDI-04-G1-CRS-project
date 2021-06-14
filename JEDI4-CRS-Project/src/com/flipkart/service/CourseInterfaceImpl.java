@@ -8,28 +8,9 @@ import com.flipkart.bean.*;
 
 public class CourseInterfaceImpl implements CourseInterface {
 
-	/**
-	 * @param courseId
-	 * @return
-	 */
-	@Override
-	public Vector<Student> studentsEnrolled(int courseId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	/**
-	 * @param courseId
-	 * @return
-	 */
-	@Override
-	public Course getCourseById(int courseId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	/**
-	 *
+	 * method to view course catalog
 	 */
 	@Override
 	public void viewCourseCatalog() {
@@ -38,7 +19,7 @@ public class CourseInterfaceImpl implements CourseInterface {
 		CoursesDAOInterfaceIMPL courseDAOInterface=new CoursesDAOInterfaceIMPL();
 		ArrayList<Course> courseArray=courseDAOInterface.getAllCourses();
 		for(Course i:courseArray) {
-			System.out.println(String.valueOf(i.getCourseID())+"\t"+i.getCourseName()+"\t"+String.valueOf(i.getCredits()));
+			System.out.println(i.getCourseID() +"\t"+i.getCourseName()+"\t"+ i.getCredits());
 		}
 	}
 	

@@ -8,7 +8,7 @@ package com.flipkart.exception;
  *
  */
 public class ProfessorException extends Exception{
-	//private static final long serialVersionUID = 3L;
+
 	private String message;
 	
 	public ProfessorException(String message) {

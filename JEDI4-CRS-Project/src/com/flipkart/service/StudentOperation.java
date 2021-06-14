@@ -26,15 +26,16 @@ public class StudentOperation implements StudentInterface {
 
 	StudentDAOInterfaceIMPL studentDaoOperation = StudentDAOInterfaceIMPL.getInstance();
 
-    	CoursesDAOInterfaceIMPL coursesDaoOperation = CoursesDAOInterfaceIMPL.getInstance();
-    
-    	ProfessorDAOInterfaceIMPL professorDAOOperation = ProfessorDAOInterfaceIMPL.getInstance();
-    	private static Logger logger = Logger.getLogger(StudentOperation.class);
+	CoursesDAOInterfaceIMPL coursesDaoOperation = CoursesDAOInterfaceIMPL.getInstance();
+
+	ProfessorDAOInterfaceIMPL professorDAOOperation = ProfessorDAOInterfaceIMPL.getInstance();
+
+	private static Logger logger = Logger.getLogger(StudentOperation.class);
 
 	AdminInterface adminI = new AdminOperation();
 
 	/**
-	 *
+	 * method to show courses
 	 */
 	@Override
 	public void showCourses() {
@@ -59,8 +60,8 @@ public class StudentOperation implements StudentInterface {
 	}
 
 	/**
-	 * @param studentId
-	 * @return
+	 * @param studentId id of student
+	 * @return Array list of grades
 	 */
 	@Override
 	public ArrayList<Grades> viewGrades(int studentId) {
@@ -85,8 +86,8 @@ public class StudentOperation implements StudentInterface {
 	}
 
 	/**
-	 * @param student
-	 * @param method
+	 * @param student Student bean
+	 * @param method method of payment
 	 */
 	@Override
 	public void makePayment(Student student, String method) {
@@ -100,29 +101,11 @@ public class StudentOperation implements StudentInterface {
 		// TODO Auto-generated method stub
 	}
 
-	/**
-	 * @param courseCart
-	 * @param studentId
-	 * @return
-	 */
-	@Override
-	public boolean registerCourses(ArrayList<Integer> courseCart, int studentId) {
-		System.out.println("REGISTRATION COMPLETE");
-		/*try {
-//		ArrayList<Course> primary = stdao.getPrimaryRegisteredCourses(studentId);
-//		ArrayList<Course> secondary = stdao.getSecondaryRegisteredCourses(studentId);
-//		adminI.approveStudent(studentId,primary,secondary);
-//		stdao.deleteFromSemiRegistration(studentId);
-		}catch(Exception e) {
-			logger.error(e.getMessage());
-		}*/
-		return false;
-	}
 
 	/**
-	 * @param studentId
-	 * @param courseId
-	 * @return
+	 * @param studentId id of student
+	 * @param courseId id of course
+	 * @return boolean: true if primary course added correctly
 	 */
 	@Override
 	public boolean addPrimaryCourse(int studentId, int courseId) {
@@ -136,9 +119,9 @@ public class StudentOperation implements StudentInterface {
 	}
 
 	/**
-	 * @param studentId
-	 * @param courseId
-	 * @return
+	 * @param studentId id of student
+	 * @param courseId id of course
+	 * @return boolean: true if primary course removed correctly
 	 */
 	@Override
 	public boolean removePrimaryCourse(int studentId, int courseId) {
@@ -152,9 +135,9 @@ public class StudentOperation implements StudentInterface {
 	}
 
 	/**
-	 * @param studentId
-	 * @param courseId
-	 * @return
+	 * @param studentId id of student
+	 * @param courseId id of course
+	 * @return boolean: true if secondary course added correctly
 	 */
 	@Override
 	public boolean addSecondaryCourse(int studentId, int courseId) {
@@ -168,9 +151,9 @@ public class StudentOperation implements StudentInterface {
 	}
 
 	/**
-	 * @param studentId
-	 * @param courseId
-	 * @return
+	 * @param studentId id of student
+	 * @param courseId id of course
+	 * @return boolean true: if secondary course removed correctly
 	 */
 	@Override
 	public boolean removeSecondaryCourse(int studentId, int courseId) {
@@ -184,8 +167,8 @@ public class StudentOperation implements StudentInterface {
 	}
 
 	/**
-	 * @param id
-	 * @return
+	 * @param id id of student
+	 * @return Student bean
 	 */
 	@Override
 	public Student getStudentById(int id) {
@@ -194,7 +177,7 @@ public class StudentOperation implements StudentInterface {
 	}
 
 	/**
-	 *
+	 * method to add student
 	 */
 	@Override
 	public void addStudent() {
@@ -229,7 +212,8 @@ public class StudentOperation implements StudentInterface {
 	}
 
 	/**
-	 * @param studentId
+	 * @param studentId id of student
+	 * method to view primary registered courses
 	 */
 	@Override
 	public void viewPrimaryRegisteredCourses(int studentId) {
@@ -249,7 +233,8 @@ public class StudentOperation implements StudentInterface {
 	}
 
 	/**
-	 * @param studentId
+	 * @param studentId id of student
+	 * method to view primary registered courses
 	 */
 	@Override
 	public void viewSecondaryRegisteredCourses(int studentId) {

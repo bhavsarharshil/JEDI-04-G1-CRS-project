@@ -33,33 +33,7 @@ public class VerificationSystemOperation implements VerificationSystem {
 		return null;
 	}
 
-	/**
-	 * @param id
-	 * @param email
-	 * @param password
-	 * @param name
-	 * @return
-	 */
-	@Override
-	public boolean registerStudent(int id, String email, String password, String name) {
-		// TODO Auto-generated method stub
-		System.out.println("student register");
-		return false;
-	}
 
-	/**
-	 * @param id
-	 * @param email
-	 * @param password
-	 * @param name
-	 * @return
-	 */
-	@Override
-	public boolean registerProfessor(int id, String email, String password, String name) {
-		// TODO Auto-generated method stub
-		System.out.println("prof register");
-		return false;
-	}
 	
 	
 }

@@ -16,7 +16,10 @@ public class Course {
 	
 	protected String courseName;
     private int credits;
-    
+
+	/**
+	 * list of students enrolled in course
+	 */
     ArrayList<PairStudentProfessor> listOfEnrolledStudents = new ArrayList<PairStudentProfessor>();
     private int professorAllotted;
 
