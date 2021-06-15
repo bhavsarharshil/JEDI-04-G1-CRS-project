@@ -46,7 +46,7 @@ public class CoursesDAOInterfaceIMPL implements CoursesDAOInterface {
 			
 			connection = DBConnection.getConnection();
 			ps = connection.prepareStatement(SQLQueriesConstant.GET_ALL_COURSES_QUERY);
-
+			
 			ResultSet resultSet = ps.executeQuery();
 
 			while(resultSet.next()){
@@ -54,7 +54,6 @@ public class CoursesDAOInterfaceIMPL implements CoursesDAOInterface {
 				course.setCourseID(resultSet.getInt("id"));
 				course.setCourseName(resultSet.getString("name"));
 				course.setCredits(resultSet.getInt("credits"));
-				course.setProfessorAllotted(resultSet.getInt("profId"));
 				courses.add(course);
 			}
 		}

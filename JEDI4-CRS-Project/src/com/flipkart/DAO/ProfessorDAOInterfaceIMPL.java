@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.LogRecord;
 
 import org.apache.log4j.Logger;
 
@@ -48,20 +49,10 @@ public class ProfessorDAOInterfaceIMPL implements ProfessorDAOInterface {
 				professor.setName(rs.getString("name"));
 			}
 		} catch (SQLException e) {
-			logger.info(e.getMessage());
+			logger.error("\n"+e.getMessage()+"\n");
 		} catch (Exception e) {
-			logger.info(e.getMessage());
+			logger.error("\n"+e.getMessage()+"\n");
 		}
-		finally{
-		      try{
-		         if(stmt!=null)
-		        	 stmt.close();
-		      } 
-		      catch(SQLException se2){
-		    	  logger.error(se2.getMessage());
-		      }
-		      
-	   }
 		return professor;
 	}
 
@@ -86,9 +77,9 @@ public class ProfessorDAOInterfaceIMPL implements ProfessorDAOInterface {
 				professorName = resultSet.getString("name");
 			}
 		} catch (SQLException e) {
-			logger.info(e.getMessage());
+			logger.error("\n"+e.getMessage()+"\n");
 		} catch (Exception e) {
-			logger.info(e.getMessage());
+			logger.error("\n"+e.getMessage()+"\n");
 		}
 
 		return professorName;
@@ -115,33 +106,15 @@ public class ProfessorDAOInterfaceIMPL implements ProfessorDAOInterface {
 			stmt.setInt(2,courseID);
 			stmt.setString(3, grade);
 			stmt.executeUpdate();
-
-			stmt.close();
-			conn.close();
+			
 			update=true;
 			System.out.println("Grade added successfully\n\n");
 
-		}catch(SQLException se){
-			//Handle errors for JDBC
-			logger.info(se.getMessage());
+		}catch(SQLException e){
+			logger.error("\n"+e.getMessage()+"\n");
 		}catch(Exception e){
-			//Handle errors for Class.forName
-			logger.info(e.getMessage());
-		}finally{
-			//finally block used to close resources
-			try{
-				if(stmt!=null)
-					stmt.close();
-			}catch(SQLException se2){
-				logger.info(se2.getMessage());
-			}// nothing we can do
-			try{
-				if(conn!=null)
-					conn.close();
-			}catch(SQLException se){
-				logger.info(se.getMessage());
-			}//end finally try
-		}//end try
+			logger.error("\n"+e.getMessage()+"\n");
+		}
 		return update;
 	}
 
@@ -167,11 +140,11 @@ public class ProfessorDAOInterfaceIMPL implements ProfessorDAOInterface {
 			stmt.setInt(1,courseID);
 			stmt.setInt(2,studentID);
 			ResultSet rs = stmt.executeQuery();
-			if(!rs.isBeforeFirst()) {
+			if(!rs.next()) {
 				System.out.println("\nThere are no grades to show\n");
 			}
 			else {
-				while(rs.next())
+				do
 				{
 					courseID=rs.getInt("courseid");
 					studentID=rs.getInt("studentid");
@@ -179,30 +152,15 @@ public class ProfessorDAOInterfaceIMPL implements ProfessorDAOInterface {
 					System.out.print("courseID: " + courseID);
 					System.out.print(" stduentID: " + studentID);
 					System.out.println(" grade: " + grade);
-				}
+				}while(rs.next());
 			}
-			stmt.close();
-			conn.close();
+		
 
-		}catch(SQLException se){
-			logger.info(se.getMessage());
+		}catch(SQLException e){
+			logger.error("\n"+e.getMessage()+"\n");
 		}catch(Exception e){
 
-			logger.info(e.getMessage());
-		}finally{
-
-			try{
-				if(stmt!=null)
-					stmt.close();
-			}catch(SQLException se2){
-				logger.info(se2.getMessage());
-			}
-			try{
-				if(conn!=null)
-					conn.close();
-			}catch(SQLException se){
-				logger.info(se.getMessage());
-			}
+			logger.error("\n"+e.getMessage()+"\n");
 		}
 	}
 
@@ -222,17 +180,6 @@ public class ProfessorDAOInterfaceIMPL implements ProfessorDAOInterface {
 					
 					conn = DBConnection.getConnection();
 					
-					String sql2 =SQLQueriesConstant.GET_PROFCOURSE_COUNT;
-					stmt = conn.prepareStatement(sql2);
-					stmt.setInt(1,profID);
-					
-					ResultSet rs2 = stmt.executeQuery();
-					int count =rs2.getInt("total");
-					if(count==0)
-					{
-						throw new NoAssignedCourseException("NO courses are assigned");
-					}
-					
 					String sql =SQLQueriesConstant.GET_PROF_WITH_ID;
 					stmt = conn.prepareStatement(sql);
 					stmt.setInt(1,profID);
@@ -245,35 +192,15 @@ public class ProfessorDAOInterfaceIMPL implements ProfessorDAOInterface {
 						System.out.println("ID: " + courseID1);
 					}
 
-					stmt.close();
-					conn.close();
-
-				}
-				catch(NoAssignedCourseException e)
-				{
-					logger.info(e.getMessage());
-				}
 				
-				catch(SQLException se){
 
-					logger.info(se.getMessage());
+				}
+				catch(SQLException e){
+
+					logger.error("\n"+e.getMessage()+"\n");
 				}catch(Exception e){
 
-					logger.info(e.getMessage());
-				}finally{
-
-					try{
-						if(stmt!=null)
-							stmt.close();
-					}catch(SQLException se2){
-						logger.info(se2.getMessage());
-					}
-					try{
-						if(conn!=null)
-							conn.close();
-					}catch(SQLException se){
-						logger.info(se.getMessage());
-					}
+					logger.error("\n"+e.getMessage()+"\n");
 				}
 	}
 
@@ -298,31 +225,15 @@ public class ProfessorDAOInterfaceIMPL implements ProfessorDAOInterface {
 			stmt.setInt(1,courseID);
 			stmt.setInt(2,profID);
 			stmt.executeUpdate();
-			stmt.close();
-			conn.close();
+		
 			added=true;
 			System.out.println("Course assigned successfully");
 
-		}catch(SQLException se){
-			logger.info(se.getMessage());
+		}catch(SQLException e){
+			logger.error("\n"+e.getMessage()+"\n");
 		}catch(Exception e){
 
-			logger.info(e.getMessage());
-		}finally{
-
-			try{
-				if(stmt!=null)
-					stmt.close();
-			}
-			catch(SQLException se2){
-				logger.info(se2.getMessage());
-			}
-			try{
-				if(conn!=null)
-					conn.close();
-			}catch(SQLException se){
-				logger.info(se.getMessage());
-			}
+			logger.error("\n"+e.getMessage()+"\n");
 		}
 		return added;
 	}
@@ -346,32 +257,16 @@ public class ProfessorDAOInterfaceIMPL implements ProfessorDAOInterface {
 			stmt.setInt(1,courseID);
 			stmt.setInt(2,profID);
 			stmt.executeUpdate();
-			stmt.close();
-			conn.close();
+			
 			remove=true;
 			System.out.println("Course removed successfully");
 
-		}catch(SQLException se){
+		}catch(SQLException e){
 
-			logger.info(se.getMessage());
+			logger.error("\n"+e.getMessage()+"\n");
 		}catch(Exception e){
 
-			logger.info(e.getMessage());
-		}finally{
-
-			try{
-				if(stmt!=null)
-					stmt.close();
-			}catch(SQLException se2)
-			{
-				logger.info(se2.getMessage());
-			}
-			try{
-				if(conn!=null)
-					conn.close();
-			}catch(SQLException se){
-				logger.info(se.getMessage());
-			}
+			logger.error("\n"+e.getMessage()+"\n");
 		}
 		return remove;
 	}
@@ -396,29 +291,13 @@ public class ProfessorDAOInterfaceIMPL implements ProfessorDAOInterface {
 				System.out.println("ID: " + studentID1);
 			}
 
-			stmt.close();
-			conn.close();
+	
 
-		}catch(SQLException se){
-			logger.info(se.getMessage());
+		}catch(SQLException e){
+			logger.error("\n"+e.getMessage()+"\n");
 		}catch(Exception e){
 
-			logger.info(e.getMessage());
-		}finally{
-
-			try{
-				if(stmt!=null)
-					stmt.close();
-			}catch(SQLException se2)
-			{
-				logger.info(se2.getMessage());
-			}
-			try{
-				if(conn!=null)
-					conn.close();
-			}catch(SQLException se){
-				logger.info(se.getMessage());
-			}
+			logger.error("\n"+e.getMessage()+"\n");
 		}
 		return false;
 	}
@@ -439,13 +318,13 @@ public class ProfessorDAOInterfaceIMPL implements ProfessorDAOInterface {
 			stmt = conn.prepareStatement(sql);
 			stmt.setInt(1,courseID);
 			ResultSet rs = stmt.executeQuery();
-			
+			rs.next();
 			int count = rs.getInt("total");
 			
 			return count ; 
 		}
-		catch(SQLException se){
-			logger.info(se.getMessage());
+		catch(SQLException e){
+			logger.error("\n"+e.getMessage()+"\n");
 		}
 		return 0;
 	}
@@ -472,6 +351,27 @@ public class ProfessorDAOInterfaceIMPL implements ProfessorDAOInterface {
 		}
 		catch(SQLException se){
 			logger.info(se.getMessage());
+		};
+		return false;
+	}
+	@Override
+	public boolean NoCoursePresence(int profID) {
+		// TODO Auto-generated method stub
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		try
+		{
+			conn = DBConnection.getConnection();
+			String sql = SQLQueriesConstant.GET_PROFCOURSE_COUNT;
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1,profID);
+			ResultSet rs = stmt.executeQuery();
+			
+			boolean status = rs.next();
+			return status;
+		}
+		catch(SQLException e){
+			logger.error("\n"+e.getMessage()+"\n");
 		};
 		return false;
 	}

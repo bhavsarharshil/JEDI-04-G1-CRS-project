@@ -14,4 +14,5 @@ public interface ProfessorDAOInterface {
 	
 	public int getStudentCount(int courseID);
 	public boolean getCoursePresence(int courseID);
+	public boolean NoCoursePresence(int profID);
 }

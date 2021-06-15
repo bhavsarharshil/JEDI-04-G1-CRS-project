@@ -180,3 +180,53 @@ Invalid Credentials
 17:14:57,499  INFO StudentDAOInterface,main:513 - -------------------------------------------------------------------------------------------------------------------
 17:14:57,501  INFO StudentDAOInterface,main:514 - 1        		Netbanking 		null			2021-06-15		1100     
 
+19:43:50,198 ERROR CoursesDAOInterfaceIMPL,main:65 - 
+19:45:39,235  INFO AdminDAOInterfaceIMPL,main:321 - -----------------------------------------------------------------------------
+19:45:39,249  INFO AdminDAOInterfaceIMPL,main:322 - PROFESSOR ID                 PROFESSOR NAME 
+19:45:39,249  INFO AdminDAOInterfaceIMPL,main:323 - -----------------------------------------------------------------------------
+19:45:39,250  INFO AdminDAOInterfaceIMPL,main:326 -        301                   professor301 
+19:45:39,250  INFO AdminDAOInterfaceIMPL,main:328 - 
+
+
+19:47:34,232 ERROR ProfessorInterfaceImpl,main:92 - 
+No Students in the given course!!!
+
+19:47:39,574 ERROR ProfessorInterfaceImpl,main:123 - 
+NO courses are assigned to you
+
+19:49:30,464 ERROR ProfessorInterfaceImpl,main:165 - 
+null
+
+19:50:54,254 ERROR ProfessorInterfaceImpl,main:123 - 
+NO courses are assigned to you
+
+19:51:08,369 ERROR ProfessorInterfaceImpl,main:58 - 
+No Students to Grade!!!
+
+19:53:47,800 ERROR CoursesDAOInterfaceIMPL,main:62 - Column 'profId' not found.
+19:55:26,782 ERROR ProfessorInterfaceImpl,main:123 - 
+NO courses are assigned to you
+
+19:56:34,623 ERROR ProfessorCRSMenu,main:48 - Invalid Choice
+19:57:13,694 ERROR StudentOperation,main:226 - 
+null
+
+19:58:25,833  INFO AdminDAOInterfaceIMPL,main:278 - -----------------------------------------------------------------------------
+19:58:25,836  INFO AdminDAOInterfaceIMPL,main:279 -    USER ID                      USER NAME 
+19:58:25,837  INFO AdminDAOInterfaceIMPL,main:280 - -----------------------------------------------------------------------------
+19:58:25,837  INFO AdminDAOInterfaceIMPL,main:282 -        205                     student205 
+19:58:25,837  INFO AdminDAOInterfaceIMPL,main:284 - 
+
+
+19:58:52,580  INFO StudentDAOInterface,main:222 - Course 501 added successfully
+
+19:59:13,620 ERROR StudentDAOInterface,main:147 - 
+
+There are no payments to show
+
+
+20:01:01,214  INFO StudentDAOInterface,main:133 - Amount to be paid :5000
+20:01:01,225  INFO StudentDAOInterface,main:139 - Payment done successfully!
+
+20:01:26,016  INFO StudentDAOInterface,main:129 - Payment is already done !
+

@@ -1,9 +1,14 @@
 package com.flipkart.service;
 
+import com.flipkart.DAO.CoursesDAOInterface;
+import com.flipkart.DAO.CoursesDAOInterfaceIMPL;
 import com.flipkart.DAO.ProfessorDAOInterface;
 import com.flipkart.DAO.ProfessorDAOInterfaceIMPL;
+import com.flipkart.DAO.UserDAOInterface;
+import com.flipkart.DAO.UserDAOInterfaceIMPL;
 import com.flipkart.bean.Professor;
 import com.flipkart.exception.CourseAssignedException;
+import com.flipkart.exception.NoAssignedCourseException;
 import com.flipkart.exception.ProfessorException;
 import com.flipkart.exception.StudentCountException;
 
@@ -31,17 +36,14 @@ public class ProfessorInterfaceImpl implements ProfessorInterface {
 			showAssignedCourses(professor);
 			System.out.print("Enter the course ID : ");
 			courseID=sc.nextInt();
+			System.out.println("\n");
 			professorDAOInterface.viewEnrolledStudentsInCourse(courseID);
 			System.out.print("Enter the StudentID : ");
 			studentID=sc.nextInt();
 			System.out.print("Enter the grade : ");
 			grade=sc.next();
-			//		sc.close();
-			
-			//throw new ProfessorException("HAHAAH");
 			int no_students = 0;
 			no_students = professorDAOInterface.getStudentCount(courseID);
-			//insert DAO func
 			if(no_students>0)
 			{
 				return professorDAOInterface.gradeStudents(courseID, studentID, grade);
@@ -53,12 +55,10 @@ public class ProfessorInterfaceImpl implements ProfessorInterface {
 		}
 		catch(StudentCountException e)
 		{
-			logger.info("\n\n");
-			logger.error(e.getMessage());
-			logger.info("\n\n");
+			logger.error("\n"+e.getMessage()+"\n");
 		}
 		catch (Exception e) {
-			logger.info(e.getMessage());
+			logger.error("\n"+e.getMessage()+"\n");
 		}
 		return false;
 	}
@@ -89,12 +89,10 @@ public class ProfessorInterfaceImpl implements ProfessorInterface {
 		}
 		catch(StudentCountException e)
 		{
-			logger.info("\n\n");
-			logger.error(e.getMessage());
-			logger.info("\n\n");
+			logger.error("\n"+e.getMessage()+"\n");
 		}
 		catch (Exception e) {
-			logger.info(e.getMessage());
+			logger.error("\n"+e.getMessage()+"\n");
 		}
 //		sc.close();
 	}
@@ -108,10 +106,25 @@ public class ProfessorInterfaceImpl implements ProfessorInterface {
 		// TODO Auto-generated method stub
 		try 
 		{
-			professorDAOInterface.showAssignedCourses(professor.getId());
+			int profID=professor.getId();
+			boolean coursePresence = false;
+			coursePresence = professorDAOInterface.NoCoursePresence(profID);
+			if(coursePresence == true)
+			{
+				professorDAOInterface.showAssignedCourses(profID);
+			}
+			else
+			{
+				throw new 	NoAssignedCourseException("NO courses are assigned to you");
+			}
 		}
-		catch (Exception e) {
-			logger.info(e.getMessage());
+		catch(NoAssignedCourseException e)
+		{
+			logger.error("\n"+e.getMessage()+"\n");
+		}
+		catch (Exception e) 
+		{
+			logger.error("\n"+e.getMessage()+"\n");
 		}
 
 	}
@@ -123,13 +136,15 @@ public class ProfessorInterfaceImpl implements ProfessorInterface {
 	@Override
 	public boolean addAssignedCourse(Professor professor) {
 		// TODO Auto-generated method stub
-		
+		CourseInterfaceImpl courseInterface =new CourseInterfaceImpl();
 		try{
-			int courseID,profID;
-		
-			System.out.println("enter the courseID");
+			
+			courseInterface.viewCourseCatalog();
+			int courseID;
+			System.out.print(" Enter the courseID : ");
 			Scanner sc= new Scanner(System.in);
 			courseID=sc.nextInt();
+			
 			boolean coursePresence = false;
 			coursePresence = professorDAOInterface.getCoursePresence(courseID);
 			if(coursePresence == false)
@@ -144,12 +159,10 @@ public class ProfessorInterfaceImpl implements ProfessorInterface {
 		}
 		catch(CourseAssignedException e)
 		{
-			logger.info("\n\n");
-			logger.error(e.getMessage());
-			logger.info("\n\n");
+			logger.error("\n"+e.getMessage()+"\n");
 		}
 		catch (Exception e) {
-			logger.info(e.getMessage());
+			logger.error("\n"+e.getMessage()+"\n");
 		}
 		return false;
 	}
@@ -181,12 +194,10 @@ public class ProfessorInterfaceImpl implements ProfessorInterface {
 		}
 		catch(CourseAssignedException e)
 		{
-			logger.info("\n\n");
-			logger.error(e.getMessage());
-			logger.info("\n\n");
+			logger.error("\n"+e.getMessage()+"\n");
 		}
 		catch (Exception e) {
-			logger.info(e.getMessage());
+			logger.error("\n"+e.getMessage()+"\n");
 		}
 		return false;
 	}
@@ -219,13 +230,11 @@ public class ProfessorInterfaceImpl implements ProfessorInterface {
 			
 		}
 		catch(StudentCountException e)
-		{
-			logger.info("\n\n");
-			logger.error(e.getMessage());
-			logger.info("\n\n");
+		{ 
+			logger.error("\n"+e.getMessage()+"\n");
 		}
 		catch (Exception e) {
-			logger.info(e.getMessage());
+			logger.error("\n"+e.getMessage()+"\n");
 		}
 		return false;
 	}
@@ -242,7 +251,7 @@ public class ProfessorInterfaceImpl implements ProfessorInterface {
 			return professorDAOInterface.getProfessorById(id);
 		}
 		catch (Exception e) {
-			logger.info(e.getMessage());
+			logger.error("\n"+e.getMessage()+"\n");
 		}
 		return null;
 	}
