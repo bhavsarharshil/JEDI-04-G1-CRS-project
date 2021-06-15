@@ -127,9 +127,9 @@ public class ProfessorDAOInterfaceIMPL implements ProfessorDAOInterface {
 	 * method to view grades
 	 */
 	@Override
-	public Grade viewGrades(int courseID,int studentID) {
+	public Grades viewGrades(int courseID,int studentID) {
 		// TODO Auto-generated method stub
-		Grades grade ;
+		Grades grade = null;
 		Connection conn = null;
 		PreparedStatement stmt = null;
 
@@ -145,6 +145,7 @@ public class ProfessorDAOInterfaceIMPL implements ProfessorDAOInterface {
 				logger.info("\nThere are no grades to show\n");
 			}
 			else {
+				grade = new Grades();
 				do
 				{
 					grade.setCourseID(rs.getInt("courseid"));
@@ -172,28 +173,23 @@ public class ProfessorDAOInterfaceIMPL implements ProfessorDAOInterface {
 	public ArrayList<Integer> showAssignedCourses(int profID) {
 		// TODO Auto-generated method stub
 		// TODO Auto-generated method stub
-		ArrayList<Integer> courses;
+		ArrayList<Integer> courses = null;;
 		Connection conn = null;
 		PreparedStatement stmt = null;
 
-		try{
-
-					
-			conn = DBConnection.getConnection();
-					
-			String sql =SQLQueriesConstant.GET_PROF_WITH_ID;
-			stmt = conn.prepareStatement(sql);
-			stmt.setInt(1,profID);
-					
-			ResultSet rs = stmt.executeQuery();
-			while(rs.next())
-			{
-				int courseID1  = rs.getInt("courseid");
-				courses.add(courseID1);
-			}
-
-				
-
+		try{	
+				conn = DBConnection.getConnection();		
+				String sql =SQLQueriesConstant.GET_PROF_WITH_ID;
+				stmt = conn.prepareStatement(sql);
+				stmt.setInt(1,profID);
+						
+				ResultSet rs = stmt.executeQuery();
+				courses = new ArrayList<Integer>();
+				while(rs.next())
+				{
+					int courseID1  = rs.getInt("courseid");
+					courses.add(courseID1);
+				}
 			}
 			catch(SQLException e){
 
@@ -276,23 +272,19 @@ public class ProfessorDAOInterfaceIMPL implements ProfessorDAOInterface {
 		// TODO Auto-generated method stub
 		Connection conn = null;
 		PreparedStatement stmt = null;
-		ArrayList<Integer> students;
+		ArrayList<Integer> students = null;
 		try{
-
-			
 			conn = DBConnection.getConnection();
 			String sql = SQLQueriesConstant.SELECT_FROM_STUDENTCOURSE;
 			stmt = conn.prepareStatement(sql);
 			stmt.setInt(1,courseID);
 			ResultSet rs = stmt.executeQuery();
+			students = new ArrayList<Integer>();
 			while(rs.next())
 			{
 				int studentID1  = rs.getInt("studentid");
 				students.add(studentID1);
 			}
-
-	
-
 		}catch(SQLException e){
 			logger.error("\n"+e.getMessage()+"\n");
 		}catch(Exception e){

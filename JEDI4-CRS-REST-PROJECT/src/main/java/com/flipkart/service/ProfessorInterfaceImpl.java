@@ -222,27 +222,19 @@ public class ProfessorInterfaceImpl implements ProfessorInterface {
 	 * @return boolean: true if enrolled students viewed correctly
 	 */
 	@Override
-	public void viewEnrolledStudentsInCourse(Professor professor) {
-		// TODO Auto-generated method stub
-		ArrayList<Integer> students;
+	public ArrayList<Integer> viewEnrolledStudentsInCourse(Professor professor) {
+		ArrayList<Integer> students = null;
 		try{
-			logger.info("Enter course id");
-		
-			int courseID;
 			Scanner sc= new Scanner(System.in);
-			courseID=sc.nextInt();
-			
-			int no_students = 0;
-			no_students = professorDAOInterface.getStudentCount(courseID);
-			
-			//insert DAO func
+			logger.info("Enter course id");
+			int courseID=sc.nextInt();
+			int  no_students = professorDAOInterface.getStudentCount(courseID);
 			if(no_students>0)
 			{
 				students = professorDAOInterface.viewEnrolledStudentsInCourse(courseID);
 				logger.info("=====Enrolled Students in course "+String.valueOf(courseID)+"======");
 				for(int s : students)
 					logger.info("  ID: " + s);
-				
 			}
 			else
 			{

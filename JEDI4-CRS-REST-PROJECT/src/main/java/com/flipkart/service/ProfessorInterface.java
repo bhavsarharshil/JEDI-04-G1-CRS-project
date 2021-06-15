@@ -23,7 +23,7 @@ public interface ProfessorInterface {
 	public boolean addAssignedCourse(Professor professor);
 	public boolean removeAssignedCourse(Professor professor);
 	
-	public void viewEnrolledStudentsInCourse(Professor professor);
+	public ArrayList<Integer> viewEnrolledStudentsInCourse(Professor professor);
 	
 	public Professor getProfessorById(int id);
 }
