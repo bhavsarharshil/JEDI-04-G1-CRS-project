@@ -41,12 +41,12 @@ public class UserDAOInterfaceIMPL implements UserDAOInterface{
 						return rs.getString("role");
 					}
 					else{
-						System.out.println("\n---Your application is not yet approved by the admin---\n");
+						logger.info("\n---Your application is not yet approved by the admin---\n");
 						return "unApproved";
 					}
 				 }
 				 else{
-					System.out.println("\n---Logged in successfully---\n");
+					logger.info("\n---Logged in successfully---\n");
 					return rs.getString("role");
 				 }
 			}
@@ -54,22 +54,12 @@ public class UserDAOInterfaceIMPL implements UserDAOInterface{
 				return "\n---INVALID CREDENTIALS---\n";
 			}
 		}catch(SQLException E) {
-			System.out.println(E.getMessage());
+			logger.error("\n"+E.getMessage()+"\n");
 		}
 		catch(Exception e){
 		      //Handle errors for Class.forName
-		      e.printStackTrace();
+		     logger.error("\n"+e.getMessage()+"\n");
 		}
-		finally{
-		      //finally block used to close resources
-		      try{
-		         if(stmt!=null)
-		        	 stmt.close();
-		      } 
-		      catch(SQLException se2){
-		      }// nothing we can do
-		      
-		   }//end try
 		return "invalid";
 	}
 	

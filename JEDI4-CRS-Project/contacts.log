@@ -230,3 +230,100 @@ There are no payments to show
 
 20:01:26,016  INFO StudentDAOInterface,main:129 - Payment is already done !
 
+20:12:23,552  INFO AdminDAOInterfaceIMPL,main:368 - -----------------------------------------------------------------------------
+20:12:23,557  INFO AdminDAOInterfaceIMPL,main:369 -  COURSE ID                    COURSE NAME 
+20:12:23,557  INFO AdminDAOInterfaceIMPL,main:370 - -----------------------------------------------------------------------------
+20:12:23,558  INFO AdminDAOInterfaceIMPL,main:372 -        501                    mathematics 
+20:12:23,559  INFO AdminDAOInterfaceIMPL,main:372 -        502                        physics 
+20:12:23,559  INFO AdminDAOInterfaceIMPL,main:374 - 
+
+
+20:12:48,016  INFO AdminDAOInterfaceIMPL,main:344 - -----------------------------------------------------------------------------
+20:12:48,017  INFO AdminDAOInterfaceIMPL,main:345 - STUDENT ID                   STUDENT NAME 
+20:12:48,018  INFO AdminDAOInterfaceIMPL,main:346 - -----------------------------------------------------------------------------
+20:12:48,018  INFO AdminDAOInterfaceIMPL,main:348 -        201                       student1 
+20:12:48,019  INFO AdminDAOInterfaceIMPL,main:348 -        202                       student2 
+20:12:48,019  INFO AdminDAOInterfaceIMPL,main:348 -        205                     student205 
+20:12:48,019  INFO AdminDAOInterfaceIMPL,main:350 - 
+
+
+20:12:58,723  INFO AdminDAOInterfaceIMPL,main:319 - -----------------------------------------------------------------------------
+20:12:58,724  INFO AdminDAOInterfaceIMPL,main:320 - PROFESSOR ID                 PROFESSOR NAME 
+20:12:58,724  INFO AdminDAOInterfaceIMPL,main:321 - -----------------------------------------------------------------------------
+20:12:58,725  INFO AdminDAOInterfaceIMPL,main:324 -        301                   professor301 
+20:12:58,725  INFO AdminDAOInterfaceIMPL,main:326 - 
+
+
+20:13:12,750  INFO AdminDAOInterfaceIMPL,main:319 - -----------------------------------------------------------------------------
+20:13:12,751  INFO AdminDAOInterfaceIMPL,main:320 - PROFESSOR ID                 PROFESSOR NAME 
+20:13:12,751  INFO AdminDAOInterfaceIMPL,main:321 - -----------------------------------------------------------------------------
+20:13:12,752  INFO AdminDAOInterfaceIMPL,main:324 -        301                   professor301 
+20:13:12,752  INFO AdminDAOInterfaceIMPL,main:326 - 
+
+
+20:13:16,841 ERROR AdminDAOInterfaceIMPL,main:143 - Cannot delete or update a parent row: a foreign key constraint fails (`jedicrs`.`courseprof`, CONSTRAINT `courseprof_ibfk_2` FOREIGN KEY (`profid`) REFERENCES `user` (`id`))
+20:13:38,520  INFO AdminDAOInterfaceIMPL,main:368 - -----------------------------------------------------------------------------
+20:13:38,521  INFO AdminDAOInterfaceIMPL,main:369 -  COURSE ID                    COURSE NAME 
+20:13:38,521  INFO AdminDAOInterfaceIMPL,main:370 - -----------------------------------------------------------------------------
+20:13:38,521  INFO AdminDAOInterfaceIMPL,main:372 -        501                    mathematics 
+20:13:38,522  INFO AdminDAOInterfaceIMPL,main:372 -        502                        physics 
+20:13:38,522  INFO AdminDAOInterfaceIMPL,main:374 - 
+
+
+20:13:47,478 ERROR AdminDAOInterfaceIMPL,main:218 - Cannot delete or update a parent row: a foreign key constraint fails (`jedicrs`.`courseprof`, CONSTRAINT `courseprof_ibfk_1` FOREIGN KEY (`courseid`) REFERENCES `course` (`id`))
+20:15:17,633 ERROR ProfessorInterfaceImpl,main:123 - 
+NO courses are assigned to you
+
+20:15:21,491 ERROR ProfessorCRSMenu,main:48 - Invalid Choice
+20:15:38,918  INFO AdminDAOInterfaceIMPL,main:319 - -----------------------------------------------------------------------------
+20:15:38,918  INFO AdminDAOInterfaceIMPL,main:320 - PROFESSOR ID                 PROFESSOR NAME 
+20:15:38,918  INFO AdminDAOInterfaceIMPL,main:321 - -----------------------------------------------------------------------------
+20:15:38,919  INFO AdminDAOInterfaceIMPL,main:324 -        301                   professor301 
+20:15:38,919  INFO AdminDAOInterfaceIMPL,main:326 - 
+
+
+20:15:40,527  INFO AdminDAOInterfaceIMPL,main:137 - Professor successfully deleted.
+20:15:51,890  INFO AdminDAOInterfaceIMPL,main:319 - -----------------------------------------------------------------------------
+20:15:51,890  INFO AdminDAOInterfaceIMPL,main:320 - PROFESSOR ID                 PROFESSOR NAME 
+20:15:51,891  INFO AdminDAOInterfaceIMPL,main:321 - -----------------------------------------------------------------------------
+20:15:51,897  INFO AdminDAOInterfaceIMPL,main:326 - 
+
+
+21:05:36,930  INFO AdminDAOInterfaceIMPL,main:368 - -----------------------------------------------------------------------------
+21:05:36,935  INFO AdminDAOInterfaceIMPL,main:369 -  COURSE ID                    COURSE NAME 
+21:05:36,935  INFO AdminDAOInterfaceIMPL,main:370 - -----------------------------------------------------------------------------
+21:05:36,936  INFO AdminDAOInterfaceIMPL,main:372 -        501                    mathematics 
+21:05:36,936  INFO AdminDAOInterfaceIMPL,main:372 -        502                        physics 
+21:05:36,937  INFO AdminDAOInterfaceIMPL,main:374 - 
+
+
+21:08:00,730  INFO AdminDAOInterfaceIMPL,main:188 - Course successfully added.
+21:10:42,880  INFO AdminDAOInterfaceIMPL,main:368 - -----------------------------------------------------------------------------
+21:10:42,884  INFO AdminDAOInterfaceIMPL,main:369 -  COURSE ID                    COURSE NAME 
+21:10:42,884  INFO AdminDAOInterfaceIMPL,main:370 - -----------------------------------------------------------------------------
+21:10:42,885  INFO AdminDAOInterfaceIMPL,main:372 -        501                    mathematics 
+21:10:42,885  INFO AdminDAOInterfaceIMPL,main:372 -        502                        physics 
+21:10:42,886  INFO AdminDAOInterfaceIMPL,main:372 -        503                      chemistry 
+21:10:42,886  INFO AdminDAOInterfaceIMPL,main:374 - 
+
+
+21:13:54,364  INFO AdminDAOInterfaceIMPL,main:188 - 
+Course successfully added
+
+21:14:08,605  INFO AdminDAOInterfaceIMPL,main:368 - -----------------------------------------------------------------------------
+21:14:08,605  INFO AdminDAOInterfaceIMPL,main:369 -  COURSE ID                    COURSE NAME 
+21:14:08,605  INFO AdminDAOInterfaceIMPL,main:370 - -----------------------------------------------------------------------------
+21:14:08,606  INFO AdminDAOInterfaceIMPL,main:372 -        501                    mathematics 
+21:14:08,606  INFO AdminDAOInterfaceIMPL,main:372 -        502                        physics 
+21:14:08,606  INFO AdminDAOInterfaceIMPL,main:372 -        503                      chemistry 
+21:14:08,606  INFO AdminDAOInterfaceIMPL,main:372 -        504               computer_science 
+21:14:08,607  INFO AdminDAOInterfaceIMPL,main:374 - 
+
+
+21:14:18,826  INFO AdminDAOInterfaceIMPL,main:319 - -----------------------------------------------------------------------------
+21:14:18,826  INFO AdminDAOInterfaceIMPL,main:320 - PROFESSOR ID                 PROFESSOR NAME 
+21:14:18,827  INFO AdminDAOInterfaceIMPL,main:321 - -----------------------------------------------------------------------------
+21:14:18,827  INFO AdminDAOInterfaceIMPL,main:326 - 
+
+
+21:14:46,612  INFO AdminDAOInterfaceIMPL,main:113 - Professor successfully added.

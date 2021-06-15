@@ -31,22 +31,22 @@ public class AdminOperation implements AdminInterface {
 		// TODO Auto-generated method stub
 		try {
 			Course course=new Course();
-			System.out.println("Enter the course id");
+			System.out.print("Enter the course id :");
 			int id=sc.nextInt();
 			course.setCourseID(id);
-			System.out.println("Enter course name");
+			System.out.print("Enter course name :");
 			String name=sc.next();
 			course.setCourseName(name);
-			System.out.println("Enter course credits");
+			System.out.print("Enter course credits :");
 			int credits=sc.nextInt();
 			course.setCredits(credits);
 			adminInterface.addCourse(course);
 		}catch(InputMismatchException e){
 			sc.next();
-			logger.error("The input formal is invalid\n");
+			logger.error("\nThe input format is invalid\n");
 		}catch(Exception e) {
 			sc.next();
-			logger.error(e.getMessage());
+			logger.error("\n"+e.getMessage()+"\n");
 		}
 	}
 
@@ -58,16 +58,16 @@ public class AdminOperation implements AdminInterface {
 		// TODO Auto-generated method stub
 		try {
 			Course course=new Course();
-			System.out.println("Enter the course id");
+			System.out.print("Enter the course id : ");
 			int id=sc.nextInt();
 			course.setCourseID(id);
 			adminInterface.removeCourse(course);
 		}catch(InputMismatchException e){
 			sc.next();
-			logger.error("The input formal is invalid\n");
+			logger.error("\nThe input format is invalid\n");
 		}catch(Exception e) {
 			sc.next();
-			logger.error(e.getMessage());
+			logger.error("\n"+e.getMessage()+"\n");
 		}
 	}
 

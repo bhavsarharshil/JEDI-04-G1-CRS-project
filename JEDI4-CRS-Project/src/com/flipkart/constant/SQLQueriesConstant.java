@@ -30,7 +30,7 @@ public class SQLQueriesConstant {
 	public static final String INSERT_INTO_COURSEPROF = "insert into courseprof values(?,?)";
 	public static final String DELETE_FROM_COURSEPROF = "DELETE FROM courseprof WHERE courseid= ? AND profid= ?";
 	public static final String SELECT_FROM_STUDENTCOURSE = "SELECT * FROM studentcourse WHERE courseid=?";
-	public static final String GET_ALL_COURSES_QUERY = "SELECT * from course;" ;
+	public static final String GET_ALL_COURSES_QUERY = "SELECT * from course;" ; 
 	public static final String GET_COURSE_BY_ID = "SELECT * from course where id = ?";
 	public static final String GET_PROFESSOR_BY_ID_QUERY = "SELECT name FROM user WHERE id = ?";
 	public static final String SELECT_PROFESSORS = "Select * from user where role=\"professor\"";
@@ -46,7 +46,7 @@ public class SQLQueriesConstant {
 
     public static final String APPROVE_STUDENTS_REQUEST = "UPDATE student SET isApproved = ? WHERE id = ?;";
 	public static final String VEIFY_STUDENT_APPROVAL = "SELECT isApproved FROM student where id = ?;";
-	public static final String VIEW_UNAPPROVED_STUDENTS = "SELECT * FROM student INNER JOIN user ON student.id=user.id WHERE isApproved = 0;";
+	public static final String VIEW_UNAPPROVED_STUDENTS = "SELECT user.id,user.name FROM student INNER JOIN user ON student.id=user.id WHERE isApproved = 0;";
 	
 	
 	public static final String GET_STUDENT_COUNT = "SELECT COUNT(DISTINCT(studentid)) as total from studentcourse where courseid= ? " ;

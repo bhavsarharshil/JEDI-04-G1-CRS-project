@@ -6,11 +6,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Vector;
+import java.time.LocalTime;
+import java.util.Date;
 
-import com.flipkart.bean.*;
 import org.apache.log4j.Logger;
 
+import com.flipkart.application.AdminCRSMenu;
+import com.flipkart.bean.Admin;
+import com.flipkart.bean.Course;
+import com.flipkart.bean.Professor;
+import com.flipkart.bean.Student;
 import com.flipkart.constant.SQLQueriesConstant;
 import com.flipkart.utils.DBConnection;
 
@@ -26,7 +31,7 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 		// TODO Auto-generated method stub
 		Admin admin = new Admin();
 		PreparedStatement stmt = null;
-
+		
 		try {
 			Connection conn = DBConnection.getConnection();
 			stmt = conn.prepareStatement(SQLQueriesConstant.GET_USER_BY_ID);
@@ -44,63 +49,41 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 				admin.setAdminName(rs.getString("name"));
 			}
 		} catch (SQLException e) {
-			logger.error(e.getMessage());
+			logger.error("\n"+e.getMessage()+"\n");
 		} catch (Exception e) {
-			logger.error(e.getMessage());
-		}
-		finally{
-			try{
-				if(stmt!=null)
-					stmt.close();
-			}
-			catch(SQLException se2){
-				logger.error(se2.getMessage());
-			}
-
+			logger.error("\n"+e.getMessage()+"\n");
 		}
 		return admin;
 	}
-
-
-
-
-	// Declare the Connection or prepaidstatement variable here
-	Connection conn = null;
-	PreparedStatement stmt = null;
+	
+	
+	
+	 
+	// Declare the Connection or prepaidstatement variable here 
+   	Connection conn = null;
+   	PreparedStatement stmt = null;
 	/**
 	 * method to view report card
-	 * @return
 	 */
-	@Override
-	public Vector<Grades> viewReportCard(Student student) {
+   	@Override
+   	public void viewReportCard(Student student) {
 		try {
-
-			conn = DBConnection.getConnection();
-			stmt=conn.prepareStatement(SQLQueriesConstant.GET_GRADES_QUERY);
+		    conn = DBConnection.getConnection();
+		    stmt=conn.prepareStatement(SQLQueriesConstant.GET_GRADES_QUERY);
 			stmt.setInt(1,student.getId());
 			ResultSet res =stmt.executeQuery();
 			logger.info("-----------------------------------------------------------------------------");
 			logger.info(String.format("%10s %30s ", "Course NAME",  "GRADE"));
 			logger.info("-----------------------------------------------------------------------------");
-			Vector<Grades> reportCard = new Vector<>();
-			Grades g = null;
 			while(res.next()) {
 				logger.info(String.format("%10s %30s ",res.getString("coursename"),res.getString("grade")));
-				g = new Grades();
-				g.setCourseID(res.getInt("courseid"));g.setCourseName(res.getString("coursename"));
-				g.setGrade(res.getString("grade"));
-				g.setStudentId(student.getId());
-				reportCard.add(g);
 			}
 			logger.info("\n\n");
-
-			return reportCard;
 		}catch (SQLException e) {
-			logger.error(e.getMessage());
+			logger.error("\n"+e.getMessage()+"\n");
 		}catch (Exception e) {
-			logger.error(e.getMessage());
+			logger.error("\n"+e.getMessage()+"\n");
 		}
-		return null;
 	}
 	/**
 	 * method to add professor
@@ -109,23 +92,23 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 	public boolean addProfessor(Professor professor) {
 		// TODO Auto-generated method stub
 		try {
-			conn = DBConnection.getConnection();
-			stmt=conn.prepareStatement(SQLQueriesConstant.INSERT_PROFESSOR);
-			stmt.setInt(1, professor.getId());
-			stmt.setString(2, professor.getEmail());
-			stmt.setString(3, professor.getPassword());
-			stmt.setString(4, professor.getName());
-			int res=stmt.executeUpdate();
-			if(res==1) {
-				logger.info("Professor successfully added.");
-				return true;
-			}
-			logger.info("Unable to add Professor");
-			return false;
+		   	conn = DBConnection.getConnection();
+		    stmt=conn.prepareStatement(SQLQueriesConstant.INSERT_PROFESSOR);
+		    stmt.setInt(1, professor.getId());
+		    stmt.setString(2, professor.getEmail());
+		    stmt.setString(3, professor.getPassword());
+		    stmt.setString(4, professor.getName());
+		    int res=stmt.executeUpdate();
+		    if(res==1) {
+				logger.info("\nProfessor successfully added\n");
+		    	return true;
+		    }
+			logger.info("\nUnable to add Professor\n");
+		    return false;
 		}catch (SQLException e) {
-			logger.error(e.getMessage());
+			logger.error("\n"+e.getMessage()+"\n");
 		}catch (Exception e) {
-			logger.error(e.getMessage());
+			logger.error("\n"+e.getMessage()+"\n");
 		}
 		return false;
 	}
@@ -136,20 +119,20 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 	public boolean removeProfessor(Professor professor) {
 		// TODO Auto-generated method stub
 		try {
-			conn = DBConnection.getConnection();
-			stmt=conn.prepareStatement(SQLQueriesConstant.DELETE_USER_BY_ID);
-			stmt.setInt(1, professor.getId());
-			int res=stmt.executeUpdate();
-			if(res==1) {
-				logger.info("Professor successfully deleted.");
-				return true;
-			}
-			logger.info("Unable to delete Professor");
-			return false;
+		   	conn = DBConnection.getConnection();
+		    stmt=conn.prepareStatement(SQLQueriesConstant.DELETE_USER_BY_ID);
+		    stmt.setInt(1, professor.getId());
+		    int res=stmt.executeUpdate();
+		    if(res==1) {
+				logger.info("\nProfessor successfully removed\n");
+		    	return true;
+		    }
+			logger.info("\nUnable to remove Professor\n");
+		    return false;
 		}catch (SQLException e) {
-			logger.error(e.getMessage());
+			logger.error("\n"+e.getMessage()+"\n");
 		}catch (Exception e) {
-			logger.error(e.getMessage());
+			logger.error("\n"+e.getMessage()+"\n");
 		}
 		return false;
 	}
@@ -157,20 +140,20 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 	/**
 	 *method to remove student
 	 */
-	@Override
+		@Override
 	public boolean removeStudent(Student student) {
 		// TODO Auto-generated method stub
 		try {
 			conn = DBConnection.getConnection();
-			stmt=conn.prepareStatement(SQLQueriesConstant.DELETE_USER_BY_ID);
-			stmt.setInt(1, student.getId());
-			int res=stmt.executeUpdate();
-			if(res==1) {
-				logger.info("Student successfully deleted.");
-				return true;
-			}
-			logger.info("Unable to delete Student");
-			return false;
+		    stmt=conn.prepareStatement(SQLQueriesConstant.DELETE_USER_BY_ID);
+		    stmt.setInt(1, student.getId());
+		    int res=stmt.executeUpdate();
+		    if(res==1) {
+				logger.info("\nStudent successfully removed\n");
+		    	return true;
+		    }
+			logger.info("\nUnable to remove Student\n");
+		    return false;
 		}catch (SQLException e) {
 			logger.error(e.getMessage());
 		}catch (Exception e) {
@@ -185,22 +168,22 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 	public boolean addCourse(Course course) {
 		// TODO Auto-generated method stub
 		try {
-			conn = DBConnection.getConnection();
-			stmt=conn.prepareStatement(SQLQueriesConstant.INSERT_COURSE);
-			stmt.setInt(1, course.getCourseID());
-			stmt.setString(2, course.getCourseName());
-			stmt.setInt(3, course.getCredits());
-			int res=stmt.executeUpdate();
-			if(res==1) {
-				logger.info("Course successfully added.");
-				return true;
-			}
-			System.out.println("Unable to add course");
-			return false;
+		   	conn = DBConnection.getConnection();
+		    stmt=conn.prepareStatement(SQLQueriesConstant.INSERT_COURSE);
+		    stmt.setInt(1, course.getCourseID());
+		    stmt.setString(2, course.getCourseName());
+		    stmt.setInt(3, course.getCredits());
+		    int res=stmt.executeUpdate();
+		    if(res==1) {
+				logger.info("\nCourse successfully added\n");
+		    	return true;
+		    }
+		    System.out.println("\nUnable to add course\n");
+		    return false;
 		}catch (SQLException e) {
-			logger.error(e.getMessage());
+			logger.error("\n"+e.getMessage()+"\n");
 		}catch (Exception e) {
-			logger.error(e.getMessage());
+			logger.error("\n"+e.getMessage()+"\n");
 		}
 		return false;
 	}
@@ -212,28 +195,27 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 		// TODO Auto-generated method stub
 		try {
 			conn = DBConnection.getConnection();
-			stmt=conn.prepareStatement(SQLQueriesConstant.DELETE_COURSE_BY_ID);
-			stmt.setInt(1, course.getCourseID());
-			int res=stmt.executeUpdate();
-			if(res==1) {
-				logger.info("Course successfully added.");
-				return true;
-			}
-			logger.info("Unable to add course");
-			return false;
+		    stmt=conn.prepareStatement(SQLQueriesConstant.DELETE_COURSE_BY_ID);
+		    stmt.setInt(1, course.getCourseID());
+		    int res=stmt.executeUpdate();
+		    if(res==1) {
+				logger.info("\nCourse successfully removed\n");
+		    	return true;
+		    }
+			logger.info("\nUnable to remove course\n");
+		    return false;
 		}catch (SQLException e) {
-			logger.error(e.getMessage());
+			logger.error("\n"+e.getMessage()+"\n");
 		}catch (Exception e) {
-			logger.error(e.getMessage());
+			logger.error("\n"+e.getMessage()+"\n");
 		}
 		return false;
 	}
 	/**
 	 *method to approve courses of students
-	 * @return
 	 */
 	@Override
-	public boolean approveStudents() {
+	public void approveStudents() {
 		// TODO Auto-generated method stub
 		PreparedStatement stmt=null;
 		try {
@@ -246,7 +228,7 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 				stmt.setInt(2,rs.getInt("courseid"));
 				int x=stmt.executeUpdate();
 				if(x!=1) {
-					logger.info("Error in approving");
+					logger.info("\nError in approving\n");
 					break;
 				}
 			}
@@ -264,21 +246,18 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 			}
 			stmt=conn.prepareStatement(SQLQueriesConstant.DELETE_SEM_REGISTRATION);
 			stmt.executeUpdate();
-			System.out.println("All students are approved");
-			return true;
+			System.out.println("\n---All students are approved---\n");
 		}catch (SQLException e) {
-			logger.error(e.getMessage());
+			logger.error("\n"+e.getMessage()+"\n");
 		}catch (Exception e) {
-			logger.error(e.getMessage());
+			logger.error("\n"+e.getMessage()+"\n");
 		}
-		return false;
 	}
 	/**
 	 *method to view unapproved students
-	 * @return
 	 */
 	@Override
-	public Vector<Student> viewUnapprovedStudent() {
+	public void viewUnapprovedStudent() {
 		PreparedStatement stmt=null;
 		try {
 			conn=DBConnection.getConnection();
@@ -287,25 +266,16 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 			logger.info("-----------------------------------------------------------------------------");
 			logger.info(String.format("%10s %30s ", "USER ID",  "USER NAME"));
 			logger.info("-----------------------------------------------------------------------------");
-			Student s;
-			Vector<Student> studentList = new Vector<>();
 			while(rs.next()) {
 				logger.info(String.format("%10s %30s ",rs.getInt("user.id"),rs.getString("user.name")));
-				s = new Student();
-				s.setSemester(rs.getInt("semester"));s.setBranch(rs.getString("branch"));
-				s.setEmail(rs.getString("email"));s.setId(rs.getInt("id"));s.setRollNo(rs.getInt("id"));
-				s.setRole("student");s.setAdmission_year(rs.getInt("admission_year"));
-				studentList.add(s);
 			}
 			logger.info("\n\n");
-			return studentList;
 
 		}catch (SQLException e) {
-			logger.error(e.getMessage());
+			logger.error("\n"+e.getMessage()+"\n");
 		}catch (Exception e) {
-			logger.error(e.getMessage());
+			logger.error("\n"+e.getMessage()+"\n");
 		}
-		return null;
 	}
 	/**
 	 *method to approve registration of students
@@ -320,17 +290,16 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 			stmt.setInt(2,id);
 			stmt.executeUpdate();
 		}catch (SQLException e) {
-			logger.error(e.getMessage());
+			logger.error("\n"+e.getMessage()+"\n");
 		}catch (Exception e) {
-			logger.error(e.getMessage());
+			logger.error("\n"+e.getMessage()+"\n");
 		}
 	}
 	/**
 	 *method to view all professors
-	 * @return
 	 */
 	@Override
-	public Vector<Professor> viewProfessors() {
+	public void viewProfessors() {
 		// TODO Auto-generated method stub
 		PreparedStatement stmt=null;
 		try {
@@ -340,34 +309,22 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 			logger.info("-----------------------------------------------------------------------------");
 			logger.info(String.format("%10s %30s ", "PROFESSOR ID",  "PROFESSOR NAME"));
 			logger.info("-----------------------------------------------------------------------------");
-			Professor p;
-			Vector<Professor> profList = new Vector<>();
+
 			while(rs.next()) {
 				logger.info(String.format("%10s %30s ",rs.getInt("id"),rs.getString("name")));
-
-				p = new Professor();
-				p.setEmail(rs.getString("email"));
-				p.setId(rs.getInt("id"));
-				p.setName(rs.getString("name"));
-				p.setDepartment(rs.getString("department"));
-				p.setRole("professor");
-				profList.add(p);
 			}
 			logger.info("\n\n");
-			return profList;
 		}catch (SQLException e) {
-			logger.error(e.getMessage());
+			logger.error("\n"+e.getMessage()+"\n");
 		}catch (Exception e) {
-			logger.error(e.getMessage());
+			logger.error("\n"+e.getMessage()+"\n");
 		}
-		return null;
 	}
 	/**
 	 *method to view all students
-	 * @return
 	 */
 	@Override
-	public Vector<Student> viewStudents() {
+	public void viewStudents() {
 		// TODO Auto-generated method stub
 		PreparedStatement stmt=null;
 		try {
@@ -377,61 +334,39 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 			logger.info("-----------------------------------------------------------------------------");
 			logger.info(String.format("%10s %30s ", "STUDENT ID",  "STUDENT NAME"));
 			logger.info("-----------------------------------------------------------------------------");
-			Student s;
-			Vector<Student> studentList = new Vector<>();
 			while(rs.next()) {
 				logger.info(String.format("%10s %30s ",rs.getInt("id"),rs.getString("name")));
-				s = new Student();
-				s.setSemester(rs.getInt("semester"));s.setBranch(rs.getString("branch"));
-				s.setEmail(rs.getString("email"));s.setId(rs.getInt("id"));s.setRollNo(rs.getInt("id"));
-				s.setRole("student");s.setAdmission_year(rs.getInt("admission_year"));
-				studentList.add(s);
-
 			}
-
 			logger.info("\n\n");
-			return studentList;
 		}catch (SQLException e) {
-			logger.error(e.getMessage());
+			logger.error("\n"+e.getMessage()+"\n");
 		}catch (Exception e) {
-			logger.error(e.getMessage());
+			logger.error("\n"+e.getMessage()+"\n");
 		}
-		return null;
 	}
 	/**
 	 *method to view all courses
-	 * @return
 	 */
 	@Override
-	public Vector<Course> viewCourses() {
+	public void viewCourses() {
 		// TODO Auto-generated method stub
 		PreparedStatement stmt=null;
-
 		try {
 			conn=DBConnection.getConnection();
 			stmt=conn.prepareStatement(SQLQueriesConstant.SELECT_COURSES);
 			ResultSet rs=stmt.executeQuery();
-			Vector<Course> courseList = new Vector<>();
-			Course c ;
 			logger.info("-----------------------------------------------------------------------------");
 			logger.info(String.format("%10s %30s ", "COURSE ID",  "COURSE NAME"));
 			logger.info("-----------------------------------------------------------------------------");
 			while(rs.next()) {
 				logger.info(String.format("%10s %30s ",rs.getInt("id"),rs.getString("name")));
-				c = new Course();
-				c.setCourseID(rs.getInt("id"));
-				c.setCourseName(rs.getString("name"));
-				c.setCredits(rs.getInt("credits"));
-				courseList.add(c);
 			}
 			logger.info("\n\n");
-			return courseList;
 		}catch (SQLException e) {
-			logger.error(e.getMessage());
+			logger.error("\n"+e.getMessage()+"\n");
 		}catch (Exception e) {
-			logger.error(e.getMessage());
+			logger.error("\n"+e.getMessage()+"\n");
 		}
-		return null;
 	}
-
+	
 }

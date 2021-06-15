@@ -60,10 +60,10 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 			}
 		}
 		catch(SQLException e) {
-			logger.error(e.getMessage());
+			logger.error("\n"+e.getMessage()+"\n");
 		}
 		catch(Exception e) {
-			logger.error(e.getMessage());
+			logger.error("\n"+e.getMessage()+"\n");
 		}
 
 		return grades;
@@ -99,7 +99,7 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 			return false;
 		}
 		catch (SQLException e) {
-			logger.error(e.getMessage());
+			logger.error("\n"+e.getMessage()+"\n");
 		}
 		return false;
 	}
@@ -126,7 +126,7 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 				int amount = resultSet.getInt("amount");
 				if(status == 1)
 				{
-					logger.info("Payment is already done !\n");
+					logger.info("\nPayment is already done !\n");
 				}
 				else
 				{
@@ -136,7 +136,7 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 					ps.setString(2, String.valueOf(LocalDate.now()));
 					ps.setInt(3, student.getId());
 					ps.executeUpdate();
-					logger.info("Payment done successfully!\n");
+					logger.info("\nPayment done successfully!\n");
 				}
 			}
 		}
@@ -176,16 +176,6 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 		} catch (Exception e) {
 			logger.error("\n"+e.getMessage()+"\n");
 		}
-		finally{
-		      try{
-		         if(stmt!=null)
-		        	 stmt.close();
-		      } 
-		      catch(SQLException se2){
-		    	  logger.error(se2.getMessage());
-		      }
-		      
-	   }
 		return student;
 	}
 	/**
@@ -198,14 +188,14 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 		
 		try {
 			if(countPrimaryCourses(studentId) >= 4) {
-				throw new CourseLimitReached("You can only add 4 primary courses.");
+				throw new CourseLimitReached("\nYou can only add 4 primary courses\n");
 			}
 			CoursesDAOInterface courseDAO = new CoursesDAOInterfaceIMPL();
 			if(!courseDAO.hasCourse(courseId)) {
-				throw new CourseNotFound("Invalid Course ID");
+				throw new CourseNotFound("\nInvalid Course ID\n");
 			}
 			if(alreadyPresent(studentId, courseId)) {
-				logger.error("You have already added this course");
+				logger.error("\nYou have already added this course\n");
 				return;
 			}
 			PreparedStatement stmt = null;
@@ -219,13 +209,13 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 			stmt.setTimestamp(4,sqlTime);
 			int added = stmt.executeUpdate();
 			if(added>0) {
-				logger.info("Course " + courseId + " added successfully\n");
+				logger.info("\nCourse " + courseId + " added successfully\n");
 			}
 		}catch(SQLException e) {
-			logger.error(e.getMessage());
+			logger.error("\n"+e.getMessage()+"\n");
 		}
 		catch(Exception e) {
-			logger.error(e.getMessage());
+			logger.error("\n"+e.getMessage()+"\n");
 		}
 	}
 	/**
@@ -237,14 +227,14 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 	public void addSecondaryCourse(int studentId, int courseId) {
 		try {
 			if(countSecondaryCourses(studentId) >= 2) {
-				throw new CourseLimitReached("You can only add 2 secondary courses.");
+				throw new CourseLimitReached("\nYou can only add 2 secondary courses\n");
 			}
 			CoursesDAOInterface courseDAO = new CoursesDAOInterfaceIMPL();
 			if(!courseDAO.hasCourse(courseId)) {
-				throw new CourseNotFound("Invalid Course ID");
+				throw new CourseNotFound("\nInvalid Course ID\n");
 			}
 			if(alreadyPresent(studentId, courseId)) {
-				logger.error("You have already added this course");
+				logger.error("\nYou have already added this course\n");
 				return;
 			}
 			PreparedStatement stmt = null;
@@ -258,13 +248,13 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 			stmt.setTimestamp(4,sqlTime);
 			int added = stmt.executeUpdate();
 			if(added>0) {
-				logger.info("Course " + courseId + " added successfully\n");
+				logger.info("\nCourse " + courseId + " added successfully\n");
 			}
 		}catch(SQLException e) {
-			logger.error(e.getMessage());
+			logger.error("\n"+e.getMessage()+"\n");
 		}
 		catch(Exception e) {
-			logger.error(e.getMessage());
+			logger.error("\n"+e.getMessage()+"\n");
 		}
 	}
 	/**
@@ -277,10 +267,10 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 		try {
 			CoursesDAOInterface courseDAO = new CoursesDAOInterfaceIMPL();
 			if(!courseDAO.hasCourse(courseId)) {
-				throw new CourseNotFound("Invalid Course ID");
+				throw new CourseNotFound("\nInvalid Course ID\n");
 			}
 			if(!alreadyPresent(studentId, courseId)) {
-				logger.error("You have not registered for this course");
+				logger.error("\nYou have not registered for this course\n");
 				return;
 			}
 			PreparedStatement stmt = null;
@@ -290,14 +280,14 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 			stmt.setInt(2, courseId);
 			int dropped = stmt.executeUpdate();
 			if(dropped > 0) {
-				logger.info("Course " + courseId + " deleted successfully");
+				logger.info("\nCourse " + courseId + " deleted successfully\n");
 			}else {
-				logger.error("You have added this course as secondary");
+				logger.error("\nYou have added this course as secondary\n");
 			}
 		}catch(SQLException e) {
-			logger.error(e.getMessage());
+			logger.error("\n"+e.getMessage()+"\n");
 		}catch(Exception e) {
-			logger.error(e.getMessage());
+			logger.error("\n"+e.getMessage()+"\n");
 		}
 	}
 	/**
@@ -310,10 +300,10 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 		try {
 			CoursesDAOInterface courseDAO = new CoursesDAOInterfaceIMPL();
 			if(!courseDAO.hasCourse(courseId)) {
-				throw new CourseNotFound("Invalid Course ID");
+				throw new CourseNotFound("\nInvalid Course ID\n");
 			}
 			if(!alreadyPresent(studentId, courseId)) {
-				logger.error("You have not registered for this course");
+				logger.error("\nYou have not registered for this course\n");
 				return;
 			}
 			PreparedStatement stmt = null;
@@ -323,14 +313,14 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 			stmt.setInt(2, courseId);
 			int dropped = stmt.executeUpdate();
 			if(dropped > 0) {
-				logger.info("Course " + courseId + " deleted successfully");
+				logger.info("\nCourse " + courseId + " deleted successfully\n");
 			}else {
-				logger.error("You have added this course as primary");
+				logger.error("\nYou have added this course as primary\n");
 			}
 		}catch(SQLException e) {
-			logger.error(e.getMessage());
+			logger.error("\n"+e.getMessage()+"\n");
 		}catch(Exception e) {
-			logger.error(e.getMessage());
+			logger.error("\n"+e.getMessage()+"\n");
 		}
 	}
 
@@ -359,9 +349,9 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 				primaryCourses.add(course);
 			}
 		}catch(SQLException e) {
-			logger.error(e.getMessage());
+			logger.error("\n"+e.getMessage()+"\n");
 		}catch(Exception e) {
-			logger.error(e.getMessage());
+			logger.error("\n"+e.getMessage()+"\n");
 		}
 		return primaryCourses;
 	}
@@ -392,9 +382,9 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 				secondaryCourses.add(course);
 			}
 		}catch(SQLException e) {
-			logger.error(e.getMessage());
+			logger.error("\n"+e.getMessage()+"\n");
 		}catch(Exception e) {
-			logger.error(e.getMessage());
+			logger.error("\n"+e.getMessage()+"\n");
 		}
 		return secondaryCourses;
 	}
@@ -418,9 +408,9 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 			}
 			rs.close();
 		}catch(SQLException e) {
-			logger.error(e.getMessage());
+			logger.error("\n"+e.getMessage()+"\n");
 		}catch(Exception e) {
-			logger.error(e.getMessage());
+			logger.error("\n"+e.getMessage()+"\n");
 		}
 		return true;
 	}
@@ -439,9 +429,9 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 			stmt.setInt(1, studentId);
 			stmt.executeUpdate();
 		}catch(SQLException e) {
-			logger.error(e.getMessage());
+			logger.error("\n"+e.getMessage()+"\n");
 		}catch(Exception e) {
-			logger.error(e.getMessage());
+			logger.error("\n"+e.getMessage()+"\n");
 		}
 	}
 
@@ -459,9 +449,9 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 			rs.next();
 			return rs.getInt(1);
 		}catch(SQLException e) {
-			logger.error(e.getMessage());
+			logger.error("\n"+e.getMessage()+"\n");
 		}catch(Exception e) {
-			logger.error(e.getMessage());
+			logger.error("\n"+e.getMessage()+"\n");
 		}
 		return 0;
 	}
@@ -480,9 +470,9 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 			rs.next();
 			return rs.getInt(1);
 		}catch(SQLException e) {
-			logger.error(e.getMessage());
+			logger.error("\n"+e.getMessage()+"\n");
 		}catch(Exception e) {
-			logger.error(e.getMessage());
+			logger.error("\n"+e.getMessage()+"\n");
 		}
 		return 0;
 	}
@@ -508,11 +498,12 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 				}
 				else
 				{
-					System.out.println("\n-------------------------------------------------PAYMENT DETAILS---------------------------------------------------\n");
-					System.out.println("Payment ID\t\tMODE\t\t\tBill Date\t\tPayment Date\t\tAmount");
-					System.out.println("-------------------------------------------------------------------------------------------------------------------");
-					System.out.println(String.format("%-9d\t\t%-11s\t\t%s\t\t\t%-9s\t\t%-9s\n", resultSet.getInt("paymentid"),resultSet.getString("mode"), resultSet.getDate("billDate"),resultSet.getDate("paymentDate"),amount ));
+					logger.info("-------------------------------------------------PAYMENT DETAILS---------------------------------------------------");
+					logger.info("Payment ID\t\tMODE\t\t\tBill Date\t\tPayment Date\t\tAmount");
+					logger.info("-------------------------------------------------------------------------------------------------------------------");
+					logger.info(String.format("%-9d\t\t%-11s\t\t%s\t\t\t%-9s\t\t%-9s\n", resultSet.getInt("paymentid"),resultSet.getString("mode"), resultSet.getDate("billDate"),resultSet.getDate("paymentDate"),amount ));
 				}
+				logger.info("\n\n");
 			}
 		}
 		catch(SQLException e) {

@@ -58,10 +58,10 @@ public class CoursesDAOInterfaceIMPL implements CoursesDAOInterface {
 			}
 		}
 		catch(SQLException e) {
-			logger.error(e.getMessage());
+			logger.error("\n"+e.getMessage()+"\n");
 		}
 		catch(Exception e) {
-			logger.error(e.getMessage());
+			logger.error("\n"+e.getMessage()+"\n");
 		}
 
 		return courses;
@@ -82,7 +82,7 @@ public class CoursesDAOInterfaceIMPL implements CoursesDAOInterface {
 			ResultSet rs = ps.executeQuery();
 			if(rs.next())return true;
 		}catch(Exception e) {
-			logger.error(e.getMessage());
+			logger.error("\n"+e.getMessage()+"\n");
 		}
 		return false;
 	}

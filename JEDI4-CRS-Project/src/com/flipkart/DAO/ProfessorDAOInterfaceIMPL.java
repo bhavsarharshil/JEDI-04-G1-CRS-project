@@ -144,14 +144,15 @@ public class ProfessorDAOInterfaceIMPL implements ProfessorDAOInterface {
 				System.out.println("\nThere are no grades to show\n");
 			}
 			else {
+				logger.info("-----------------------------------------------------------------------------");
+				logger.info(String.format("%10s %30s %50s", "Course ID","Student ID","Grade"));
+				logger.info("-----------------------------------------------------------------------------");
 				do
 				{
 					courseID=rs.getInt("courseid");
 					studentID=rs.getInt("studentid");
 					String grade = rs.getString("grade");
-					System.out.print("courseID: " + courseID);
-					System.out.print(" stduentID: " + studentID);
-					System.out.println(" grade: " + grade);
+					logger.info(String.format("%10s %30s %50s", courseID,studentID,grade));
 				}while(rs.next());
 			}
 		
@@ -185,11 +186,20 @@ public class ProfessorDAOInterfaceIMPL implements ProfessorDAOInterface {
 					stmt.setInt(1,profID);
 					
 					ResultSet rs = stmt.executeQuery();
-					System.out.println("=======Assigned Courses=======");
-					while(rs.next())
-					{
-						int courseID1  = rs.getInt("courseid");
-						System.out.println("ID: " + courseID1);
+					logger.info("=======Assigned Courses=======");
+					if(!rs.next()) {
+						logger.info("\nYou have no assigned courses\n");
+					}
+					else {
+						logger.info("---------------------------------------------------");
+						logger.info(String.format("%20s", "Course ID"));
+						logger.info("---------------------------------------------------");
+						do
+						{
+							int courseID1  = rs.getInt("courseid");
+							logger.info(String.format("%20s", courseID1));
+						}
+						while(rs.next());
 					}
 
 				
@@ -227,7 +237,7 @@ public class ProfessorDAOInterfaceIMPL implements ProfessorDAOInterface {
 			stmt.executeUpdate();
 		
 			added=true;
-			System.out.println("Course assigned successfully");
+			logger.info("\nCourse assigned successfully\n");
 
 		}catch(SQLException e){
 			logger.error("\n"+e.getMessage()+"\n");
@@ -259,7 +269,7 @@ public class ProfessorDAOInterfaceIMPL implements ProfessorDAOInterface {
 			stmt.executeUpdate();
 			
 			remove=true;
-			System.out.println("Course removed successfully");
+			logger.info("\nCourse removed successfully\n");
 
 		}catch(SQLException e){
 
@@ -279,16 +289,25 @@ public class ProfessorDAOInterfaceIMPL implements ProfessorDAOInterface {
 
 		try{
 
-			System.out.println("=====Enrolled Students in course"+String.valueOf(courseID)+"======");
+			logger.info("=====Enrolled Students in course"+String.valueOf(courseID)+"======");
 			conn = DBConnection.getConnection();
 			String sql = SQLQueriesConstant.SELECT_FROM_STUDENTCOURSE;
 			stmt = conn.prepareStatement(sql);
 			stmt.setInt(1,courseID);
 			ResultSet rs = stmt.executeQuery();
-			while(rs.next())
-			{
-				int studentID1  = rs.getInt("studentid");
-				System.out.println("ID: " + studentID1);
+			if(!rs.next()) {
+				logger.info("\nThere are no students enrolled for this course\n");
+			}
+			else {
+				logger.info("---------------------------------------------------");
+				logger.info(String.format("%20s", "Student ID"));
+				logger.info("---------------------------------------------------");
+				do
+				{
+					int studentID1  = rs.getInt("studentid");
+					logger.info(String.format("%20s", studentID1));
+				}
+				while(rs.next());
 			}
 
 	
@@ -349,8 +368,8 @@ public class ProfessorDAOInterfaceIMPL implements ProfessorDAOInterface {
 			boolean status = rs.next();
 			return status;
 		}
-		catch(SQLException se){
-			logger.info(se.getMessage());
+		catch(SQLException e){
+			logger.info("\n"+e.getMessage()+"\n");
 		};
 		return false;
 	}
