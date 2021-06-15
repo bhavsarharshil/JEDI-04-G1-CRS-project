@@ -3,7 +3,9 @@ package com.flipkart.service;
 import com.flipkart.DAO.ProfessorDAOInterface;
 import com.flipkart.DAO.ProfessorDAOInterfaceIMPL;
 import com.flipkart.bean.Professor;
+import com.flipkart.exception.CourseAssignedException;
 import com.flipkart.exception.ProfessorException;
+import com.flipkart.exception.StudentCountException;
 
 import java.util.Scanner;
 
@@ -15,28 +17,46 @@ public class ProfessorInterfaceImpl implements ProfessorInterface {
 
 	/**
 	 * @param professor
-	 * @return
+	 * @return boolean : true if graded correctly
 	 */
 	@Override
 	public boolean gradeStudents(Professor professor) {
-
+		System.out.println("==================Grade Students===============");
 		// TODO Auto-generated method stub
 		try{
 			int courseID,studentID;
 		
 			String grade;
 			Scanner sc= new Scanner(System.in);
-			System.out.println("Enter the course ID");
+			showAssignedCourses(professor);
+			System.out.print("Enter the course ID : ");
 			courseID=sc.nextInt();
-			System.out.println("Enter the StudentID");
+			professorDAOInterface.viewEnrolledStudentsInCourse(courseID);
+			System.out.print("Enter the StudentID : ");
 			studentID=sc.nextInt();
-			System.out.println("Enter the grade");
+			System.out.print("Enter the grade : ");
 			grade=sc.next();
 			//		sc.close();
+			
 			//throw new ProfessorException("HAHAAH");
-			return professorDAOInterface.gradeStudents(courseID, studentID, grade);
+			int no_students = 0;
+			no_students = professorDAOInterface.getStudentCount(courseID);
+			//insert DAO func
+			if(no_students>0)
+			{
+				return professorDAOInterface.gradeStudents(courseID, studentID, grade);
+			}
+			else
+			{
+				throw new StudentCountException("No Students to Grade!!!");
+			}
 		}
-		
+		catch(StudentCountException e)
+		{
+			logger.info("\n\n");
+			logger.error(e.getMessage());
+			logger.info("\n\n");
+		}
 		catch (Exception e) {
 			logger.info(e.getMessage());
 		}
@@ -45,6 +65,7 @@ public class ProfessorInterfaceImpl implements ProfessorInterface {
 
 	/**
 	 * @param professor
+	 * method to view grades
 	 */
 	@Override
 	public void viewGrades(Professor professor) {
@@ -55,9 +76,23 @@ public class ProfessorInterfaceImpl implements ProfessorInterface {
 			Scanner sc= new Scanner(System.in);
 			courseID=sc.nextInt();
 			studentID=sc.nextInt();
-			professorDAOInterface.viewGrades(courseID, studentID);
+			int no_students = professorDAOInterface.getStudentCount(courseID);
+			if(no_students>0)
+			{
+				professorDAOInterface.viewGrades(courseID, studentID);
+			}
+			else
+			{
+				throw new StudentCountException("No Students in the given course!!!");
+			}
+			
 		}
-		
+		catch(StudentCountException e)
+		{
+			logger.info("\n\n");
+			logger.error(e.getMessage());
+			logger.info("\n\n");
+		}
 		catch (Exception e) {
 			logger.info(e.getMessage());
 		}
@@ -66,6 +101,7 @@ public class ProfessorInterfaceImpl implements ProfessorInterface {
 
 	/**
 	 * @param professor
+	 * method to show courses taught by professor
 	 */
 	@Override
 	public void showAssignedCourses(Professor professor) {
@@ -82,7 +118,7 @@ public class ProfessorInterfaceImpl implements ProfessorInterface {
 
 	/**
 	 * @param professor
-	 * @return
+	 * @return boolean: true if course assigned correctly
 	 */
 	@Override
 	public boolean addAssignedCourse(Professor professor) {
@@ -94,7 +130,23 @@ public class ProfessorInterfaceImpl implements ProfessorInterface {
 			System.out.println("enter the courseID");
 			Scanner sc= new Scanner(System.in);
 			courseID=sc.nextInt();
-			return professorDAOInterface.addAssignedCourse(courseID, professor.getId());
+			boolean coursePresence = false;
+			coursePresence = professorDAOInterface.getCoursePresence(courseID);
+			if(coursePresence == false)
+			{
+				return professorDAOInterface.addAssignedCourse(courseID, professor.getId());
+			}
+			else
+			{
+				throw new CourseAssignedException("Course is already assigned to some other professor . ");
+			}
+			
+		}
+		catch(CourseAssignedException e)
+		{
+			logger.info("\n\n");
+			logger.error(e.getMessage());
+			logger.info("\n\n");
 		}
 		catch (Exception e) {
 			logger.info(e.getMessage());
@@ -104,7 +156,7 @@ public class ProfessorInterfaceImpl implements ProfessorInterface {
 
 	/**
 	 * @param professor
-	 * @return
+	 * @return boolean: true if professor removed from course correctly
 	 */
 	@Override
 	public boolean removeAssignedCourse(Professor professor) {
@@ -115,7 +167,23 @@ public class ProfessorInterfaceImpl implements ProfessorInterface {
 			int courseID,profID;
 			Scanner sc= new Scanner(System.in);
 			courseID=sc.nextInt();
-			return professorDAOInterface.removeAssignedCourse(courseID, professor.getId());
+			boolean coursePresence = false;
+			coursePresence = professorDAOInterface.getCoursePresence(courseID);
+			if(coursePresence == true)
+			{
+				return professorDAOInterface.removeAssignedCourse(courseID, professor.getId());
+			}
+			else
+			{
+				throw new CourseAssignedException("Course was already removed. ");
+			}
+			
+		}
+		catch(CourseAssignedException e)
+		{
+			logger.info("\n\n");
+			logger.error(e.getMessage());
+			logger.info("\n\n");
 		}
 		catch (Exception e) {
 			logger.info(e.getMessage());
@@ -125,7 +193,7 @@ public class ProfessorInterfaceImpl implements ProfessorInterface {
 
 	/**
 	 * @param professor
-	 * @return
+	 * @return boolean: true if enrolled students viewed correctly
 	 */
 	@Override
 	public boolean viewEnrolledStudentsInCourse(Professor professor) {
@@ -136,7 +204,25 @@ public class ProfessorInterfaceImpl implements ProfessorInterface {
 			int courseID;
 			Scanner sc= new Scanner(System.in);
 			courseID=sc.nextInt();
-			return professorDAOInterface.viewEnrolledStudentsInCourse(courseID);
+			
+			int no_students = 0;
+			no_students = professorDAOInterface.getStudentCount(courseID);
+			//insert DAO func
+			if(no_students>0)
+			{
+				return professorDAOInterface.viewEnrolledStudentsInCourse(courseID);
+			}
+			else
+			{
+				throw new StudentCountException("No student is currently enrolled in the course!!!");
+			}
+			
+		}
+		catch(StudentCountException e)
+		{
+			logger.info("\n\n");
+			logger.error(e.getMessage());
+			logger.info("\n\n");
 		}
 		catch (Exception e) {
 			logger.info(e.getMessage());
@@ -145,8 +231,8 @@ public class ProfessorInterfaceImpl implements ProfessorInterface {
 	}
 
 	/**
-	 * @param id
-	 * @return
+	 * @param id id of professor
+	 * @return Professor bean
 	 */
 	@Override
 	public Professor getProfessorById(int id) {

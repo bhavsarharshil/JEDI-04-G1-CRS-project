@@ -4,19 +4,18 @@
 package com.flipkart.exception;
 
 /**
- * @author froz1
+ * @author 91883
  *
  */
-public class ProfessorException extends Exception{
-
+public class CourseAssignedException extends Exception{
 	private String message;
 	
-	public ProfessorException(String message) {
+	public CourseAssignedException(String message) {
 		this.message = message;
 	}
 	
 	public String getMessage() {
 		return this.message;
 	}
-	
+
 }

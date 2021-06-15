@@ -38,11 +38,21 @@ public class SQLQueriesConstant {
 	public static final String SELECT_COURSES = "Select * from course";
 	public static final String GET_PAYMENT_STATUS = "SELECT status , amount FROM payment WHERE studentid =?";
 	public static final String SELECT_DISTINCT_SEM_REGISTRATION = "Select distinct(studentid) from semregistration";
-	public static final String INSERT_PAYMENT = "Insert into payment values(?,?,\"null\",?,\"null\",5000,0)";
+	public static final String INSERT_PAYMENT = "Insert into payment values(?,?,null,?,null,5000,0)";
 	public static final String INSERT_GRADE = "insert into grade values(?,?,?)";
 	public static final String INSERT_STUDENT_STUDENT = "INSERT INTO student values(?,?,?,?,?);";
 
     public static final String APPROVE_STUDENTS_REQUEST = "UPDATE student SET isApproved = ? WHERE id = ?;";
 	public static final String VEIFY_STUDENT_APPROVAL = "SELECT isApproved FROM student where id = ?;";
 	public static final String VIEW_UNAPPROVED_STUDENTS = "SELECT user.id,user.name FROM student INNER JOIN user ON student.id=user.id WHERE isApproved = 0;";
+	
+	
+	public static final String GET_STUDENT_COUNT = "SELECT COUNT(DISTINCT(studentid) as total from studentcourse where courseid=?;" ;
+	
+	public static final String GET_COURSE_STATUS = "select * from courseprof where courseid=?;";
+	public static final String GET_PROFCOURSE_COUNT = "select count(distinct(courseid)) as total from courseprof where profid=?";
+	public static final String GET_PAYMENTS = "SELECT * FROM payment WHERE studentid =?";
+	
+	
+	
 }

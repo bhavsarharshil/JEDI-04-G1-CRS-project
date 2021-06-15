@@ -36,17 +36,21 @@ public class CRSApplication {
 	public static void main(String[] args) {
 		Scanner sc=new Scanner(System.in);
 		while(true) {
-			System.out.println("==========Welcome to the CRS System==========");
+			System.out.println("=======================================================");
+			System.out.println("\t\tWelcome to the CRS System");
+			System.out.println("=======================================================\n");
 			System.out.println("Enter 1 to login");
 			System.out.println("Enter 2 to view the course catalog");
 			System.out.println("Enter 3 to register as a new student");
-			System.out.println("Enter -1 to exit");
+			System.out.println("Enter -1 to exit\n");
 			try {
+				System.out.print("Input: ");
 				int a=sc.nextInt();
 				if(a==1) {
-					System.out.println("Please enter your ID");
+					System.out.println("\n============LOGIN============\n");
+					System.out.print("Please enter your ID : ");
 					int id=sc.nextInt();
-					System.out.println("Enter your password");
+					System.out.print("Enter your password : ");
 					String password=sc.next();
 					VerificationSystem newverfiy=new VerificationSystemOperation();
 					//loginWithCredentials(id,password);
@@ -73,8 +77,10 @@ public class CRSApplication {
 						Admin admin = AdminI.getAdminById(id);
 						newclient.AdminClient(admin);
 					}
+					else if(person.equals("unApproved")) {
+					}
 					else {
-						logger.error("Invalid Credentials");
+						logger.error("\nInvalid Credentials\n");
 					}
 				}
 				else if(a==2) {
@@ -86,15 +92,15 @@ public class CRSApplication {
 					studentClient.addStudent();
 				}
 				else if(a==-1) {
-					System.out.println("Exiting the application");
+					System.out.println("\n---Exiting the application---\n");
 					break;
 				}
 				else {
-					System.out.println("Please enter a valid input");
+					System.out.println("\nPlease enter a valid input\n");
 				}
 			}catch(InputMismatchException e) {
 				sc.next();
-				logger.error("The input format is invalid\n\n");
+				logger.error("\nThe input format is invalid\n\n");
 			}catch(Exception e) {
 				sc.next();
 				logger.error(e.getMessage());

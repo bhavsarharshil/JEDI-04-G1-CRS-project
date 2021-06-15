@@ -12,9 +12,9 @@ public class ProfessorCRSMenu {
 	//static for testing
 	public static void professorClient(Professor professor) {
 
-		System.out.println("=========================================");
-		System.out.println("Welcome "+professor.getName());
-		System.out.println("=========================================");
+		System.out.println("=======================================================");
+		System.out.println("\t\tWelcome " + professor.getName());
+		System.out.println("=======================================================\n");
 
 		int choice = 0;
 		Scanner input= new Scanner(System.in);;
@@ -22,6 +22,7 @@ public class ProfessorCRSMenu {
 		Logger logger = Logger.getLogger(ProfessorCRSMenu.class);
 		do {
 			showChoices();
+			System.out.print("\nInput : ");
 			choice = input.nextInt();
 			switch(choice) {
 
@@ -52,7 +53,6 @@ public class ProfessorCRSMenu {
 	}
 
 	public static void showChoices() {
-		System.out.println("Please select an operation: ");
 		System.out.println("1. Grade Student");
 		System.out.println("2. View students grade ");
 		System.out.println("3. show assigned courses");

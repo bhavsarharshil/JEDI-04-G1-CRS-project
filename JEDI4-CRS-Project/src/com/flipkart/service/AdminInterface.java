@@ -8,7 +8,6 @@ public interface AdminInterface {
 	public void generateReportCard();
 	public void addProfessor();
 	public void removeProfessor();
-	public void addStudent();
 	public void removeStudent();
 	public void approveStudents();
 	public void viewProfessors();

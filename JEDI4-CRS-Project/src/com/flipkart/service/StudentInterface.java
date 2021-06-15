@@ -19,8 +19,6 @@ public interface StudentInterface {
     public boolean addSecondaryCourse(int studentId,int courseId);
 
     public boolean removeSecondaryCourse(int studentId,int courseId);
-    
-    public boolean registerCourses(ArrayList<Integer> courseCart, int studentId);
 
     public void viewPrimaryRegisteredCourses(int studentId);
     
@@ -29,5 +27,8 @@ public interface StudentInterface {
     public Student getStudentById(int id);
 
     public void addStudent();
+
+	public void viewPayments(Student student);
+    
         
 }

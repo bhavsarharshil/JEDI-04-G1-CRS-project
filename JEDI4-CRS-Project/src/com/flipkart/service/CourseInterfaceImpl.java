@@ -8,38 +8,29 @@ import com.flipkart.bean.*;
 
 public class CourseInterfaceImpl implements CourseInterface {
 
-	/**
-	 * @param courseId
-	 * @return
-	 */
-	@Override
-	public Vector<Student> studentsEnrolled(int courseId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	/**
-	 * @param courseId
-	 * @return
-	 */
-	@Override
-	public Course getCourseById(int courseId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	/**
-	 *
+	 * method to view course catalog
 	 */
 	@Override
 	public void viewCourseCatalog() {
 		// TODO Auto-generated method stub
-		System.out.println("========CourseCatalog=========");
+		System.out.println("\n=======================================================");
+		System.out.println("\t\tCourseCatalog");
+		System.out.println("=======================================================\n");
 		CoursesDAOInterfaceIMPL courseDAOInterface=new CoursesDAOInterfaceIMPL();
 		ArrayList<Course> courseArray=courseDAOInterface.getAllCourses();
-		for(Course i:courseArray) {
-			System.out.println(String.valueOf(i.getCourseID())+"\t"+i.getCourseName()+"\t"+String.valueOf(i.getCredits()));
+		if(courseArray.isEmpty()) {
+			System.out.println("The course catalog is EMPTY\n");
 		}
+		else {
+			System.out.println("Course ID\t\tCourse Name\t\tCredits");
+			System.out.println("________________________________________________________\n");
+			for(Course i:courseArray) {
+				System.out.println(i.getCourseID() +"\t\t\t"+i.getCourseName()+"\t\t"+ i.getCredits());
+			}
+		}
+		System.out.println("________________________________________________________\n\n");
 	}
 	
 }

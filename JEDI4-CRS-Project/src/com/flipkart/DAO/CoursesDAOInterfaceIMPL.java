@@ -33,6 +33,11 @@ public class CoursesDAOInterfaceIMPL implements CoursesDAOInterface {
 		}
 		return instance;
 	}
+
+	/**
+	 * method to get all courses
+	 * @return list of courses
+	 */
 	@Override
 	public ArrayList<Course> getAllCourses() {
 		ArrayList<Course> courses = new ArrayList<>();
@@ -64,6 +69,11 @@ public class CoursesDAOInterfaceIMPL implements CoursesDAOInterface {
 		
 		// TODO Auto-generated method stub
 	}
+
+	/**
+	 * @param courseId
+	 * @return boolean: true if course exist in db
+	 */
 	@Override
 	public boolean hasCourse(int courseId) {
 		try {
