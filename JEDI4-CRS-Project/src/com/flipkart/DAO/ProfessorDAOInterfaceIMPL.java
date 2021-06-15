@@ -65,7 +65,7 @@ public class ProfessorDAOInterfaceIMPL implements ProfessorDAOInterface {
 	}
 
 	/**
-	 * @param professorID
+	 * @param professorID id of professor
 	 * @return professor name
 	 */
 	@Override
@@ -92,9 +92,12 @@ public class ProfessorDAOInterfaceIMPL implements ProfessorDAOInterface {
 
 		return professorName;
 	}
+
 	/**
-	 * @param professor
-	 * @return boolean : true if graded correctly
+	 * @param courseID id of course
+	 * @param studentID if of student
+	 * @param grade grade of student in course
+	 * @return boolean: true if student graded correctly
 	 */
 	@Override
 	public boolean gradeStudents(int courseID, int studentID,String grade) {
@@ -420,7 +423,7 @@ public class ProfessorDAOInterfaceIMPL implements ProfessorDAOInterface {
 	}
 
 	/**
-	 * @param courseID
+	 * @param courseID id of course
 	 * @return boolean: true if course already taught by some professor
 	 */
 	@Override

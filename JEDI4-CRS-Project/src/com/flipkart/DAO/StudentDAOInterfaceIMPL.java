@@ -15,7 +15,7 @@ import com.flipkart.bean.Student;
 import com.flipkart.constant.SQLQueriesConstant;
 import com.flipkart.exception.CourseLimitReached;
 import com.flipkart.exception.CourseNotFound;
-import com.flipkart.utils.DBConnection;
+import com.flipkart.utils.*;
 
 public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 	private static Logger logger = Logger.getLogger(StudentDAOInterface.class);
@@ -323,7 +323,7 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 	}
 
 	/**
-	 * @param studentId
+	 * @param studentId id of student
 	 * @return array list of registered primary course
 	 */
 	@Override

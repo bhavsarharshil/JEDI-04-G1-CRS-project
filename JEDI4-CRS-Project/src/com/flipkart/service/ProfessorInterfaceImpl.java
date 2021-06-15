@@ -16,7 +16,7 @@ public class ProfessorInterfaceImpl implements ProfessorInterface {
 	private static ProfessorDAOInterface professorDAOInterface= new ProfessorDAOInterfaceIMPL();
 
 	/**
-	 * @param professor
+	 * @param professor Professor bean
 	 * @return boolean : true if graded correctly
 	 */
 	@Override
@@ -115,7 +115,7 @@ public class ProfessorInterfaceImpl implements ProfessorInterface {
 	}
 
 	/**
-	 * @param professor
+	 * @param professor Professor bean
 	 * @return boolean: true if course assigned correctly
 	 */
 	@Override
@@ -153,7 +153,7 @@ public class ProfessorInterfaceImpl implements ProfessorInterface {
 	}
 
 	/**
-	 * @param professor
+	 * @param professor Professr bean
 	 * @return boolean: true if professor removed from course correctly
 	 */
 	@Override
@@ -190,7 +190,7 @@ public class ProfessorInterfaceImpl implements ProfessorInterface {
 	}
 
 	/**
-	 * @param professor
+	 * @param professor Professor bean
 	 * @return boolean: true if enrolled students viewed correctly
 	 */
 	@Override

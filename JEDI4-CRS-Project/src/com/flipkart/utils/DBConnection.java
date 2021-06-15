@@ -1,40 +1,46 @@
-/**
- * 
- */
 package com.flipkart.utils;
 
-/**
- * @author utkarsh
- *
- */
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Properties;
+
 public class DBConnection {
-	static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver"; 
-	static final String DB_URL = "jdbc:mysql://localhost/jedicrs";
-	
-	static final String USER = "jedi";
-	static final String PASS = "Flipkart@jedi4";
-	public static Connection conn = null;
+
+	private static Connection connection = null;
+
 	public static Connection getConnection() {
-		
-		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			conn = DriverManager.getConnection(DB_URL,USER,PASS);
-			return conn;
+
+		if (connection != null)
+			return connection;
+		else {
+			try {
+				Properties prop = new Properties();
+				System.out.println(DBConnection.class.getResource("com/flipkart/utils/configs.properties"));
+				InputStream inputStream = DBConnection.class.getClassLoader().getResourceAsStream("com/flipkart/utils/configs.properties");
+				prop.load(inputStream);
+				String driver = prop.getProperty("driver");
+				String url = prop.getProperty("url");
+				String user = prop.getProperty("user");
+				String password = prop.getProperty("password");
+				Class.forName(driver);
+				connection = DriverManager.getConnection(url, user, password);
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			return connection;
 		}
-		catch(SQLException E) {
-			E.printStackTrace();
-		}
-		catch(Exception e){
-		      //Handle errors for Class.forName
-		      e.printStackTrace();
-		}
-		finally{
-		   }//end try
-		return null;
-		
-		
+
 	}
+
+
 }

@@ -15,9 +15,9 @@ public class VerificationSystemOperation implements VerificationSystem {
 	public static Logger logger=Logger.getLogger(VerificationSystem.class);
 
 	/**
-	 * @param username
-	 * @param password
-	 * @return
+	 * @param username username
+	 * @param password password
+	 * @return String: role
 	 */
 	@Override
 	public String loginWithCredential(int username, String password) {

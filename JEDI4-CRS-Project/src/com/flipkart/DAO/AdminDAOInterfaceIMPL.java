@@ -9,7 +9,6 @@ import java.util.Date;
 
 import org.apache.log4j.Logger;
 
-import com.flipkart.application.AdminCRSMenu;
 import com.flipkart.bean.Admin;
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
@@ -80,12 +79,13 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 		    stmt=conn.prepareStatement(SQLQueriesConstant.GET_GRADES_QUERY);
 			stmt.setInt(1,student.getId());
 			ResultSet res =stmt.executeQuery();
-		    System.out.println("=======Report Card=======");
-		    System.out.println("Course Name\t|\tGrade");
-		    while(res.next()) {
-		    	System.out.println(res.getString("coursename")+"\t|\t"+res.getString("grade"));
-		    }
-		    System.out.println("__________________________________");
+			logger.info("-----------------------------------------------------------------------------");
+			logger.info(String.format("%10s %30s ", "Course NAME",  "GRADE"));
+			logger.info("-----------------------------------------------------------------------------");
+			while(res.next()) {
+				logger.info(String.format("%10s %30s ",res.getString("coursename"),res.getString("grade")));
+			}
+			logger.info("\n\n");
 		}catch (SQLException e) {
 			logger.error(e.getMessage());
 		}catch (Exception e) {
@@ -107,10 +107,10 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 		    stmt.setString(4, professor.getName());
 		    int res=stmt.executeUpdate();
 		    if(res==1) {
-		    	System.out.println("Professor successfully added.");
+				logger.info("Professor successfully added.");
 		    	return true;
 		    }
-		    System.out.println("Unable to add Professor");
+			logger.info("Unable to add Professor");
 		    return false;
 		}catch (SQLException e) {
 			logger.error(e.getMessage());
@@ -131,10 +131,10 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 		    stmt.setInt(1, professor.getId());
 		    int res=stmt.executeUpdate();
 		    if(res==1) {
-		    	System.out.println("Professor successfully deleted.");
+				logger.info("Professor successfully deleted.");
 		    	return true;
 		    }
-		    System.out.println("Unable to delete Professor");
+			logger.info("Unable to delete Professor");
 		    return false;
 		}catch (SQLException e) {
 			logger.error(e.getMessage());
@@ -156,10 +156,10 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 		    stmt.setInt(1, student.getId());
 		    int res=stmt.executeUpdate();
 		    if(res==1) {
-		    	System.out.println("Student successfully deleted.");
+				logger.info("Student successfully deleted.");
 		    	return true;
 		    }
-		    System.out.println("Unable to delete Student");
+			logger.info("Unable to delete Student");
 		    return false;
 		}catch (SQLException e) {
 			logger.error(e.getMessage());
@@ -182,10 +182,10 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 		    stmt.setInt(3, course.getCredits());
 		    int res=stmt.executeUpdate();
 		    if(res==1) {
-		    	System.out.println("Course successfully added.");
+				logger.info("Course successfully added.");
 		    	return true;
 		    }
-		    System.out.println("Unable to add course");
+			logger.info("Unable to add course");
 		    return false;
 		}catch (SQLException e) {
 			logger.error(e.getMessage());
@@ -206,10 +206,10 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 		    stmt.setInt(1, course.getCourseID());
 		    int res=stmt.executeUpdate();
 		    if(res==1) {
-		    	System.out.println("Course successfully added.");
+				logger.info("Course successfully added.");
 		    	return true;
 		    }
-		    System.out.println("Unable to add course");
+			logger.info("Unable to add course");
 		    return false;
 		}catch (SQLException e) {
 			logger.error(e.getMessage());
@@ -235,7 +235,7 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 				stmt.setInt(2,rs.getInt("courseid"));
 				int x=stmt.executeUpdate();
 				if(x!=1) {
-					System.out.println("Error in approving");
+					logger.info("Error in approving");
 					break;
 				}
 			}
@@ -250,7 +250,7 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 			}
 			stmt=conn.prepareStatement(SQLQueriesConstant.DELETE_SEM_REGISTRATION);
 			stmt.executeUpdate();
-			System.out.println("All students are approved");
+			logger.info("All students are approved");
 		}catch (SQLException e) {
 			logger.error(e.getMessage());
 		}catch (Exception e) {
@@ -267,9 +267,13 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 			conn=DBConnection.getConnection();
 			stmt=conn.prepareStatement(SQLQueriesConstant.VIEW_UNAPPROVED_STUDENTS);
 			ResultSet rs=stmt.executeQuery();
+			logger.info("-----------------------------------------------------------------------------");
+			logger.info(String.format("%10s %30s ", "USER ID",  "USER NAME"));
+			logger.info("-----------------------------------------------------------------------------");
 			while(rs.next()) {
-				System.out.println(rs.getInt("user.1id")+" "+rs.getString("user.name"));
+				logger.info(String.format("%10s %30s ",rs.getInt("user.id"),rs.getString("user.name")));
 			}
+			logger.info("\n\n");
 
 		}catch (SQLException e) {
 			logger.error(e.getMessage());
@@ -306,10 +310,14 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 			conn=DBConnection.getConnection();
 			stmt=conn.prepareStatement(SQLQueriesConstant.SELECT_PROFESSORS);
 			ResultSet rs=stmt.executeQuery();
+			logger.info("-----------------------------------------------------------------------------");
+			logger.info(String.format("%10s %30s ", "PROFESSOR ID",  "PROFESSOR NAME"));
+			logger.info("-----------------------------------------------------------------------------");
+
 			while(rs.next()) {
-				System.out.println(String.valueOf(rs.getInt("id"))+"\t"+rs.getString("name"));
+				logger.info(String.format("%10s %30s ",rs.getInt("id"),rs.getString("name")));
 			}
-			System.out.println("\n\n");
+			logger.info("\n\n");
 		}catch (SQLException e) {
 			logger.error(e.getMessage());
 		}catch (Exception e) {
@@ -327,10 +335,13 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 			conn=DBConnection.getConnection();
 			stmt=conn.prepareStatement(SQLQueriesConstant.SELECT_STUDENTS);
 			ResultSet rs=stmt.executeQuery();
+			logger.info("-----------------------------------------------------------------------------");
+			logger.info(String.format("%10s %30s ", "STUDENT ID",  "STUDENT NAME"));
+			logger.info("-----------------------------------------------------------------------------");
 			while(rs.next()) {
-				System.out.println(String.valueOf(rs.getInt("id"))+"\t"+rs.getString("name"));
+				logger.info(String.format("%10s %30s ",rs.getInt("id"),rs.getString("name")));
 			}
-			System.out.println("\n\n");
+			logger.info("\n\n");
 		}catch (SQLException e) {
 			logger.error(e.getMessage());
 		}catch (Exception e) {
@@ -348,10 +359,13 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 			conn=DBConnection.getConnection();
 			stmt=conn.prepareStatement(SQLQueriesConstant.SELECT_COURSES);
 			ResultSet rs=stmt.executeQuery();
+			logger.info("-----------------------------------------------------------------------------");
+			logger.info(String.format("%10s %30s ", "COURSE ID",  "COURSE NAME"));
+			logger.info("-----------------------------------------------------------------------------");
 			while(rs.next()) {
-				System.out.println(rs.getInt("id") +"\t"+rs.getString("name"));
+				logger.info(String.format("%10s %30s ",rs.getInt("id"),rs.getString("name")));
 			}
-			System.out.println("\n\n");
+			logger.info("\n\n");
 		}catch (SQLException e) {
 			logger.error(e.getMessage());
 		}catch (Exception e) {

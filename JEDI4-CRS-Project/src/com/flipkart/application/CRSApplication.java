@@ -27,9 +27,6 @@ import com.flipkart.service.VerificationSystemOperation;
  */
 public class CRSApplication {
 
-	/**
-	 * @param args
-	 */
 	
 	public static Logger logger=Logger.getLogger(CRSApplication.class);
 	
