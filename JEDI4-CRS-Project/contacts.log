@@ -44,3 +44,4 @@
 19:16:45,769 ERROR StudentDAOInterface,main:231 - You can only add 2 secondary courses.
 19:17:11,283 ERROR StudentDAOInterface,main:384 - Before start of result set
 19:17:55,218 ERROR StudentDAOInterface,main:196 - You can only add 4 primary courses.
+11:18:24,744 ERROR StudentDAOInterface,main:196 - Invalid Course ID
