@@ -12,7 +12,20 @@ public class Payment {
 	private int mode ; // 0 for online ,  1 for online 
 	private String date ;
 	private int amount ;
+	private String method;
 	
+	/**
+	 * @return the method
+	 */
+	public String getMethod() {
+		return method;
+	}
+	/**
+	 * @param method the method to set
+	 */
+	public void setMethod(String method) {
+		this.method = method;
+	}
 	public int getPaymentID() {
 		return paymentID;
 	}

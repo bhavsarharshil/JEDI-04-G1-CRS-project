@@ -11,6 +11,7 @@ import org.apache.log4j.Logger;
 
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Grades;
+import com.flipkart.bean.Payment;
 import com.flipkart.bean.Student;
 import com.flipkart.constant.SQLQueriesConstant;
 import com.flipkart.exception.CourseLimitReached;
@@ -23,10 +24,15 @@ import com.flipkart.utils.*;
 
 
 public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
+	
 	private static Logger logger = Logger.getLogger(StudentDAOInterface.class);
+	
 	private static StudentDAOInterfaceIMPL instance = null;
+	
 	Connection connection = null;
+	
 	PreparedStatement ps = null;
+	
 	public static StudentDAOInterfaceIMPL getInstance()
 	{
 		if(instance == null)
@@ -42,7 +48,7 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 	 */
 	@Override
 	public ArrayList<Grades> getGrades(int studentID){
-		ArrayList<Grades> grades = new ArrayList<>();
+		ArrayList<Grades> grades = null;
 
 		try{
 			connection = DBConnection.getConnection();
@@ -107,12 +113,10 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 	/**
 	 * @param student student bean
 	 * @param method payment method
+	 * returns the due amount
 	 */
 	@Override
-	public void setPaymentStatus(Student student, String method) {
-		System.out.println("\n============================================================");
-		System.out.println("\t\tPayments");
-		System.out.println("============================================================\n");
+	public int setPaymentStatus(Student student, String method) {
 		try{
 			connection = DBConnection.getConnection();
 			ps = connection.prepareStatement(SQLQueriesConstant.GET_PAYMENT_STATUS);
@@ -124,19 +128,17 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 			else {
 				int status = resultSet.getInt("status");
 				int amount = resultSet.getInt("amount");
-				if(status == 1)
-				{
-					logger.info("Payment is already done !\n");
+				if(status == 1){
+					return 0;
 				}
 				else
 				{
-					logger.info("Amount to be paid :" + String.valueOf(amount));
 					ps = connection.prepareStatement(SQLQueriesConstant.SET_PAYMENT_STATUS_QUERY);
 					ps.setString(1, method);
 					ps.setString(2, String.valueOf(LocalDate.now()));
 					ps.setInt(3, student.getId());
 					ps.executeUpdate();
-					logger.info("Payment done successfully!\n");
+					return amount;
 				}
 			}
 		}
@@ -146,6 +148,7 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 		catch(Exception e) {
 			logger.error("\n"+e.getMessage()+"\n");
 		}
+		return -1;
 	}
 
 	/**
@@ -154,7 +157,6 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 	 */
 	@Override
 	public Student getStudentById(int id) {
-		// TODO Auto-generated method stub
 		Student student = new Student();
 		PreparedStatement stmt = null;
 		Connection conn = DBConnection.getConnection();
@@ -194,7 +196,7 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 	 * method to add primary course
 	 */
 	@Override
-	public void addPrimaryCourse(int studentId, int courseId) {
+	public boolean addPrimaryCourse(int studentId, int courseId) {
 		
 		try {
 			if(countPrimaryCourses(studentId) >= 4) {
@@ -205,8 +207,7 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 				throw new CourseNotFound("Invalid Course ID");
 			}
 			if(alreadyPresent(studentId, courseId)) {
-				logger.error("You have already added this course");
-				return;
+				throw new NotFound("\nYou have already added this course\n");
 			}
 			PreparedStatement stmt = null;
 			Connection conn = DBConnection.getConnection();
@@ -219,7 +220,7 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 			stmt.setTimestamp(4,sqlTime);
 			int added = stmt.executeUpdate();
 			if(added>0) {
-				logger.info("Course " + courseId + " added successfully\n");
+				return true;
 			}
 		}catch(SQLException e) {
 			logger.error(e.getMessage());
@@ -227,6 +228,7 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 		catch(Exception e) {
 			logger.error(e.getMessage());
 		}
+		return false;
 	}
 	/**
 	 * @param studentId id of student
@@ -234,18 +236,17 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 	 * method to add secondary course
 	 */
 	@Override
-	public void addSecondaryCourse(int studentId, int courseId) {
+	public boolean addSecondaryCourse(int studentId, int courseId) {
 		try {
+			CoursesDAOInterface courseDAO = new CoursesDAOInterfaceIMPL();
 			if(countSecondaryCourses(studentId) >= 2) {
 				throw new CourseLimitReached("You can only add 2 secondary courses.");
 			}
-			CoursesDAOInterface courseDAO = new CoursesDAOInterfaceIMPL();
 			if(!courseDAO.hasCourse(courseId)) {
 				throw new CourseNotFound("Invalid Course ID");
 			}
 			if(alreadyPresent(studentId, courseId)) {
-				logger.error("You have already added this course");
-				return;
+				throw new NotFound("\nYou have already added this course\n");
 			}
 			PreparedStatement stmt = null;
 			Connection conn = DBConnection.getConnection();
@@ -258,7 +259,7 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 			stmt.setTimestamp(4,sqlTime);
 			int added = stmt.executeUpdate();
 			if(added>0) {
-				logger.info("Course " + courseId + " added successfully\n");
+				return true;
 			}
 		}catch(SQLException e) {
 			logger.error(e.getMessage());
@@ -266,6 +267,7 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 		catch(Exception e) {
 			logger.error(e.getMessage());
 		}
+		return false;
 	}
 	/**
 	 * @param studentId id of student
@@ -273,15 +275,14 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 	 * method to remove primary course
 	 */
 	@Override
-	public void removePrimaryCourse(int studentId, int courseId) {
+	public boolean removePrimaryCourse(int studentId, int courseId) {
 		try {
 			CoursesDAOInterface courseDAO = new CoursesDAOInterfaceIMPL();
 			if(!courseDAO.hasCourse(courseId)) {
-				throw new CourseNotFound("Invalid Course ID");
+				throw new CourseNotFound("\nInvalid Course ID\n");
 			}
 			if(!alreadyPresent(studentId, courseId)) {
-				logger.error("You have not registered for this course");
-				return;
+				throw new NotFound("\nYou have not registered for this course\n");
 			}
 			PreparedStatement stmt = null;
 			Connection conn = DBConnection.getConnection();
@@ -290,15 +291,16 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 			stmt.setInt(2, courseId);
 			int dropped = stmt.executeUpdate();
 			if(dropped > 0) {
-				logger.info("Course " + courseId + " deleted successfully");
+				return true;
 			}else {
-				logger.error("You have added this course as secondary");
+				throw new NotFound("\nYou have added this course as secondary\n");
 			}
 		}catch(SQLException e) {
 			logger.error(e.getMessage());
 		}catch(Exception e) {
 			logger.error(e.getMessage());
 		}
+		return false;
 	}
 	/**
 	 * @param studentId id of student
@@ -306,32 +308,32 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 	 * method to remove secondary course
 	 */
 	@Override 
-	public void removeSecondaryCourse(int studentId, int courseId) {
+	public boolean removeSecondaryCourse(int studentId, int courseId) {
 		try {
 			CoursesDAOInterface courseDAO = new CoursesDAOInterfaceIMPL();
 			if(!courseDAO.hasCourse(courseId)) {
 				throw new CourseNotFound("Invalid Course ID");
-			}
-			if(!alreadyPresent(studentId, courseId)) {
-				logger.error("You have not registered for this course");
-				return;
-			}
-			PreparedStatement stmt = null;
-			Connection conn = DBConnection.getConnection();
-			stmt = conn.prepareStatement(SQLQueriesConstant.DELETE_SECONDARY_SM);
-			stmt.setInt(1, studentId);
-			stmt.setInt(2, courseId);
-			int dropped = stmt.executeUpdate();
-			if(dropped > 0) {
-				logger.info("Course " + courseId + " deleted successfully");
+			}else if(!alreadyPresent(studentId, courseId)) {
+				throw new NotFound("\nYou have not registered for this course\n");
 			}else {
-				logger.error("You have added this course as primary");
+				PreparedStatement stmt = null;
+				Connection conn = DBConnection.getConnection();
+				stmt = conn.prepareStatement(SQLQueriesConstant.DELETE_SECONDARY_SM);
+				stmt.setInt(1, studentId);
+				stmt.setInt(2, courseId);
+				int dropped = stmt.executeUpdate();
+				if(dropped > 0) {
+					return true;
+				}else {
+					throw new NotFound("\nYou have added this course as primary\n");
+				}
 			}
 		}catch(SQLException e) {
 			logger.error(e.getMessage());
 		}catch(Exception e) {
 			logger.error(e.getMessage());
 		}
+		return false;
 	}
 
 	/**
@@ -486,10 +488,7 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 		}
 		return 0;
 	}
-	/*
-	 * @param student : Details of student
-	 * */
-	public void viewPayments(Student student) {
+	public Payment viewPayments(Student student) {
 		try{
 			connection = DBConnection.getConnection();
 			ps = connection.prepareStatement(SQLQueriesConstant.GET_PAYMENTS);
@@ -501,17 +500,13 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 			else {
 				int status = resultSet.getInt("status");
 				int amount = resultSet.getInt("amount");
-				if(status == 0)
-				{
-					logger.info("\n----------Payment not done yet----------\n");
-					logger.info("Amount to be paid : " + String.valueOf(amount));
-				}
-				else
-				{
-					System.out.println("\n-------------------------------------------------PAYMENT DETAILS---------------------------------------------------\n");
-					System.out.println("Payment ID\t\tMODE\t\t\tBill Date\t\tPayment Date\t\tAmount");
-					System.out.println("-------------------------------------------------------------------------------------------------------------------");
-					System.out.println(String.format("%-9d\t\t%-11s\t\t%s\t\t\t%-9s\t\t%-9s\n", resultSet.getInt("paymentid"),resultSet.getString("mode"), resultSet.getDate("billDate"),resultSet.getDate("paymentDate"),amount ));
+				if(status == 1){
+					Payment payment = new Payment();
+					payment.setAmount(amount);
+					payment.setDate(resultSet.getString("paymentDate"));
+					payment.setPaymentID(resultSet.getInt("paymentid"));
+					payment.setMethod(resultSet.getString("mode"));
+					return payment;
 				}
 			}
 		}
@@ -521,7 +516,8 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 		catch(Exception e) {
 			logger.error("\n"+e.getMessage()+"\n");
 		}
+		return null;
 	}
 }
 
-	
+		

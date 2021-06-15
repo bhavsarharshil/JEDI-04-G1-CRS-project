@@ -14,6 +14,7 @@ import com.flipkart.DAO.CoursesDAOInterfaceIMPL;
 import com.flipkart.DAO.ProfessorDAOInterfaceIMPL;
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Grades;
+import com.flipkart.bean.Payment;
 import com.flipkart.bean.Student;
 
 /**
@@ -38,33 +39,13 @@ public class StudentOperation implements StudentInterface {
 	 * method to show courses
 	 */
 	@Override
-	public void showCourses() {
-		// TODO Auto-generated method stub
-		System.out.println("\n========================================================================");
-		System.out.println("\t\t\tAvailable Courses");
-		System.out.println("========================================================================\n");
+	public ArrayList<Course> showCourses() {
 		try{
-        		ArrayList<Course> courses = coursesDaoOperation.getAllCourses();
-        		if(courses.isEmpty()) {
-        			System.out.println("\nThere are no available courses\n");
-        		}
-        		else {
-            		System.out.println("Course ID\t\tCourse Name\t\tCredits\t\tProfessor Allotted");
-        			System.out.println("_______________________________________________________________________\n");
-            		courses.forEach((course) ->{
-            				String professorAllotted = professorDAOOperation.getProfessorByIdName(course.getProfessorAllotted());
-            		if(professorAllotted == null) {
-            			professorAllotted = "Not yet alloted";
-            		}
-            		System.out.println(String.format("%-9d\t\t%-11s\t\t%-7d\t\t%-18s", course.getCourseID(), course.getCourseName(), course.getCredits(), professorAllotted));
-            		});
-        		}
-    			System.out.println("_______________________________________________________________________\n\n");
-        	}
-        	catch (Exception e){
-        		logger.error(e.getMessage());
-        	}
-		
+        	return coursesDaoOperation.getAllCourses();
+        }catch (Exception e){
+        	logger.error(e.getMessage());
+        }
+		return null;
 	}
 
 	/**
@@ -73,51 +54,33 @@ public class StudentOperation implements StudentInterface {
 	 */
 	@Override
 	public ArrayList<Grades> viewGrades(int studentId) {
-//		System.out.println("GRADES LIST");
-		// TODO Auto-generated method stub
-		ArrayList<Grades> grades = null;
-		System.out.println("\n========================================================================");
-		System.out.println("\t\t\tGrades");
-		System.out.println("========================================================================\n");
-		
 		try{
-            grades = studentDaoOperation.getGrades(studentId);
-            if(grades.isEmpty()) {
-            	System.out.println("\nThere are no available grades\n");
-            }
-            else {
-	            System.out.println("Course ID\t\tCourse Name\t\tGrade");
-    			System.out.println("_______________________________________________________________________\n");
-	            grades.forEach(grade -> {
-	            	System.out.println(String.format("%-9d\t\t%-11s\t\t%-5s", grade.getCourseId(), grade.getCourseName(), grade.getGrade()));
-	            });
-            }
-			System.out.println("_______________________________________________________________________\n\n");
+            return studentDaoOperation.getGrades(studentId);
         }
         catch(Exception e){
         	logger.error("\n" + e.getMessage() + "\n");
         }
-    	return grades;
-		
+    	return null;
 	}
-
+	
 	/**
 	 * @param student Student bean
 	 * @param method method of payment
 	 */
 	@Override
-	public void makePayment(Student student, String method) {
+	public int makePayment(Student student, String method) {
 		try {
-			studentDaoOperation.setPaymentStatus(student,method);
+			int dueAmount = studentDaoOperation.setPaymentStatus(student,method);
         	student.setPaymentStatus(true);
+        	return dueAmount;
         }
         catch(Exception e) {
         	logger.error("\n" + e.getMessage() + "\n");
         }
-		// TODO Auto-generated method stub
+		return -1;
 	}
 
-
+	
 	/**
 	 * @param studentId id of student
 	 * @param courseId id of course
@@ -126,14 +89,14 @@ public class StudentOperation implements StudentInterface {
 	@Override
 	public boolean addPrimaryCourse(int studentId, int courseId) {
 		try {
-			stdao.addPrimaryCourse(studentId, courseId);
-			return true;
+			return stdao.addPrimaryCourse(studentId, courseId);
 		}catch(Exception e) {
 			logger.error("\n"+e.getMessage()+"\n");
 		}
 		return false;
 	}
 
+	
 	/**
 	 * @param studentId id of student
 	 * @param courseId id of course
@@ -142,14 +105,14 @@ public class StudentOperation implements StudentInterface {
 	@Override
 	public boolean removePrimaryCourse(int studentId, int courseId) {
 		try {
-			stdao.removePrimaryCourse(studentId, courseId);
-			return true;
+			return stdao.removePrimaryCourse(studentId, courseId);
 		}catch(Exception e) {
 			logger.error("\n"+e.getMessage()+"\n");
 		}
 		return false;
 	}
 
+	
 	/**
 	 * @param studentId id of student
 	 * @param courseId id of course
@@ -158,14 +121,14 @@ public class StudentOperation implements StudentInterface {
 	@Override
 	public boolean addSecondaryCourse(int studentId, int courseId) {
 		try {
-			stdao.addSecondaryCourse(studentId, courseId);
-			return true;
+			return stdao.addSecondaryCourse(studentId, courseId);
 		}catch(Exception e) {
 			logger.error(e.getMessage());
 		}
 		return false;
 	}
 
+	
 	/**
 	 * @param studentId id of student
 	 * @param courseId id of course
@@ -174,24 +137,24 @@ public class StudentOperation implements StudentInterface {
 	@Override
 	public boolean removeSecondaryCourse(int studentId, int courseId) {
 		try {
-			stdao.removeSecondaryCourse(studentId, courseId);
-			return true;
+			return stdao.removeSecondaryCourse(studentId, courseId);
 		}catch(Exception e) {
 			logger.error("\n"+e.getMessage()+"\n");
 		}
 		return false;
 	}
 
+	
 	/**
 	 * @param id id of student
 	 * @return Student bean
 	 */
 	@Override
 	public Student getStudentById(int id) {
-		
 		return stdao.getStudentById(id);
 	}
 
+	
 	/**
 	 * method to add student
 	 */
@@ -228,72 +191,50 @@ public class StudentOperation implements StudentInterface {
 		return false;
 	}
 
+	
 	/**
 	 * @param studentId id of student
 	 * method to view primary registered courses
 	 */
 	@Override
-	public void viewPrimaryRegisteredCourses(int studentId) {
-		System.out.println("========================================================================\n");
-		System.out.println("\t\t\tPrimary Courses");
-		System.out.println("\n========================================================================");
-		
-		
+	public ArrayList<Course> viewPrimaryRegisteredCourses(int studentId) {		
 		try {
-			ArrayList<Course> primaryCourses = stdao.getPrimaryRegisteredCourses(studentId);
-			if(primaryCourses.isEmpty()) {
-				System.out.println("You have not registered for any primary course\n");
-			}
-			else {
-				System.out.println("Course ID\t\tCourse Name\t\tCredits");
-    			System.out.println("_______________________________________________________________________\n");
-				for(Course course : primaryCourses){
-					System.out.println(String.format("%-9d\t\t%-11s\t\t%-7d", course.getCourseID(), course.getCourseName(), course.getCredits()));
-				}
-    			System.out.println("_______________________________________________________________________\n\n");
-			}
+			return stdao.getPrimaryRegisteredCourses(studentId);
 		}catch(Exception e) {
 			logger.error("\n"+e.getMessage()+"\n");
 		}
+		return null;
 	}
 
+	
 	/**
 	 * @param studentId id of student
 	 * method to view primary registered courses
 	 */
 	@Override
-	public void viewSecondaryRegisteredCourses(int studentId) {
-		System.out.println("\n========================================================================");
-		System.out.println("\t\t\tSecondary Courses");
-		System.out.println("========================================================================\n");
+	public ArrayList<Course> viewSecondaryRegisteredCourses(int studentId) {
+
 		try {
-		ArrayList<Course> secondaryCourses = stdao.getSecondaryRegisteredCourses(studentId);
-		if(secondaryCourses.isEmpty()) {
-			System.out.println("You have not registered for any secondary course\n");
-		}
-		else {
-			System.out.println("Course ID\t\tCourse Name\t\tCredits");
-			System.out.println("_______________________________________________________________________\n");
-			for(Course course : secondaryCourses){
-				System.out.println(String.format("%-9d\t\t%-11s\t\t%-7d", course.getCourseID(), course.getCourseName(), course.getCredits()));
-			}
-			System.out.println("_______________________________________________________________________\n\n");
-		}
+			return stdao.getSecondaryRegisteredCourses(studentId);
 		}catch(Exception e) {
 			logger.error("\n"+e.getMessage()+"\n");
 		}
+		return null;
 	}
 
+	/*
+	 * @param student : details of student
+	 * return payment details
+	 * */
 	@Override
-	public void viewPayments(Student student) {
+	public Payment viewPayments(Student student) {
 		// TODO Auto-generated method stub
 		try {
-			studentDaoOperation.viewPayments(student);
+			 return studentDaoOperation.viewPayments(student);
         }
         catch(Exception e) {
         	logger.error("\n" + e.getMessage() + "\n");
         }
+		return null;
 	}
-
-
 }
