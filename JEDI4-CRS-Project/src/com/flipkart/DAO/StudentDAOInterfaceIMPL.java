@@ -15,6 +15,7 @@ import com.flipkart.bean.Student;
 import com.flipkart.constant.SQLQueriesConstant;
 import com.flipkart.exception.CourseLimitReached;
 import com.flipkart.exception.CourseNotFound;
+import com.flipkart.exception.NotFound;
 import com.flipkart.utils.DBConnection;
 
 public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
@@ -115,8 +116,8 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 			ps = connection.prepareStatement(SQLQueriesConstant.GET_PAYMENT_STATUS);
 			ps.setInt(1, student.getId());
 			ResultSet resultSet = ps.executeQuery();
-			if(!resultSet.isBeforeFirst()) {
-				System.out.println("\nThere are no payments to show\n");
+			if(!resultSet.next()) {
+				throw new NotFound("\nThere are no payments to show\n");
 			}
 			else {
 				int status = resultSet.getInt("status");
@@ -344,10 +345,15 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 			stmt = conn.prepareStatement(SQLQueriesConstant.SELECT_PRIMARY_COURSE);
 			stmt.setInt(1, studentId);
 			ResultSet rs = stmt.executeQuery();
-			while(rs.next()) {
+			while(rs.next()) {			
+				PreparedStatement stmt2 = conn.prepareStatement(SQLQueriesConstant.GET_COURSE_BY_ID);
+				stmt2.setInt(1, rs.getInt(1));
+				ResultSet rs2 = stmt2.executeQuery();
+				rs2.next();
 				Course course = new Course();
-				course.setCourseID(rs.getInt(1));
-				course.setCourseName(rs.getString(2));
+				course.setCourseID(rs2.getInt(1));
+				course.setCourseName(rs2.getString(2));
+				course.setCredits(rs2.getInt(3));
 				primaryCourses.add(course);
 			}
 		}catch(SQLException e) {
@@ -357,6 +363,7 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 		}
 		return primaryCourses;
 	}
+	
 
 	/**
 	 * @param studentId id of student
@@ -372,9 +379,14 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 			stmt.setInt(1, studentId);
 			ResultSet rs = stmt.executeQuery();
 			while(rs.next()) {
+				PreparedStatement stmt2 = conn.prepareStatement(SQLQueriesConstant.GET_COURSE_BY_ID);
+				stmt2.setInt(1, rs.getInt(1));
+				ResultSet rs2 = stmt2.executeQuery();
+				rs2.next();
 				Course course = new Course();
-				course.setCourseID(rs.getInt(1));
-				course.setCourseName(rs.getString(2));
+				course.setCourseID(rs2.getInt(1));
+				course.setCourseName(rs2.getString(2));
+				course.setCredits(rs2.getInt(3));
 				secondaryCourses.add(course);
 			}
 		}catch(SQLException e) {
@@ -474,35 +486,29 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 	}
 
 	public void viewPayments(Student student) {
-		// TODO Auto-generated method stub
-		System.out.println("\n============================================================");
-		System.out.println("\t\tPayments");
-		System.out.println("============================================================\n");
 		try{
 			connection = DBConnection.getConnection();
 			ps = connection.prepareStatement(SQLQueriesConstant.GET_PAYMENTS);
 			ps.setInt(1, student.getId());
 			ResultSet resultSet = ps.executeQuery();
-			if(!resultSet.isBeforeFirst()) {
-				System.out.println("\nThere are no payments to show\n");
+			if(!resultSet.next()) {
+				throw new NotFound("\nThere are no payments to show\n");
 			}
 			else {
-				resultSet.next();
 				int status = resultSet.getInt("status");
 				int amount = resultSet.getInt("amount");
-				if(status == 1)
+				if(status == 0)
 				{
-					System.out.println("Payment is already done !\n");
+					System.out.println("\n----------Payment not done yet----------\n");
+					System.out.println("Amount to be paid : " + String.valueOf(amount));
 				}
 				else
 				{
-					System.out.println("Amount to be paid :" + String.valueOf(amount));
-					ps = connection.prepareStatement(SQLQueriesConstant.SET_PAYMENT_STATUS_QUERY);
-					
-					ps.setString(2, String.valueOf(LocalDate.now()));
-					ps.setInt(3, student.getId());
-					ps.executeUpdate();
-					System.out.println("Payment done successfully!\n");
+					System.out.println("\n-------------------------------------------------PAYMENT DETAILS---------------------------------------------------\n");
+					System.out.println("Payment ID\t\tMODE\t\t\tBill Date\t\tPayment Date\t\tAmount");
+					System.out.println("-------------------------------------------------------------------------------------------------------------------");
+					System.out.println(String.format("%-9d\t\t%-11s\t\t%s\t\t\t%-9s\t\t%-9s", resultSet.getInt("paymentid"),resultSet.getString("mode"), resultSet.getDate("billDate"),resultSet.getDate("paymentDate"),amount ));
+					System.out.println("\n");
 				}
 			}
 		}

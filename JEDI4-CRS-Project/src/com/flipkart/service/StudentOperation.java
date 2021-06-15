@@ -95,7 +95,7 @@ public class StudentOperation implements StudentInterface {
 			System.out.println("_______________________________________________________________________\n\n");
         }
         catch(Exception e){
-        	logger.error(e.getMessage());
+        	logger.error("\n" + e.getMessage() + "\n");
         }
     	return grades;
 		
@@ -112,7 +112,7 @@ public class StudentOperation implements StudentInterface {
         	student.setPaymentStatus(true);
         }
         catch(Exception e) {
-        	System.out.println(e.getMessage());
+        	logger.error("\n" + e.getMessage() + "\n");
         }
 		// TODO Auto-generated method stub
 	}
@@ -199,29 +199,29 @@ public class StudentOperation implements StudentInterface {
 	public void addStudent() {
 //		 TODO Auto-generated method stub
 		try {
-		Scanner sc=new Scanner(System.in);
-		Student student=new Student();
-		System.out.print("Enter new student id : ");
-		int id=sc.nextInt();
-		student.setId(id);
-		System.out.print("Enter student email : ");
-		String email=sc.next();
-		student.setEmail(email);
-		System.out.print("Enter password : ");
-		String password=sc.next();
-		student.setPassword(password);
-		student.setRole("student");
-		student.setLoggedin(false);
-		System.out.print("Enter student name : ");
-		String name=sc.next();
-		student.setName(name);
-		System.out.print("Enter branch : ");
-		String branch = sc.next();
-		student.setBranch(branch);
-		System.out.print("Enter semester : ");
-		int semester = sc.nextInt();
-		student.setSemester(semester);
-		stdao.addStudent(student);
+			Scanner sc=new Scanner(System.in);
+			Student student=new Student();
+			System.out.print("Enter new student id : ");
+			int id=sc.nextInt();
+			student.setId(id);
+			System.out.print("Enter student email : ");
+			String email=sc.next();
+			student.setEmail(email);
+			System.out.print("Enter password : ");
+			String password=sc.next();
+			student.setPassword(password);
+			student.setRole("student");
+			student.setLoggedin(false);
+			System.out.print("Enter student name : ");
+			String name=sc.next();
+			student.setName(name);
+			System.out.print("Enter branch : ");
+			String branch = sc.next();
+			student.setBranch(branch);
+			System.out.print("Enter semester : ");
+			int semester = sc.nextInt();
+			student.setSemester(semester);
+			stdao.addStudent(student);
 		}catch(Exception e) {
 			logger.error("\n"+e.getMessage()+"\n");
 		}
@@ -233,9 +233,11 @@ public class StudentOperation implements StudentInterface {
 	 */
 	@Override
 	public void viewPrimaryRegisteredCourses(int studentId) {
-		System.out.println("\n========================================================================");
-		System.out.println("\t\t\tPrimary Courses");
 		System.out.println("========================================================================\n");
+		System.out.println("\t\t\tPrimary Courses");
+		System.out.println("\n========================================================================");
+		
+		
 		try {
 			ArrayList<Course> primaryCourses = stdao.getPrimaryRegisteredCourses(studentId);
 			if(primaryCourses.isEmpty()) {
@@ -245,7 +247,7 @@ public class StudentOperation implements StudentInterface {
 				System.out.println("Course ID\t\tCourse Name\t\tCredits");
     			System.out.println("_______________________________________________________________________\n");
 				for(Course course : primaryCourses){
-					System.out.println(course.getCourseID() + "\t\t\t" + course.getCourseName() + "\t\t\t" + course.getCredits());
+					System.out.println(String.format("%-9d\t\t%-11s\t\t%-7d", course.getCourseID(), course.getCourseName(), course.getCredits()));
 				}
     			System.out.println("_______________________________________________________________________\n\n");
 			}
@@ -272,7 +274,7 @@ public class StudentOperation implements StudentInterface {
 			System.out.println("Course ID\t\tCourse Name\t\tCredits");
 			System.out.println("_______________________________________________________________________\n");
 			for(Course course : secondaryCourses){
-				System.out.println(course.getCourseID() + "\t\t\t" + course.getCourseName() + "\t\t\t" + course.getCredits());
+				System.out.println(String.format("%-9d\t\t%-11s\t\t%-7d", course.getCourseID(), course.getCourseName(), course.getCredits()));
 			}
 			System.out.println("_______________________________________________________________________\n\n");
 		}
@@ -288,7 +290,7 @@ public class StudentOperation implements StudentInterface {
 			studentDaoOperation.viewPayments(student);
         }
         catch(Exception e) {
-        	System.out.println(e.getMessage());
+        	logger.error("\n" + e.getMessage() + "\n");
         }
 	}
 

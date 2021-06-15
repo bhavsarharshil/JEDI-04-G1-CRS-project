@@ -45,3 +45,101 @@
 19:17:11,283 ERROR StudentDAOInterface,main:384 - Before start of result set
 19:17:55,218 ERROR StudentDAOInterface,main:196 - You can only add 4 primary courses.
 11:18:24,744 ERROR StudentDAOInterface,main:196 - Invalid Course ID
+11:34:20,051 ERROR CRSApplication,main:83 - 
+Invalid Credentials
+
+11:34:54,786 ERROR CRSApplication,main:83 - 
+Invalid Credentials
+
+11:39:41,053 ERROR CRSApplication,main:83 - 
+Invalid Credentials
+
+11:40:43,641 ERROR CRSApplication,main:83 - 
+Invalid Credentials
+
+11:41:25,835 ERROR CRSApplication,main:83 - 
+Invalid Credentials
+
+11:42:21,409 ERROR CRSApplication,main:83 - 
+Invalid Credentials
+
+11:43:14,219 ERROR CRSApplication,main:83 - 
+Invalid Credentials
+
+11:43:45,566 ERROR CRSApplication,main:83 - 
+Invalid Credentials
+
+11:46:00,812 ERROR CRSApplication,main:83 - 
+Invalid Credentials
+
+11:49:34,400 ERROR CRSApplication,main:83 - 
+Invalid Credentials
+
+13:04:52,049 ERROR StudentDAOInterface,main:99 - Duplicate entry '104' for key 'user.PRIMARY'
+13:09:49,990 ERROR CRSApplication,main:83 - 
+Invalid Credentials
+
+13:13:40,483  INFO ProfessorDAOInterfaceIMPL,main:256 - Before start of result set
+13:13:48,055  INFO ProfessorDAOInterfaceIMPL,main:471 - No operations allowed after connection closed.
+13:13:48,056  INFO ProfessorDAOInterfaceIMPL,main:304 - No operations allowed after connection closed.
+13:14:08,489  INFO ProfessorDAOInterfaceIMPL,main:256 - No operations allowed after connection closed.
+13:14:57,676  INFO ProfessorDAOInterfaceIMPL,main:256 - No operations allowed after connection closed.
+13:15:02,060  INFO ProfessorDAOInterfaceIMPL,main:400 - No operations allowed after connection closed.
+13:15:08,905  INFO ProfessorDAOInterfaceIMPL,main:445 - No operations allowed after connection closed.
+13:15:08,906  INFO ProfessorInterfaceImpl,main:56 - 
+
+
+13:15:08,906 ERROR ProfessorInterfaceImpl,main:57 - No Students to Grade!!!
+13:15:08,907  INFO ProfessorInterfaceImpl,main:58 - 
+
+
+13:15:13,397 ERROR ProfessorCRSMenu,main:48 - Invalid Choice
+13:28:57,809 ERROR StudentDAOInterface,main:521 - 
+No value specified for parameter 1
+
+13:29:19,217 ERROR StudentDAOInterface,main:141 - 
+Before start of result set
+
+13:29:38,172 ERROR StudentDAOInterface,main:141 - 
+Before start of result set
+
+13:44:50,097 ERROR CRSApplication,main:83 - 
+Invalid Credentials
+
+13:58:07,660 ERROR StudentDAOInterface,main:522 - 
+After end of result set
+
+13:58:51,531 ERROR StudentDAOInterface,main:522 - 
+After end of result set
+
+13:59:41,779 ERROR StudentDAOInterface,main:523 - 
+Column 'id' not found.
+
+14:01:40,956 ERROR StudentDAOInterface,main:523 - 
+Column 'id' not found.
+
+14:02:08,849 ERROR StudentDAOInterface,main:523 - 
+Column 'id' not found.
+
+14:02:46,833 ERROR StudentDAOInterface,main:527 - 
+After end of result set
+
+14:09:15,846 ERROR StudentDAOInterface,main:522 - 
+d != java.sql.Date
+
+14:12:31,431 ERROR StudentDAOInterface,main:522 - 
+Conversion = s, Flags = +
+
+14:16:18,058 ERROR StudentDAOInterface,main:522 - 
+Conversion = 't'
+
+14:17:44,892 ERROR CRSApplication,main:83 - 
+Invalid Credentials
+
+14:23:24,759 ERROR StudentCRSMenu,main:124 - 
+The input format is invalid
+
+
+14:25:38,824 ERROR CRSApplication,main:83 - 
+Invalid Credentials
+
