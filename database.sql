@@ -171,6 +171,7 @@ CREATE TABLE `payment` (
 
 LOCK TABLES `payment` WRITE;
 /*!40000 ALTER TABLE `payment` DISABLE KEYS */;
+INSERT INTO `payment` VALUES (324000000,215,NULL,'2021-06-15',NULL,5000,0);
 /*!40000 ALTER TABLE `payment` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -252,7 +253,7 @@ CREATE TABLE `student` (
 
 LOCK TABLES `student` WRITE;
 /*!40000 ALTER TABLE `student` DISABLE KEYS */;
-INSERT INTO `student` VALUES (202,1,'cs',0,2);
+INSERT INTO `student` VALUES (201,1,'cs',2018,7),(202,1,'cs',0,2),(203,0,'as',0,3),(205,1,'cs',0,3),(210,0,'cs',0,3),(211,0,'ee',0,3),(215,1,'cs',0,3);
 /*!40000 ALTER TABLE `student` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -279,7 +280,7 @@ CREATE TABLE `studentcourse` (
 
 LOCK TABLES `studentcourse` WRITE;
 /*!40000 ALTER TABLE `studentcourse` DISABLE KEYS */;
-INSERT INTO `studentcourse` VALUES (201,501);
+INSERT INTO `studentcourse` VALUES (215,501);
 /*!40000 ALTER TABLE `studentcourse` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -307,7 +308,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'admin@jedi.com','admin','admin',1,'admin'),(201,'student1@jedi.com','password','student',1,'student1'),(202,'student2@jedi.com','password','student',1,'student2'),(301,'prof1@jedi.com','password','professor',1,'prof1'),(302,'prof2@jedi.com','password','professor',1,'prof2');
+INSERT INTO `user` VALUES (1,'admin@jedi.com','admin','admin',1,'admin'),(201,'student1@jedi.com','password','student',1,'student1'),(202,'student2@jedi.com','password','student',1,'student2'),(203,'asc','asdc','student',1,'adscs'),(205,'stud@jedi.com','password','student',1,'stud205'),(210,'student10@jedi.com','password','student',0,'student10'),(211,'student211@jedi.com','password','student',1,'student211'),(215,'student215@jedi.com','password','student',1,'student215'),(301,'prof1@jedi.com','password','professor',1,'prof1'),(302,'prof2@jedi.com','password','professor',1,'prof2');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -320,4 +321,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-06-14 12:16:24
+-- Dump completed on 2021-06-15 11:25:10

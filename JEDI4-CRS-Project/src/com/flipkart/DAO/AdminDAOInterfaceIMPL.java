@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Date;
 
 import org.apache.log4j.Logger;
@@ -75,17 +77,25 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 	 */
    	@Override
    	public void viewReportCard(Student student) {
+   		System.out.println("\n=======================================================");
+		System.out.println("\t\tReport Card");
+		System.out.println("=======================================================\n");
 		try {
 		    conn = DBConnection.getConnection();
 		    stmt=conn.prepareStatement(SQLQueriesConstant.GET_GRADES_QUERY);
 			stmt.setInt(1,student.getId());
 			ResultSet res =stmt.executeQuery();
-		    System.out.println("=======Report Card=======");
-		    System.out.println("Course Name\t|\tGrade");
-		    while(res.next()) {
-		    	System.out.println(res.getString("coursename")+"\t|\t"+res.getString("grade"));
-		    }
-		    System.out.println("__________________________________");
+			if(!res.isBeforeFirst()) {
+				System.out.println("\nThe report card is EMPTY\n");
+			}
+			else {
+			    System.out.println("Course Name\t\tGrade");
+				System.out.println("________________________________________________________\n");
+			    while(res.next()) {
+			    	System.out.println(res.getString("coursename")+"\t\t"+res.getString("grade"));
+			    }
+			}
+			System.out.println("________________________________________________________\n\n");
 		}catch (SQLException e) {
 			logger.error(e.getMessage());
 		}catch (Exception e) {
@@ -241,12 +251,15 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 			}
 			stmt=conn.prepareStatement(SQLQueriesConstant.SELECT_DISTINCT_SEM_REGISTRATION);
 			rs=stmt.executeQuery();
-			Date cur_date=new Date();
+			LocalDateTime cur_date=LocalDateTime.now();
+			String date="";
+			date+=String.valueOf(cur_date.getYear())+"-"+String.valueOf(cur_date.getMonthValue())+"-"+String.valueOf(cur_date.getDayOfMonth());
 			while(rs.next()) {
 				stmt=conn.prepareStatement(SQLQueriesConstant.INSERT_PAYMENT);
-				stmt.setInt(1,(int)cur_date.getTime());
+				stmt.setInt(1,cur_date.getNano());
 				stmt.setInt(2,rs.getInt("studentid"));
 				stmt.setString(3, String.valueOf(LocalDate.now()));
+				stmt.executeUpdate();
 			}
 			stmt=conn.prepareStatement(SQLQueriesConstant.DELETE_SEM_REGISTRATION);
 			stmt.executeUpdate();
@@ -262,15 +275,25 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 	 */
 	@Override
 	public void viewUnapprovedStudent() {
+		System.out.println("\n=======================================================");
+		System.out.println("\t\tUnapproved Students");
+		System.out.println("=======================================================\n");
 		PreparedStatement stmt=null;
 		try {
 			conn=DBConnection.getConnection();
 			stmt=conn.prepareStatement(SQLQueriesConstant.VIEW_UNAPPROVED_STUDENTS);
 			ResultSet rs=stmt.executeQuery();
-			while(rs.next()) {
-				System.out.println(rs.getInt("user.1id")+" "+rs.getString("user.name"));
+			if(!rs.isBeforeFirst()) {
+				System.out.println("\nThe unapproved students list is EMPTY\n");
 			}
-
+			else {
+				System.out.println("Student ID\t\tStudent Name");
+				System.out.println("________________________________________________________\n");
+				while(rs.next()) {
+					System.out.println(rs.getInt("user.id")+"\t\t\t"+rs.getString("user.name"));
+				}
+			}
+			System.out.println("________________________________________________________\n\n");
 		}catch (SQLException e) {
 			logger.error(e.getMessage());
 		}catch (Exception e) {
@@ -301,15 +324,25 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 	@Override
 	public void viewProfessors() {
 		// TODO Auto-generated method stub
+		System.out.println("\n=======================================================");
+		System.out.println("\t\tProfessors");
+		System.out.println("=======================================================\n");
 		PreparedStatement stmt=null;
 		try {
 			conn=DBConnection.getConnection();
 			stmt=conn.prepareStatement(SQLQueriesConstant.SELECT_PROFESSORS);
 			ResultSet rs=stmt.executeQuery();
-			while(rs.next()) {
-				System.out.println(String.valueOf(rs.getInt("id"))+"\t"+rs.getString("name"));
+			if(!rs.isBeforeFirst()) {
+				System.out.println("\nThe professor list is EMPTY\n");
 			}
-			System.out.println("\n\n");
+			else {
+				System.out.println("Professor ID\t\tProfessor Name");
+				System.out.println("________________________________________________________\n");
+				while(rs.next()) {
+					System.out.println(String.valueOf(rs.getInt("id"))+"\t\t\t"+rs.getString("name"));
+				}
+			}
+			System.out.println("________________________________________________________\n\n");
 		}catch (SQLException e) {
 			logger.error(e.getMessage());
 		}catch (Exception e) {
@@ -322,15 +355,26 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 	@Override
 	public void viewStudents() {
 		// TODO Auto-generated method stub
+
+		System.out.println("\n=======================================================");
+		System.out.println("\t\tStudents");
+		System.out.println("=======================================================\n");
 		PreparedStatement stmt=null;
 		try {
 			conn=DBConnection.getConnection();
 			stmt=conn.prepareStatement(SQLQueriesConstant.SELECT_STUDENTS);
 			ResultSet rs=stmt.executeQuery();
-			while(rs.next()) {
-				System.out.println(String.valueOf(rs.getInt("id"))+"\t"+rs.getString("name"));
+			if(!rs.isBeforeFirst()) {
+				System.out.println("\nThe student list is EMPTY\n");
 			}
-			System.out.println("\n\n");
+			else {
+				System.out.println("Student ID\t\tStudent Name");
+				System.out.println("________________________________________________________\n");
+				while(rs.next()) {
+					System.out.println(String.valueOf(rs.getInt("id"))+"\t\t\t"+rs.getString("name"));
+				}
+			}
+			System.out.println("________________________________________________________\n\n");
 		}catch (SQLException e) {
 			logger.error(e.getMessage());
 		}catch (Exception e) {
@@ -343,15 +387,25 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 	@Override
 	public void viewCourses() {
 		// TODO Auto-generated method stub
+		System.out.println("\n=======================================================");
+		System.out.println("\t\tCourses");
+		System.out.println("=======================================================\n");
 		PreparedStatement stmt=null;
 		try {
 			conn=DBConnection.getConnection();
 			stmt=conn.prepareStatement(SQLQueriesConstant.SELECT_COURSES);
 			ResultSet rs=stmt.executeQuery();
-			while(rs.next()) {
-				System.out.println(rs.getInt("id") +"\t"+rs.getString("name"));
+			if(!rs.isBeforeFirst()) {
+				System.out.println("\nThe course list is EMPTY\n");
 			}
-			System.out.println("\n\n");
+			else {
+				System.out.println("Course ID\t\tCourse Name");
+				System.out.println("________________________________________________________\n");
+				while(rs.next()) {
+					System.out.println(rs.getInt("id") +"\t\t\t"+rs.getString("name"));
+				}
+			}
+			System.out.println("________________________________________________________\n\n");
 		}catch (SQLException e) {
 			logger.error(e.getMessage());
 		}catch (Exception e) {

@@ -37,20 +37,21 @@ public class UserDAOInterfaceIMPL implements UserDAOInterface{
 					rs2.next();
 					boolean app = rs2.getBoolean("isApproved");
 					if(app) {
-						System.out.println("login successful");
+						System.out.println("\n---Logged in successfully---\n");
 						return rs.getString("role");
 					}
 					else{
-						return "invalid";
+						System.out.println("\n---Your application is not yet approved by the admin---\n");
+						return "unApproved";
 					}
 				 }
 				 else{
-					System.out.println("login successful");
+					System.out.println("\n---Logged in successfully---\n");
 					return rs.getString("role");
 				 }
 			}
 			else {
-				return "invalid";
+				return "\n---INVALID CREDENTIALS---\n";
 			}
 		}catch(SQLException E) {
 			System.out.println(E.getMessage());

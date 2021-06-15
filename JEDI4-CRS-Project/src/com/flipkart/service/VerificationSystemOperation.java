@@ -28,7 +28,7 @@ public class VerificationSystemOperation implements VerificationSystem {
 			return role;
 		}
 		catch( Exception E) {
-			logger.error("login failed");
+			logger.error("\n---Login failed---\n");
 		}
 		return null;
 	}

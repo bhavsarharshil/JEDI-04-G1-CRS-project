@@ -77,18 +77,20 @@ public class AdminOperation implements AdminInterface {
 	@Override
 	public void generateReportCard() {
 		// TODO Auto-generated method stub
+
+		System.out.println("\n============Generate Report Card============\n");
 		try {
 			Student student=new Student();
-			System.out.println("Enter student id");
+			System.out.print("Enter student id : ");
 			int id=sc.nextInt();
 			student.setId(id);
 			adminInterface.viewReportCard(student);
 		}catch(InputMismatchException e){
 			sc.next();
-			logger.error("The input formal is invalid\n");
+			logger.error("\nThe input format is invalid\n");
 		}catch(Exception e) {
 			sc.next();
-			logger.error(e.getMessage());
+			logger.error("\n"+e.getMessage()+"\n");
 		}
 	}
 
@@ -98,29 +100,30 @@ public class AdminOperation implements AdminInterface {
 	@Override
 	public void addProfessor() {
 		// TODO Auto-generated method stub
+		System.out.println("\n============Add Professor============\n");
 		try {
 			Professor professor=new Professor();
-			System.out.println("Enter new professor id");
+			System.out.print("Enter new professor id : ");
 			int id=sc.nextInt();
 			professor.setId(id);
-			System.out.println("Enter professor email");
+			System.out.print("Enter professor email : ");
 			String email=sc.next();
 			professor.setEmail(email);
-			System.out.println("Enter password");
+			System.out.print("Enter password :");
 			String password=sc.next();
 			professor.setPassword(password);
 			professor.setRole("professor");
 			professor.setLoggedin(false);
-			System.out.println("Enter professor name");
+			System.out.print("Enter professor name :");
 			String name=sc.next();
 			professor.setName(name);
 			adminInterface.addProfessor(professor);
 		}catch(InputMismatchException e){
 			sc.next();
-			logger.error("The input formal is invalid\n");
+			logger.error("\nThe input formal is invalid\n");
 		}catch(Exception e) {
 			sc.next();
-			logger.error(e.getMessage());
+			logger.error("\n"+e.getMessage()+"\n");
 		}
 	}
 
@@ -130,29 +133,20 @@ public class AdminOperation implements AdminInterface {
 	@Override
 	public void removeProfessor() {
 		// TODO Auto-generated method stub
+		System.out.println("\n============Remove Professor============\n");
 		try {
 			Professor professor=new Professor();
-			System.out.println("Enter professor id");
+			System.out.print("Enter professor id : ");
 			int id=sc.nextInt();
 			professor.setId(id);
 			adminInterface.removeProfessor(professor);
 		}catch(InputMismatchException e){
 			sc.next();
-			logger.error("The input formal is invalid\n");
+			logger.error("\nThe input formal is invalid\n");
 		}catch(Exception e) {
 			sc.next();
-			logger.error(e.getMessage());
+			logger.error("\n"+e.getMessage()+"\n");
 		}
-	}
-
-	/**
-	 * method to add student
-	 */
-	@Override
-	public void addStudent() {
-		// TODO Auto-generated method stub
-		StudentInterface si = new StudentOperation();
-		si.addStudent();
 	}
 
 	/**
@@ -161,18 +155,19 @@ public class AdminOperation implements AdminInterface {
 	@Override
 	public void removeStudent() {
 		// TODO Auto-generated method stub
+		System.out.println("\n============Remove Student============\n");
 		try {
 			Student student=new Student();
-			System.out.println("Enter student id");
+			System.out.print("Enter student id : ");
 			int id=sc.nextInt();
 			student.setId(id);
 			adminInterface.removeStudent(student);
 		}catch(InputMismatchException e){
 			sc.next();
-			logger.error("The input formal is invalid\n");
+			logger.error("\nThe input formal is invalid\n");
 		}catch(Exception e) {
 			sc.next();
-			logger.error(e.getMessage());
+			logger.error("\n"+e.getMessage()+"\n");
 		}
 	}
 
@@ -194,16 +189,16 @@ public class AdminOperation implements AdminInterface {
 		AdminDAOInterface addao = new AdminDAOInterfaceIMPL();
 		try {
 			addao.viewUnapprovedStudent();
-			System.out.println("Enter Student id to approve");
+			System.out.print("Enter Student id to approve : ");
 			int id = sc.nextInt();
 
 			addao.approveStudentsRequest(id);
 		}catch(InputMismatchException e){
 			sc.next();
-			logger.error("The input formal is invalid\n");
+			logger.error("\nThe input formal is invalid\n");
 		}catch(Exception e) {
 			sc.next();
-			logger.error(e.getMessage());
+			logger.error("\n"+e.getMessage()+"\n");
 		}
 	}
 
