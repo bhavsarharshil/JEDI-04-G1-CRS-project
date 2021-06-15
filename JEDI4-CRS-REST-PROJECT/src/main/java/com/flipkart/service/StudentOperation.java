@@ -68,9 +68,10 @@ public class StudentOperation implements StudentInterface {
 	 * @param method method of payment
 	 */
 	@Override
-	public int makePayment(Student student, String method) {
+	public int makePayment(int studentId, String method) {
 		try {
-			int dueAmount = studentDaoOperation.setPaymentStatus(student,method);
+			int dueAmount = studentDaoOperation.setPaymentStatus(studentId,method);
+			Student student  = studentDaoOperation.getStudentById(studentId);
         	student.setPaymentStatus(true);
         	return dueAmount;
         }
@@ -227,10 +228,10 @@ public class StudentOperation implements StudentInterface {
 	 * return payment details
 	 * */
 	@Override
-	public Payment viewPayments(Student student) {
+	public Payment viewPayments(int studentId) {
 		// TODO Auto-generated method stub
 		try {
-			 return studentDaoOperation.viewPayments(student);
+			 return studentDaoOperation.viewPayments(studentId);
         }
         catch(Exception e) {
         	logger.error("\n" + e.getMessage() + "\n");

@@ -1,17 +1,18 @@
+
 package com.flipkart.restController;
+
+/**
+ * @author Nishita
+ *
+ */
 
 import org.glassfish.jersey.server.ResourceConfig;
 
 
-/**
- * @author 91883
- *
- */
-public class ApplicationConfig extends ResourceConfig{
-		
+public class ApplicationConfig extends ResourceConfig {
 	public ApplicationConfig() {
-
-		register(AdminRestApi.class);
-		register(UserRestApi.class);
+		register(StudentRESTAPI.class);
+		register(AdminRESTAPI.class);
+		register(ProfessorRESTAPI.class);
 	}
 }
