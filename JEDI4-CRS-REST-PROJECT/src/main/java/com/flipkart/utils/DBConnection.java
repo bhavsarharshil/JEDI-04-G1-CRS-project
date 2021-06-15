@@ -25,6 +25,8 @@ public class DBConnection {
 				String url = prop.getProperty("url");
 				String user = prop.getProperty("user");
 				String password = prop.getProperty("password");
+//				String user = "root";
+//				String password = "honey@98";
 				Class.forName(driver);
 				connection = DriverManager.getConnection(url, user, password);
 			} catch (ClassNotFoundException e) {

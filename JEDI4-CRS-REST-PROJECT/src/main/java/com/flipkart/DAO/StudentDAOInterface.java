@@ -32,13 +32,13 @@ public Student getStudentById(int id);
 
 	public boolean addStudent(Student student);
 	
-	public int setPaymentStatus(Student student,String method);
+	public int setPaymentStatus(int studentId,String method);
 	
 	public int countPrimaryCourses(int studentId);
 	
 	public int countSecondaryCourses(int studentId);
 	
-	public Payment viewPayments(Student student);
+	public Payment viewPayments(int studentId);
 	
 }
 

@@ -10,11 +10,11 @@ import com.flipkart.bean.Student;
 public interface StudentInterface {
 	
 	
-public ArrayList<Course> showCourses();
+	public ArrayList<Course> showCourses();
     
     public ArrayList<Grades> viewGrades(int studentId);
 
-    public int makePayment(Student student, String method);
+    public int makePayment(int studentId, String method);
 
     public boolean addPrimaryCourse(int studentId,int courseId);
 
@@ -32,6 +32,6 @@ public ArrayList<Course> showCourses();
 
     public boolean addStudent();
 
-	public Payment viewPayments(Student student);
+	public Payment viewPayments(int studentId);
         
 }

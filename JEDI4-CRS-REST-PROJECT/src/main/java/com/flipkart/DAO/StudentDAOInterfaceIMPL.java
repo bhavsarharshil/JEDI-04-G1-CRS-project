@@ -56,6 +56,7 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 
 			ps.setInt(1,studentID);
 			ResultSet resultSet = ps.executeQuery();
+			grades = new ArrayList<Grades>();
 			while(resultSet.next()){
 				Grades grade = new Grades();
 				grade.setCourseID(resultSet.getInt("courseId"));
@@ -116,11 +117,11 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 	 * returns the due amount
 	 */
 	@Override
-	public int setPaymentStatus(Student student, String method) {
+	public int setPaymentStatus(int studentId, String method) {
 		try{
 			connection = DBConnection.getConnection();
 			ps = connection.prepareStatement(SQLQueriesConstant.GET_PAYMENT_STATUS);
-			ps.setInt(1, student.getId());
+			ps.setInt(1, studentId);
 			ResultSet resultSet = ps.executeQuery();
 			if(!resultSet.next()) {
 				throw new NotFound("\nThere are no payments to show\n");
@@ -136,7 +137,7 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 					ps = connection.prepareStatement(SQLQueriesConstant.SET_PAYMENT_STATUS_QUERY);
 					ps.setString(1, method);
 					ps.setString(2, String.valueOf(LocalDate.now()));
-					ps.setInt(3, student.getId());
+					ps.setInt(3, studentId);
 					ps.executeUpdate();
 					return amount;
 				}
@@ -342,13 +343,14 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 	 */
 	@Override
 	public ArrayList<Course> getPrimaryRegisteredCourses(int studentId) {
-		ArrayList<Course> primaryCourses = new ArrayList<Course>();
+		ArrayList<Course> primaryCourses = null;
 		try {
 			PreparedStatement stmt = null;
 			Connection conn = DBConnection.getConnection();
 			stmt = conn.prepareStatement(SQLQueriesConstant.SELECT_PRIMARY_COURSE);
 			stmt.setInt(1, studentId);
 			ResultSet rs = stmt.executeQuery();
+			primaryCourses = new ArrayList<Course>();
 			while(rs.next()) {			
 				PreparedStatement stmt2 = conn.prepareStatement(SQLQueriesConstant.GET_COURSE_BY_ID);
 				stmt2.setInt(1, rs.getInt(1));
@@ -375,13 +377,14 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 	 */
 	@Override
 	public ArrayList<Course> getSecondaryRegisteredCourses(int studentId) {
-		ArrayList<Course> secondaryCourses = new ArrayList<Course>();
+		ArrayList<Course> secondaryCourses = null;
 		try {
 			PreparedStatement stmt = null;
 			Connection conn = DBConnection.getConnection();
 			stmt = conn.prepareStatement(SQLQueriesConstant.SELECT_SECONDARY_COURSE);
 			stmt.setInt(1, studentId);
 			ResultSet rs = stmt.executeQuery();
+			secondaryCourses = new ArrayList<Course>();
 			while(rs.next()) {
 				PreparedStatement stmt2 = conn.prepareStatement(SQLQueriesConstant.GET_COURSE_BY_ID);
 				stmt2.setInt(1, rs.getInt(1));
@@ -488,11 +491,11 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 		}
 		return 0;
 	}
-	public Payment viewPayments(Student student) {
+	public Payment viewPayments(int studentId) {
 		try{
 			connection = DBConnection.getConnection();
 			ps = connection.prepareStatement(SQLQueriesConstant.GET_PAYMENTS);
-			ps.setInt(1, student.getId());
+			ps.setInt(1, studentId);
 			ResultSet resultSet = ps.executeQuery();
 			if(!resultSet.next()) {
 				throw new NotFound("\nThere are no payments to show\n");

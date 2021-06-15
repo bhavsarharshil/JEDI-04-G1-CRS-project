@@ -97,7 +97,7 @@ public class StudentCRSMenu {
 						method = "Credit Card";
 					else
 						method = "Scholarship";
-					int dueAmount = studentI.makePayment(student,method);
+					int dueAmount = studentI.makePayment(student.getId(),method);
 					System.out.println("\n============================================================");
 					System.out.println("\t\tPayments");
 					System.out.println("============================================================\n");
@@ -211,7 +211,7 @@ public class StudentCRSMenu {
 
 				break;
 			case 10:
-				Payment payment = studentI.viewPayments(student);
+				Payment payment = studentI.viewPayments(student.getId());
 				if(payment == null) {
 					System.out.println("Payment Not Done");
 				}else {

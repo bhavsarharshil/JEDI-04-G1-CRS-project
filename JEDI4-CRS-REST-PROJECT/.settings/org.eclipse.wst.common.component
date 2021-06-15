@@ -1,8 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+        
     <wb-module deploy-name="JEDI4-CRS-REST-PROJECT">
+                
         <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
+                
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
+        <dependent-module archiveName="log4j-1.2.11.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/C:/Users/hp/Downloads/log4j-1.2.11.jar/log4j-1.2.11.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="mysql-connector-java-8.0.23.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/C:/Users/hp/Downloads/mysql-connector-java-8.0.23/mysql-connector-java-8.0.23/mysql-connector-java-8.0.23.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+                
         <property name="context-root" value="JEDI4-CRS-REST-PROJECT"/>
+                
         <property name="java-output-path" value="/JEDI4-CRS-REST-PROJECT/build/classes"/>
+            
     </wb-module>
+    
 </project-modules>
