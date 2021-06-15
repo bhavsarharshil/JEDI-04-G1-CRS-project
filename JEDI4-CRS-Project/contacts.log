@@ -143,3 +143,40 @@ The input format is invalid
 14:25:38,824 ERROR CRSApplication,main:83 - 
 Invalid Credentials
 
+16:40:10,187 ERROR CRSApplication,main:80 - 
+Invalid Credentials
+
+16:41:28,910 ERROR CRSApplication,main:80 - 
+Invalid Credentials
+
+16:42:50,201 ERROR StudentDAOInterface,main:147 - 
+After end of result set
+
+16:44:33,149 ERROR StudentDAOInterface,main:147 - 
+After end of result set
+
+16:45:09,442 ERROR StudentDAOInterface,main:230 - You can only add 4 primary courses.
+16:45:13,794 ERROR StudentCRSMenu,main:124 - 
+The input format is invalid
+
+
+16:45:49,027 ERROR StudentDAOInterface,main:269 - Invalid Course ID
+16:55:25,754 ERROR StudentDAOInterface,main:230 - You can only add 4 primary courses.
+16:56:00,114 ERROR CRSApplication,main:80 - 
+Invalid Credentials
+
+16:56:09,693 ERROR CRSApplication,main:80 - 
+Invalid Credentials
+
+17:07:37,423  INFO StudentDAOInterface,main:131 - Payment is already done !
+
+17:14:31,597  INFO StudentDAOInterface,main:129 - Payment is already done !
+
+17:14:38,296 ERROR StudentDAOInterface,main:228 - You can only add 4 primary courses.
+17:14:57,497  INFO StudentDAOInterface,main:511 - 
+-------------------------------------------------PAYMENT DETAILS---------------------------------------------------
+
+17:14:57,497  INFO StudentDAOInterface,main:512 - Payment ID		MODE			Bill Date		Payment Date		Amount
+17:14:57,499  INFO StudentDAOInterface,main:513 - -------------------------------------------------------------------------------------------------------------------
+17:14:57,501  INFO StudentDAOInterface,main:514 - 1        		Netbanking 		null			2021-06-15		1100     
+

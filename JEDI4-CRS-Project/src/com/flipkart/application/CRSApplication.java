@@ -86,7 +86,10 @@ public class CRSApplication {
 				}
 				else if(a==3) {
 					StudentOperation studentClient=new StudentOperation();
-					studentClient.addStudent();
+					if(studentClient.addStudent())
+						System.out.println("\nYour registration application is sent to the admin\\n");
+					else
+						System.out.println("\\n---Application submission failed---\\n");
 				}
 				else if(a==-1) {
 					System.out.println("\n---Exiting the application---\n");

@@ -19,13 +19,16 @@ public class DBConnection {
 		else {
 			try {
 				Properties prop = new Properties();
-				System.out.println(DBConnection.class.getResource("com/flipkart/utils/configs.properties"));
+//				System.out.println(DBConnection.class.getResource("com/flipkart/utils/configs.properties"));
+				DBConnection.class.getResource("com/flipkart/utils/configs.properties");
 				InputStream inputStream = DBConnection.class.getClassLoader().getResourceAsStream("com/flipkart/utils/configs.properties");
 				prop.load(inputStream);
 				String driver = prop.getProperty("driver");
 				String url = prop.getProperty("url");
 				String user = prop.getProperty("user");
 				String password = prop.getProperty("password");
+//				String user = "root";
+//				String password = "honey@98";
 				Class.forName(driver);
 				connection = DriverManager.getConnection(url, user, password);
 			} catch (ClassNotFoundException e) {

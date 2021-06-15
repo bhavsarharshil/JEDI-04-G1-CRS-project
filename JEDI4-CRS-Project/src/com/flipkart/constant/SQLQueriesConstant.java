@@ -36,13 +36,10 @@ public class SQLQueriesConstant {
 	public static final String SELECT_PROFESSORS = "Select * from user where role=\"professor\"";
 	public static final String SELECT_STUDENTS = "Select * from user where role=\"student\"";
 	public static final String SELECT_COURSES = "Select * from course";
-<<<<<<< HEAD
+
 	public static final String GET_PAYMENT_STATUS = "SELECT amount,status FROM payment WHERE studentid =?";
-	public static final String SELECT_DISTINCT_SEM_REGISTRATION = "Select distinct(studentid) from semregistration";
-=======
-	public static final String GET_PAYMENT_STATUS = "SELECT status , amount FROM payment WHERE studentid =?";
 	public static final String SELECT_DISTINCT_SEM_REGISTRATION = "Select distinct(studentid) from semregistration;";
->>>>>>> deb489b4eefd34638925a1f667ba12a387904112
+
 	public static final String INSERT_PAYMENT = "Insert into payment values(?,?,null,?,null,5000,0)";
 	public static final String INSERT_GRADE = "insert into grade values(?,?,?)";
 	public static final String INSERT_STUDENT_STUDENT = "INSERT INTO student values(?,?,?,?,?);";
@@ -56,12 +53,8 @@ public class SQLQueriesConstant {
 	
 	public static final String GET_COURSE_STATUS = "select * from courseprof where courseid=?;";
 	public static final String GET_PROFCOURSE_COUNT = "select count(distinct(courseid)) as total from courseprof where profid=?";
-<<<<<<< HEAD
+
 	public static final String GET_PAYMENTS = "SELECT * FROM payment WHERE studentid =?";
-=======
-	public static final String GET_PAYMENTS = "SELECT * FROM payment WHERE studentid =?;";
-	
-	
-	
->>>>>>> deb489b4eefd34638925a1f667ba12a387904112
+
+
 }

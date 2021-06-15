@@ -196,7 +196,7 @@ public class StudentOperation implements StudentInterface {
 	 * method to add student
 	 */
 	@Override
-	public void addStudent() {
+	public boolean addStudent() {
 //		 TODO Auto-generated method stub
 		try {
 			Scanner sc=new Scanner(System.in);
@@ -221,10 +221,11 @@ public class StudentOperation implements StudentInterface {
 			System.out.print("Enter semester : ");
 			int semester = sc.nextInt();
 			student.setSemester(semester);
-			stdao.addStudent(student);
+			return stdao.addStudent(student);
 		}catch(Exception e) {
 			logger.error("\n"+e.getMessage()+"\n");
 		}
+		return false;
 	}
 
 	/**

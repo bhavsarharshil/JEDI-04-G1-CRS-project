@@ -97,6 +97,7 @@ public class StudentCRSMenu {
 					break;
 				case 6:
 					System.out.println("\n============Remove Secondary Course============\n");
+					System.out.print("Enter the course ID : ");
 					cid = input.nextInt();
 					studentI.removeSecondaryCourse(student.getId(),cid);
 					break;

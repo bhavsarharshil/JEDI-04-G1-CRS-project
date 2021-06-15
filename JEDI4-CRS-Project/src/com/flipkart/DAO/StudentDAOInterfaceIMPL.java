@@ -15,12 +15,12 @@ import com.flipkart.bean.Student;
 import com.flipkart.constant.SQLQueriesConstant;
 import com.flipkart.exception.CourseLimitReached;
 import com.flipkart.exception.CourseNotFound;
-<<<<<<< HEAD
+
 import com.flipkart.exception.NotFound;
 import com.flipkart.utils.DBConnection;
-=======
+
 import com.flipkart.utils.*;
->>>>>>> deb489b4eefd34638925a1f667ba12a387904112
+
 
 public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 	private static Logger logger = Logger.getLogger(StudentDAOInterface.class);
@@ -94,10 +94,8 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 			int res=stmt.executeUpdate();
 			int res2 = stmt2.executeUpdate();
 			if(res==1 && res2==1) {
-				System.out.println("\nYour registration application is sent to the admin\n");
 				return true;
 			}
-			logger.error("\n---Application submission failed---\n");
 			return false;
 		}
 		catch (SQLException e) {
@@ -124,22 +122,21 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 				throw new NotFound("\nThere are no payments to show\n");
 			}
 			else {
-				resultSet.next();
 				int status = resultSet.getInt("status");
 				int amount = resultSet.getInt("amount");
 				if(status == 1)
 				{
-					System.out.println("Payment is already done !\n");
+					logger.info("Payment is already done !\n");
 				}
 				else
 				{
-					System.out.println("Amount to be paid :" + String.valueOf(amount));
+					logger.info("Amount to be paid :" + String.valueOf(amount));
 					ps = connection.prepareStatement(SQLQueriesConstant.SET_PAYMENT_STATUS_QUERY);
 					ps.setString(1, method);
 					ps.setString(2, String.valueOf(LocalDate.now()));
 					ps.setInt(3, student.getId());
 					ps.executeUpdate();
-					System.out.println("Payment done successfully!\n");
+					logger.info("Payment done successfully!\n");
 				}
 			}
 		}
@@ -222,7 +219,7 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 			stmt.setTimestamp(4,sqlTime);
 			int added = stmt.executeUpdate();
 			if(added>0) {
-				System.out.println("Course " + courseId + " added successfully\n");
+				logger.info("Course " + courseId + " added successfully\n");
 			}
 		}catch(SQLException e) {
 			logger.error(e.getMessage());
@@ -261,7 +258,7 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 			stmt.setTimestamp(4,sqlTime);
 			int added = stmt.executeUpdate();
 			if(added>0) {
-				System.out.println("Course " + courseId + " added successfully\n");
+				logger.info("Course " + courseId + " added successfully\n");
 			}
 		}catch(SQLException e) {
 			logger.error(e.getMessage());
@@ -293,9 +290,9 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 			stmt.setInt(2, courseId);
 			int dropped = stmt.executeUpdate();
 			if(dropped > 0) {
-				System.out.println("Course" + courseId + " deleted successfully");
+				logger.info("Course " + courseId + " deleted successfully");
 			}else {
-				System.out.println("You have added this course as secondary");
+				logger.error("You have added this course as secondary");
 			}
 		}catch(SQLException e) {
 			logger.error(e.getMessage());
@@ -326,9 +323,9 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 			stmt.setInt(2, courseId);
 			int dropped = stmt.executeUpdate();
 			if(dropped > 0) {
-				System.out.println("Course" + courseId + " deleted successfully");
+				logger.info("Course " + courseId + " deleted successfully");
 			}else {
-				System.out.println("You have added this course as primary");
+				logger.error("You have added this course as primary");
 			}
 		}catch(SQLException e) {
 			logger.error(e.getMessage());
@@ -489,59 +486,33 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 		}
 		return 0;
 	}
-
+	/*
+	 * @param student : Details of student
+	 * */
 	public void viewPayments(Student student) {
 		try{
 			connection = DBConnection.getConnection();
 			ps = connection.prepareStatement(SQLQueriesConstant.GET_PAYMENTS);
 			ps.setInt(1, student.getId());
 			ResultSet resultSet = ps.executeQuery();
-<<<<<<< HEAD
 			if(!resultSet.next()) {
 				throw new NotFound("\nThere are no payments to show\n");
 			}
 			else {
-=======
-
-			if(resultSet.next()) {
->>>>>>> deb489b4eefd34638925a1f667ba12a387904112
 				int status = resultSet.getInt("status");
 				int amount = resultSet.getInt("amount");
 				if(status == 0)
 				{
-<<<<<<< HEAD
-					System.out.println("\n----------Payment not done yet----------\n");
-					System.out.println("Amount to be paid : " + String.valueOf(amount));
+					logger.info("\n----------Payment not done yet----------\n");
+					logger.info("Amount to be paid : " + String.valueOf(amount));
 				}
 				else
 				{
 					System.out.println("\n-------------------------------------------------PAYMENT DETAILS---------------------------------------------------\n");
 					System.out.println("Payment ID\t\tMODE\t\t\tBill Date\t\tPayment Date\t\tAmount");
 					System.out.println("-------------------------------------------------------------------------------------------------------------------");
-					System.out.println(String.format("%-9d\t\t%-11s\t\t%s\t\t\t%-9s\t\t%-9s", resultSet.getInt("paymentid"),resultSet.getString("mode"), resultSet.getDate("billDate"),resultSet.getDate("paymentDate"),amount ));
-					System.out.println("\n");
-=======
-					logger.info("-----------------------------------------------------------------------------");
-					logger.info(String.format("%10s %30s %20s  ", "TRANSACTION ID",  "AMOUNT", "PAYMENT DATE"));
-					logger.info("-----------------------------------------------------------------------------");
-					logger.info(String.format("%10s %30s %20s",resultSet.getInt("paymentid"),resultSet.getInt("amount"),resultSet.getDate("paymentdate")));
-					logger.info("\n");
-					logger.info("Payment is already done !\n");
+					System.out.println(String.format("%-9d\t\t%-11s\t\t%s\t\t\t%-9s\t\t%-9s\n", resultSet.getInt("paymentid"),resultSet.getString("mode"), resultSet.getDate("billDate"),resultSet.getDate("paymentDate"),amount ));
 				}
-				else
-				{
-					System.out.println("Amount to be paid :" + amount);
-					ps = connection.prepareStatement(SQLQueriesConstant.SET_PAYMENT_STATUS_QUERY);
-					
-					ps.setString(2, String.valueOf(LocalDate.now()));
-					ps.setInt(3, student.getId());
-					ps.executeUpdate();
-					System.out.println("Payment done successfully!\n");
->>>>>>> deb489b4eefd34638925a1f667ba12a387904112
-				}
-			}
-			else{
-				System.out.println("\nThere are no payments to show\n");
 			}
 		}
 		catch(SQLException e) {
@@ -552,3 +523,5 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 		}
 	}
 }
+
+	

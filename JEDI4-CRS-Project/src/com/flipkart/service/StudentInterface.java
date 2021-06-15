@@ -26,7 +26,7 @@ public interface StudentInterface {
     
     public Student getStudentById(int id);
 
-    public void addStudent();
+    public boolean addStudent();
 
 	public void viewPayments(Student student);
     
