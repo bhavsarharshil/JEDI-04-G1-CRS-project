@@ -11,6 +11,7 @@ import org.apache.log4j.Logger;
 import com.flipkart.bean.Professor;
 import com.flipkart.utils.DBConnection;
 import com.flipkart.constant.SQLQueriesConstant;
+import com.flipkart.exception.NoAssignedCourseException;
 public class ProfessorDAOInterfaceIMPL implements ProfessorDAOInterface {
 	private static ProfessorDAOInterfaceIMPL instance = null;
 	
@@ -57,7 +58,7 @@ public class ProfessorDAOInterfaceIMPL implements ProfessorDAOInterface {
 		        	 stmt.close();
 		      } 
 		      catch(SQLException se2){
-		    	  se2.printStackTrace();
+		    	  logger.error(se2.getMessage());
 		      }
 		      
 	   }
@@ -152,26 +153,33 @@ public class ProfessorDAOInterfaceIMPL implements ProfessorDAOInterface {
 	@Override
 	public void viewGrades(int courseID,int studentID) {
 		// TODO Auto-generated method stub
+		System.out.println("\n========================================================================");
+		System.out.println("\t\t\tGrades");
+		System.out.println("========================================================================\n");
 		Connection conn = null;
 		PreparedStatement stmt = null;
 
 		try{
 
-			System.out.println("======Grades======");
 			conn = DBConnection.getConnection();
 			String sql = SQLQueriesConstant.GRADES_QUERY_WITH_ID;
 			stmt = conn.prepareStatement(sql);
 			stmt.setInt(1,courseID);
 			stmt.setInt(2,studentID);
 			ResultSet rs = stmt.executeQuery();
-			while(rs.next())
-			{
-				courseID=rs.getInt("courseid");
-				studentID=rs.getInt("studentid");
-				String grade = rs.getString("grade");
-				System.out.print("courseID: " + courseID);
-				System.out.print(" stduentID: " + studentID);
-				System.out.println(" grade: " + grade);
+			if(!rs.isBeforeFirst()) {
+				System.out.println("\nThere are no grades to show\n");
+			}
+			else {
+				while(rs.next())
+				{
+					courseID=rs.getInt("courseid");
+					studentID=rs.getInt("studentid");
+					String grade = rs.getString("grade");
+					System.out.print("courseID: " + courseID);
+					System.out.print(" stduentID: " + studentID);
+					System.out.println(" grade: " + grade);
+				}
 			}
 			stmt.close();
 			conn.close();
@@ -205,48 +213,68 @@ public class ProfessorDAOInterfaceIMPL implements ProfessorDAOInterface {
 	@Override
 	public void showAssignedCourses(int profID) {
 		// TODO Auto-generated method stub
-		Connection conn = null;
-		PreparedStatement stmt = null;
+		// TODO Auto-generated method stub
+				Connection conn = null;
+				PreparedStatement stmt = null;
 
-		try{
+				try{
 
-			System.out.println("=======Assigned Courses=======");
-			conn = DBConnection.getConnection();
-			String sql =SQLQueriesConstant.GET_PROF_WITH_ID;
-			stmt = conn.prepareStatement(sql);
-			stmt.setInt(1,profID);
+					
+					conn = DBConnection.getConnection();
+					
+					String sql2 =SQLQueriesConstant.GET_PROFCOURSE_COUNT;
+					stmt = conn.prepareStatement(sql2);
+					stmt.setInt(1,profID);
+					
+					ResultSet rs2 = stmt.executeQuery();
+					int count =rs2.getInt("total");
+					if(count==0)
+					{
+						throw new NoAssignedCourseException("NO courses are assigned");
+					}
+					
+					String sql =SQLQueriesConstant.GET_PROF_WITH_ID;
+					stmt = conn.prepareStatement(sql);
+					stmt.setInt(1,profID);
+					
+					ResultSet rs = stmt.executeQuery();
+					System.out.println("=======Assigned Courses=======");
+					while(rs.next())
+					{
+						int courseID1  = rs.getInt("courseid");
+						System.out.println("ID: " + courseID1);
+					}
 
-			ResultSet rs = stmt.executeQuery();
-			while(rs.next())
-			{
-				int courseID1  = rs.getInt("courseid");
-				System.out.println("ID: " + courseID1);
-			}
-
-			stmt.close();
-			conn.close();
-
-		}catch(SQLException se){
-
-			logger.info(se.getMessage());
-		}catch(Exception e){
-
-			logger.info(e.getMessage());
-		}finally{
-
-			try{
-				if(stmt!=null)
 					stmt.close();
-			}catch(SQLException se2){
-				logger.info(se2.getMessage());
-			}
-			try{
-				if(conn!=null)
 					conn.close();
-			}catch(SQLException se){
-				logger.info(se.getMessage());
-			}
-		}
+
+				}
+				catch(NoAssignedCourseException e)
+				{
+					logger.info(e.getMessage());
+				}
+				
+				catch(SQLException se){
+
+					logger.info(se.getMessage());
+				}catch(Exception e){
+
+					logger.info(e.getMessage());
+				}finally{
+
+					try{
+						if(stmt!=null)
+							stmt.close();
+					}catch(SQLException se2){
+						logger.info(se2.getMessage());
+					}
+					try{
+						if(conn!=null)
+							conn.close();
+					}catch(SQLException se){
+						logger.info(se.getMessage());
+					}
+				}
 	}
 
 	/**

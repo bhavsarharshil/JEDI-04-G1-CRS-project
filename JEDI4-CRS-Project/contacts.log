@@ -44,3 +44,75 @@
 19:16:45,769 ERROR StudentDAOInterface,main:231 - You can only add 2 secondary courses.
 19:17:11,283 ERROR StudentDAOInterface,main:384 - Before start of result set
 19:17:55,218 ERROR StudentDAOInterface,main:196 - You can only add 4 primary courses.
+07:24:45,848 ERROR CRSApplication,main:104 - 
+07:26:42,912 ERROR CRSApplication,main:79 - Invalid Credentials
+07:36:02,376 ERROR CRSApplication,main:79 - Invalid Credentials
+07:36:16,261 ERROR CRSApplication,main:99 - The input format is invalid
+
+
+07:36:29,967 ERROR CRSApplication,main:79 - Invalid Credentials
+07:37:38,546 ERROR CRSApplication,main:79 - Invalid Credentials
+07:42:08,643 ERROR CRSApplication,main:81 - Invalid Credentials
+07:42:24,856 ERROR CRSApplication,main:81 - Invalid Credentials
+07:45:21,368 ERROR CRSApplication,main:81 - role: 
+---Your application is not yet approved by the admin---
+
+07:45:21,369 ERROR CRSApplication,main:82 - Invalid Credentials
+08:00:36,244 ERROR CRSApplication,main:83 - Invalid Credentials
+08:01:05,175 ERROR CRSApplication,main:103 - The input format is invalid
+
+
+08:01:10,260  WARN CRSApplication,main:83 - Invalid Credentials
+08:01:53,410 ERROR CRSApplication,main:83 - 
+Invalid Credentials
+
+08:24:51,522 ERROR AdminDAOInterfaceIMPL,main:124 - Duplicate entry '302' for key 'PRIMARY'
+08:27:13,826 ERROR CRSApplication,main:83 - 
+Invalid Credentials
+
+08:31:07,561 ERROR AdminDAOInterfaceIMPL,main:283 - Column 'user.1id' not found.
+08:35:45,255 ERROR CRSApplication,main:83 - 
+Invalid Credentials
+
+08:55:07,093 ERROR StudentOperation,main:210 - 
+08:58:20,473 ERROR StudentDAOInterface,main:133 - Illegal operation on empty result set.
+09:09:32,240 ERROR StudentDAOInterface,main:216 - Invalid Course ID
+09:12:34,002 ERROR StudentCRSMenu,main:110 - 
+Invalid Choice
+
+09:12:42,564 ERROR StudentCRSMenu,main:115 - 
+The input format is invalid
+
+
+09:12:52,475 ERROR StudentDAOInterface,main:133 - Illegal operation on empty result set.
+09:22:40,247 ERROR StudentDAOInterface,main:225 - Invalid Course ID
+10:25:39,453 ERROR CoursesDAOInterfaceIMPL,main:65 - 
+10:26:33,745 ERROR CoursesDAOInterfaceIMPL,main:65 - 
+10:26:42,383 ERROR VerificationSystem,main:31 - 
+---Login failed---
+
+10:45:53,621 ERROR AdminDAOInterfaceIMPL,main:263 - Duplicate entry '201-501' for key 'PRIMARY'
+10:46:45,670 ERROR CRSApplication,main:83 - 
+Invalid Credentials
+
+10:54:52,963 ERROR AdminDAOInterfaceIMPL,main:264 - Data truncation: Incorrect date value: 'null' for column 'paymentdate' at row 1
+11:00:14,703 ERROR AdminDAOInterfaceIMPL,main:268 - Duplicate entry '215-501' for key 'PRIMARY'
+11:00:40,164 ERROR AdminDAOInterfaceIMPL,main:268 - Data truncated for column 'paymentid' at row 1
+11:03:22,071 ERROR AdminDAOInterfaceIMPL,main:268 - Data truncation: Incorrect date value: 'null' for column 'paymentdate' at row 1
+11:04:08,751 ERROR AdminDAOInterfaceIMPL,main:268 - Data truncation: Incorrect date value: 'null' for column 'paymentdate' at row 1
+11:05:12,347 ERROR StudentDAOInterface,main:141 - 
+Before start of result set
+
+11:08:52,165 ERROR StudentDAOInterface,main:141 - 
+Before start of result set
+
+11:12:44,572 ERROR CoursesDAOInterfaceIMPL,main:65 - 
+11:13:14,712 ERROR CoursesDAOInterfaceIMPL,main:65 - 
+11:15:26,321 ERROR CoursesDAOInterfaceIMPL,main:65 - 
+11:15:39,401 ERROR CoursesDAOInterfaceIMPL,main:65 - 
+11:16:23,279 ERROR CoursesDAOInterfaceIMPL,main:65 - 
+11:16:48,441 ERROR CoursesDAOInterfaceIMPL,main:65 - 
+11:17:02,929 ERROR CoursesDAOInterfaceIMPL,main:65 - 
+11:17:24,037 ERROR CoursesDAOInterfaceIMPL,main:65 - 
+11:17:35,697 ERROR CoursesDAOInterfaceIMPL,main:65 - 
+11:18:38,003 ERROR CoursesDAOInterfaceIMPL,main:65 - 

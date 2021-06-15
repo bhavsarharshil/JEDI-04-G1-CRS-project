@@ -21,18 +21,20 @@ public class ProfessorInterfaceImpl implements ProfessorInterface {
 	 */
 	@Override
 	public boolean gradeStudents(Professor professor) {
-
+		System.out.println("==================Grade Students===============");
 		// TODO Auto-generated method stub
 		try{
 			int courseID,studentID;
 		
 			String grade;
 			Scanner sc= new Scanner(System.in);
-			System.out.println("Enter the course ID");
+			showAssignedCourses(professor);
+			System.out.print("Enter the course ID : ");
 			courseID=sc.nextInt();
-			System.out.println("Enter the StudentID");
+			professorDAOInterface.viewEnrolledStudentsInCourse(courseID);
+			System.out.print("Enter the StudentID : ");
 			studentID=sc.nextInt();
-			System.out.println("Enter the grade");
+			System.out.print("Enter the grade : ");
 			grade=sc.next();
 			//		sc.close();
 			

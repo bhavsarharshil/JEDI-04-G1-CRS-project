@@ -15,12 +15,22 @@ public class CourseInterfaceImpl implements CourseInterface {
 	@Override
 	public void viewCourseCatalog() {
 		// TODO Auto-generated method stub
-		System.out.println("========CourseCatalog=========");
+		System.out.println("\n=======================================================");
+		System.out.println("\t\tCourseCatalog");
+		System.out.println("=======================================================\n");
 		CoursesDAOInterfaceIMPL courseDAOInterface=new CoursesDAOInterfaceIMPL();
 		ArrayList<Course> courseArray=courseDAOInterface.getAllCourses();
-		for(Course i:courseArray) {
-			System.out.println(i.getCourseID() +"\t"+i.getCourseName()+"\t"+ i.getCredits());
+		if(courseArray.isEmpty()) {
+			System.out.println("The course catalog is EMPTY\n");
 		}
+		else {
+			System.out.println("Course ID\t\tCourse Name\t\tCredits");
+			System.out.println("________________________________________________________\n");
+			for(Course i:courseArray) {
+				System.out.println(i.getCourseID() +"\t\t\t"+i.getCourseName()+"\t\t"+ i.getCredits());
+			}
+		}
+		System.out.println("________________________________________________________\n\n");
 	}
 	
 }

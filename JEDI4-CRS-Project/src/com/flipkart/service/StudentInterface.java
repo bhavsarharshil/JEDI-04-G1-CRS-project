@@ -27,5 +27,8 @@ public interface StudentInterface {
     public Student getStudentById(int id);
 
     public void addStudent();
+
+	public void viewPayments(Student student);
+    
         
 }

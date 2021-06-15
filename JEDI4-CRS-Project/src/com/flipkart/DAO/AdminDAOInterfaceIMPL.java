@@ -5,10 +5,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Date;
 
 import org.apache.log4j.Logger;
 
+import com.flipkart.application.AdminCRSMenu;
 import com.flipkart.bean.Admin;
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
@@ -185,7 +188,7 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 				logger.info("Course successfully added.");
 		    	return true;
 		    }
-			logger.info("Unable to add course");
+		    System.out.println("Unable to add course");
 		    return false;
 		}catch (SQLException e) {
 			logger.error(e.getMessage());
@@ -241,16 +244,19 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 			}
 			stmt=conn.prepareStatement(SQLQueriesConstant.SELECT_DISTINCT_SEM_REGISTRATION);
 			rs=stmt.executeQuery();
-			Date cur_date=new Date();
+			LocalDateTime cur_date=LocalDateTime.now();
+			String date="";
+			date+=String.valueOf(cur_date.getYear())+"-"+String.valueOf(cur_date.getMonthValue())+"-"+String.valueOf(cur_date.getDayOfMonth());
 			while(rs.next()) {
 				stmt=conn.prepareStatement(SQLQueriesConstant.INSERT_PAYMENT);
-				stmt.setInt(1,(int)cur_date.getTime());
+				stmt.setInt(1,cur_date.getNano());
 				stmt.setInt(2,rs.getInt("studentid"));
 				stmt.setString(3, String.valueOf(LocalDate.now()));
+				stmt.executeUpdate();
 			}
 			stmt=conn.prepareStatement(SQLQueriesConstant.DELETE_SEM_REGISTRATION);
 			stmt.executeUpdate();
-			logger.info("All students are approved");
+			System.out.println("All students are approved");
 		}catch (SQLException e) {
 			logger.error(e.getMessage());
 		}catch (Exception e) {
