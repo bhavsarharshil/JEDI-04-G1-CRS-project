@@ -214,3 +214,37 @@ Format specifier '%10s'
 13:09:44,890  INFO StudentDAOInterface,main:494 - TRANSACTION ID                         AMOUNT         PAYMENT DATE  
 13:09:44,890  INFO StudentDAOInterface,main:495 - -----------------------------------------------------------------------------
 13:09:44,891  INFO StudentDAOInterface,main:496 -  971000000                           5000           2021-06-15
+19:29:25,963  INFO AdminDAOInterfaceIMPL,main:288 - -----------------------------------------------------------------------------
+19:29:25,967  INFO AdminDAOInterfaceIMPL,main:289 -    USER ID                      USER NAME 
+19:29:25,967  INFO AdminDAOInterfaceIMPL,main:290 - -----------------------------------------------------------------------------
+19:29:25,967  INFO AdminDAOInterfaceIMPL,main:294 -        344                            344 
+19:29:25,969 ERROR AdminDAOInterfaceIMPL,main:305 - Column 'semester' not found.
+19:31:00,892  INFO AdminDAOInterfaceIMPL,main:288 - com.mysql.cj.jdbc.ClientPreparedStatement: SELECT user.id,user.name FROM student INNER JOIN user ON student.id=user.id WHERE isApproved = 0;
+19:31:00,894  INFO AdminDAOInterfaceIMPL,main:289 - -----------------------------------------------------------------------------
+19:31:00,896  INFO AdminDAOInterfaceIMPL,main:290 -    USER ID                      USER NAME 
+19:31:00,896  INFO AdminDAOInterfaceIMPL,main:291 - -----------------------------------------------------------------------------
+19:31:00,897  INFO AdminDAOInterfaceIMPL,main:295 -        344                            344 
+19:31:00,899 ERROR AdminDAOInterfaceIMPL,main:306 - Column 'semester' not found.
+19:31:43,388  INFO AdminDAOInterfaceIMPL,main:288 - com.mysql.cj.jdbc.ClientPreparedStatement: SELECT * FROM student INNER JOIN user ON student.id=user.id WHERE isApproved = 0;
+19:31:43,390  INFO AdminDAOInterfaceIMPL,main:289 - -----------------------------------------------------------------------------
+19:31:43,393  INFO AdminDAOInterfaceIMPL,main:290 -    USER ID                      USER NAME 
+19:31:43,393  INFO AdminDAOInterfaceIMPL,main:291 - -----------------------------------------------------------------------------
+19:31:43,393  INFO AdminDAOInterfaceIMPL,main:295 -        344                            344 
+19:31:43,395 ERROR AdminDAOInterfaceIMPL,main:306 - Column 'admissionyear' not found.
+19:33:12,574  INFO AdminDAOInterfaceIMPL,main:366 - -----------------------------------------------------------------------------
+19:33:12,574  INFO AdminDAOInterfaceIMPL,main:367 - STUDENT ID                   STUDENT NAME 
+19:33:12,575  INFO AdminDAOInterfaceIMPL,main:368 - -----------------------------------------------------------------------------
+19:33:12,575  INFO AdminDAOInterfaceIMPL,main:370 -          3                       student1 
+19:33:12,575  INFO AdminDAOInterfaceIMPL,main:370 -        181                          stud3 
+19:33:12,576  INFO AdminDAOInterfaceIMPL,main:370 -        182                          stud3 
+19:33:12,576  INFO AdminDAOInterfaceIMPL,main:370 -        344                            344 
+19:33:12,577  INFO AdminDAOInterfaceIMPL,main:372 - 
+
+
+19:33:16,841  INFO AdminDAOInterfaceIMPL,main:82 - -----------------------------------------------------------------------------
+19:33:16,842  INFO AdminDAOInterfaceIMPL,main:83 - Course NAME                          GRADE 
+19:33:16,842  INFO AdminDAOInterfaceIMPL,main:84 - -----------------------------------------------------------------------------
+19:33:16,842  INFO AdminDAOInterfaceIMPL,main:88 -    PHN-300                              A 
+19:33:16,843  INFO AdminDAOInterfaceIMPL,main:95 - 
+
+

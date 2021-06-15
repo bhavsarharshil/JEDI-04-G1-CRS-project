@@ -1,22 +1,21 @@
 package com.flipkart.DAO;
 
-import com.flipkart.bean.Admin;
-import com.flipkart.bean.Course;
-import com.flipkart.bean.Professor;
-import com.flipkart.bean.Student;
+import com.flipkart.bean.*;
+
+import java.util.Vector;
 
 public interface AdminDAOInterface {
 	public Admin getAdminById(int id);
-	public void viewReportCard(Student student);
+	public Vector<Grades> viewReportCard(Student student);
 	public boolean addProfessor(Professor professor);
 	public boolean removeProfessor(Professor professor);
 	public boolean removeStudent(Student student);
 	public boolean addCourse(Course course);
 	public boolean removeCourse(Course course);
-	public void viewProfessors();
-	public void viewStudents();
-	public void viewCourses();
-	public void approveStudents();
-	public void viewUnapprovedStudent();
+	public Vector<Professor> viewProfessors();
+	public Vector<Student> viewStudents();
+	public Vector<Course> viewCourses();
+	public boolean approveStudents();
+	public Vector<Student> viewUnapprovedStudent();
 	public void approveStudentsRequest(int id);
 }
