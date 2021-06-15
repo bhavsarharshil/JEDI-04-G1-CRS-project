@@ -71,7 +71,7 @@ public class CoursesDAOInterfaceIMPL implements CoursesDAOInterface {
 	}
 
 	/**
-	 * @param courseId
+	 * @param courseId if of course
 	 * @return boolean: true if course exist in db
 	 */
 	@Override

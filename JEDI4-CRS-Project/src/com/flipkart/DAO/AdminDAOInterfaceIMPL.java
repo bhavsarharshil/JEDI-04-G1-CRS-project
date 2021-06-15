@@ -77,25 +77,18 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 	 */
    	@Override
    	public void viewReportCard(Student student) {
-   		System.out.println("\n=======================================================");
-		System.out.println("\t\tReport Card");
-		System.out.println("=======================================================\n");
 		try {
 		    conn = DBConnection.getConnection();
 		    stmt=conn.prepareStatement(SQLQueriesConstant.GET_GRADES_QUERY);
 			stmt.setInt(1,student.getId());
 			ResultSet res =stmt.executeQuery();
-			if(!res.isBeforeFirst()) {
-				System.out.println("\nThe report card is EMPTY\n");
+			logger.info("-----------------------------------------------------------------------------");
+			logger.info(String.format("%10s %30s ", "Course NAME",  "GRADE"));
+			logger.info("-----------------------------------------------------------------------------");
+			while(res.next()) {
+				logger.info(String.format("%10s %30s ",res.getString("coursename"),res.getString("grade")));
 			}
-			else {
-			    System.out.println("Course Name\t\tGrade");
-				System.out.println("________________________________________________________\n");
-			    while(res.next()) {
-			    	System.out.println(res.getString("coursename")+"\t\t"+res.getString("grade"));
-			    }
-			}
-			System.out.println("________________________________________________________\n\n");
+			logger.info("\n\n");
 		}catch (SQLException e) {
 			logger.error(e.getMessage());
 		}catch (Exception e) {
@@ -117,10 +110,10 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 		    stmt.setString(4, professor.getName());
 		    int res=stmt.executeUpdate();
 		    if(res==1) {
-		    	System.out.println("Professor successfully added.");
+				logger.info("Professor successfully added.");
 		    	return true;
 		    }
-		    System.out.println("Unable to add Professor");
+			logger.info("Unable to add Professor");
 		    return false;
 		}catch (SQLException e) {
 			logger.error(e.getMessage());
@@ -141,10 +134,10 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 		    stmt.setInt(1, professor.getId());
 		    int res=stmt.executeUpdate();
 		    if(res==1) {
-		    	System.out.println("Professor successfully deleted.");
+				logger.info("Professor successfully deleted.");
 		    	return true;
 		    }
-		    System.out.println("Unable to delete Professor");
+			logger.info("Unable to delete Professor");
 		    return false;
 		}catch (SQLException e) {
 			logger.error(e.getMessage());
@@ -166,10 +159,10 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 		    stmt.setInt(1, student.getId());
 		    int res=stmt.executeUpdate();
 		    if(res==1) {
-		    	System.out.println("Student successfully deleted.");
+				logger.info("Student successfully deleted.");
 		    	return true;
 		    }
-		    System.out.println("Unable to delete Student");
+			logger.info("Unable to delete Student");
 		    return false;
 		}catch (SQLException e) {
 			logger.error(e.getMessage());
@@ -192,7 +185,7 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 		    stmt.setInt(3, course.getCredits());
 		    int res=stmt.executeUpdate();
 		    if(res==1) {
-		    	System.out.println("Course successfully added.");
+				logger.info("Course successfully added.");
 		    	return true;
 		    }
 		    System.out.println("Unable to add course");
@@ -216,10 +209,10 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 		    stmt.setInt(1, course.getCourseID());
 		    int res=stmt.executeUpdate();
 		    if(res==1) {
-		    	System.out.println("Course successfully added.");
+				logger.info("Course successfully added.");
 		    	return true;
 		    }
-		    System.out.println("Unable to add course");
+			logger.info("Unable to add course");
 		    return false;
 		}catch (SQLException e) {
 			logger.error(e.getMessage());
@@ -245,11 +238,12 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 				stmt.setInt(2,rs.getInt("courseid"));
 				int x=stmt.executeUpdate();
 				if(x!=1) {
-					System.out.println("Error in approving");
+					logger.info("Error in approving");
 					break;
 				}
 			}
 			stmt=conn.prepareStatement(SQLQueriesConstant.SELECT_DISTINCT_SEM_REGISTRATION);
+			System.out.println(stmt);
 			rs=stmt.executeQuery();
 			LocalDateTime cur_date=LocalDateTime.now();
 			String date="";
@@ -259,6 +253,7 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 				stmt.setInt(1,cur_date.getNano());
 				stmt.setInt(2,rs.getInt("studentid"));
 				stmt.setString(3, String.valueOf(LocalDate.now()));
+				System.out.println(stmt);
 				stmt.executeUpdate();
 			}
 			stmt=conn.prepareStatement(SQLQueriesConstant.DELETE_SEM_REGISTRATION);
@@ -275,25 +270,19 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 	 */
 	@Override
 	public void viewUnapprovedStudent() {
-		System.out.println("\n=======================================================");
-		System.out.println("\t\tUnapproved Students");
-		System.out.println("=======================================================\n");
 		PreparedStatement stmt=null;
 		try {
 			conn=DBConnection.getConnection();
 			stmt=conn.prepareStatement(SQLQueriesConstant.VIEW_UNAPPROVED_STUDENTS);
 			ResultSet rs=stmt.executeQuery();
-			if(!rs.isBeforeFirst()) {
-				System.out.println("\nThe unapproved students list is EMPTY\n");
+			logger.info("-----------------------------------------------------------------------------");
+			logger.info(String.format("%10s %30s ", "USER ID",  "USER NAME"));
+			logger.info("-----------------------------------------------------------------------------");
+			while(rs.next()) {
+				logger.info(String.format("%10s %30s ",rs.getInt("user.id"),rs.getString("user.name")));
 			}
-			else {
-				System.out.println("Student ID\t\tStudent Name");
-				System.out.println("________________________________________________________\n");
-				while(rs.next()) {
-					System.out.println(rs.getInt("user.id")+"\t\t\t"+rs.getString("user.name"));
-				}
-			}
-			System.out.println("________________________________________________________\n\n");
+			logger.info("\n\n");
+
 		}catch (SQLException e) {
 			logger.error(e.getMessage());
 		}catch (Exception e) {
@@ -324,25 +313,19 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 	@Override
 	public void viewProfessors() {
 		// TODO Auto-generated method stub
-		System.out.println("\n=======================================================");
-		System.out.println("\t\tProfessors");
-		System.out.println("=======================================================\n");
 		PreparedStatement stmt=null;
 		try {
 			conn=DBConnection.getConnection();
 			stmt=conn.prepareStatement(SQLQueriesConstant.SELECT_PROFESSORS);
 			ResultSet rs=stmt.executeQuery();
-			if(!rs.isBeforeFirst()) {
-				System.out.println("\nThe professor list is EMPTY\n");
+			logger.info("-----------------------------------------------------------------------------");
+			logger.info(String.format("%10s %30s ", "PROFESSOR ID",  "PROFESSOR NAME"));
+			logger.info("-----------------------------------------------------------------------------");
+
+			while(rs.next()) {
+				logger.info(String.format("%10s %30s ",rs.getInt("id"),rs.getString("name")));
 			}
-			else {
-				System.out.println("Professor ID\t\tProfessor Name");
-				System.out.println("________________________________________________________\n");
-				while(rs.next()) {
-					System.out.println(String.valueOf(rs.getInt("id"))+"\t\t\t"+rs.getString("name"));
-				}
-			}
-			System.out.println("________________________________________________________\n\n");
+			logger.info("\n\n");
 		}catch (SQLException e) {
 			logger.error(e.getMessage());
 		}catch (Exception e) {
@@ -355,26 +338,18 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 	@Override
 	public void viewStudents() {
 		// TODO Auto-generated method stub
-
-		System.out.println("\n=======================================================");
-		System.out.println("\t\tStudents");
-		System.out.println("=======================================================\n");
 		PreparedStatement stmt=null;
 		try {
 			conn=DBConnection.getConnection();
 			stmt=conn.prepareStatement(SQLQueriesConstant.SELECT_STUDENTS);
 			ResultSet rs=stmt.executeQuery();
-			if(!rs.isBeforeFirst()) {
-				System.out.println("\nThe student list is EMPTY\n");
+			logger.info("-----------------------------------------------------------------------------");
+			logger.info(String.format("%10s %30s ", "STUDENT ID",  "STUDENT NAME"));
+			logger.info("-----------------------------------------------------------------------------");
+			while(rs.next()) {
+				logger.info(String.format("%10s %30s ",rs.getInt("id"),rs.getString("name")));
 			}
-			else {
-				System.out.println("Student ID\t\tStudent Name");
-				System.out.println("________________________________________________________\n");
-				while(rs.next()) {
-					System.out.println(String.valueOf(rs.getInt("id"))+"\t\t\t"+rs.getString("name"));
-				}
-			}
-			System.out.println("________________________________________________________\n\n");
+			logger.info("\n\n");
 		}catch (SQLException e) {
 			logger.error(e.getMessage());
 		}catch (Exception e) {
@@ -387,25 +362,18 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 	@Override
 	public void viewCourses() {
 		// TODO Auto-generated method stub
-		System.out.println("\n=======================================================");
-		System.out.println("\t\tCourses");
-		System.out.println("=======================================================\n");
 		PreparedStatement stmt=null;
 		try {
 			conn=DBConnection.getConnection();
 			stmt=conn.prepareStatement(SQLQueriesConstant.SELECT_COURSES);
 			ResultSet rs=stmt.executeQuery();
-			if(!rs.isBeforeFirst()) {
-				System.out.println("\nThe course list is EMPTY\n");
+			logger.info("-----------------------------------------------------------------------------");
+			logger.info(String.format("%10s %30s ", "COURSE ID",  "COURSE NAME"));
+			logger.info("-----------------------------------------------------------------------------");
+			while(rs.next()) {
+				logger.info(String.format("%10s %30s ",rs.getInt("id"),rs.getString("name")));
 			}
-			else {
-				System.out.println("Course ID\t\tCourse Name");
-				System.out.println("________________________________________________________\n");
-				while(rs.next()) {
-					System.out.println(rs.getInt("id") +"\t\t\t"+rs.getString("name"));
-				}
-			}
-			System.out.println("________________________________________________________\n\n");
+			logger.info("\n\n");
 		}catch (SQLException e) {
 			logger.error(e.getMessage());
 		}catch (Exception e) {
