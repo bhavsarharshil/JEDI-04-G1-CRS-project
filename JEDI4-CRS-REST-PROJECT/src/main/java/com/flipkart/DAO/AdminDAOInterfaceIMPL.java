@@ -72,12 +72,12 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 	 * @return
 	 */
 	@Override
-	public Vector<Grades> viewReportCard(Student student) {
+	public Vector<Grades> viewReportCard(int id) {
 		try {
 
 			conn = DBConnection.getConnection();
 			stmt=conn.prepareStatement(SQLQueriesConstant.GET_GRADES_QUERY);
-			stmt.setInt(1,student.getId());
+			stmt.setInt(1,id);
 			ResultSet res =stmt.executeQuery();
 			logger.info("-----------------------------------------------------------------------------");
 			logger.info(String.format("%10s %30s ", "Course NAME",  "GRADE"));
@@ -89,7 +89,7 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 				g = new Grades();
 				g.setCourseID(res.getInt("courseid"));g.setCourseName(res.getString("coursename"));
 				g.setGrade(res.getString("grade"));
-				g.setStudentId(student.getId());
+				g.setStudentId(id);
 				reportCard.add(g);
 			}
 			logger.info("\n\n");
@@ -133,12 +133,12 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 	 *method to remove professor
 	 */
 	@Override
-	public boolean removeProfessor(Professor professor) {
+	public boolean removeProfessor(int id) {
 		// TODO Auto-generated method stub
 		try {
 			conn = DBConnection.getConnection();
 			stmt=conn.prepareStatement(SQLQueriesConstant.DELETE_USER_BY_ID);
-			stmt.setInt(1, professor.getId());
+			stmt.setInt(1, id);
 			int res=stmt.executeUpdate();
 			if(res==1) {
 				logger.info("Professor successfully deleted.");
@@ -158,12 +158,12 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 	 *method to remove student
 	 */
 	@Override
-	public boolean removeStudent(Student student) {
+	public boolean removeStudent(int id) {
 		// TODO Auto-generated method stub
 		try {
 			conn = DBConnection.getConnection();
 			stmt=conn.prepareStatement(SQLQueriesConstant.DELETE_USER_BY_ID);
-			stmt.setInt(1, student.getId());
+			stmt.setInt(1, id);
 			int res=stmt.executeUpdate();
 			if(res==1) {
 				logger.info("Student successfully deleted.");
@@ -208,12 +208,12 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 	 * method to remove course
 	 */
 	@Override
-	public boolean removeCourse(Course course) {
+	public boolean removeCourse(int id) {
 		// TODO Auto-generated method stub
 		try {
 			conn = DBConnection.getConnection();
 			stmt=conn.prepareStatement(SQLQueriesConstant.DELETE_COURSE_BY_ID);
-			stmt.setInt(1, course.getCourseID());
+			stmt.setInt(1, id);
 			int res=stmt.executeUpdate();
 			if(res==1) {
 				logger.info("Course successfully added.");
@@ -311,7 +311,7 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 	 *method to approve registration of students
 	 */
 	@Override
-	public void approveStudentsRequest(int id) {
+	public boolean approveStudentsRequest(int id) {
 		PreparedStatement stmt=null;
 		try {
 			conn=DBConnection.getConnection();
@@ -319,11 +319,13 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 			stmt.setBoolean(1,true);
 			stmt.setInt(2,id);
 			stmt.executeUpdate();
+			return true;
 		}catch (SQLException e) {
 			logger.error(e.getMessage());
 		}catch (Exception e) {
 			logger.error(e.getMessage());
 		}
+		return false;
 	}
 	/**
 	 *method to view all professors
@@ -374,6 +376,7 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 			conn=DBConnection.getConnection();
 			stmt=conn.prepareStatement(SQLQueriesConstant.SELECT_STUDENTS);
 			ResultSet rs=stmt.executeQuery();
+			logger.info(stmt);
 			logger.info("-----------------------------------------------------------------------------");
 			logger.info(String.format("%10s %30s ", "STUDENT ID",  "STUDENT NAME"));
 			logger.info("-----------------------------------------------------------------------------");

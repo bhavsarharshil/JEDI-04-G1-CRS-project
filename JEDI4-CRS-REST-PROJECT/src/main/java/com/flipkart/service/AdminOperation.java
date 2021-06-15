@@ -3,13 +3,14 @@
  */
 package com.flipkart.service;
 import java.util.InputMismatchException;
-import java.util.Scanner;
+import java.util.Vector;
 
 import org.apache.log4j.Logger;
 
 import com.flipkart.DAO.AdminDAOInterface;
 import com.flipkart.DAO.AdminDAOInterfaceIMPL;
 import com.flipkart.bean.Course;
+import com.flipkart.bean.Grades;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
 import com.flipkart.bean.Admin;
@@ -21,154 +22,104 @@ public class AdminOperation implements AdminInterface {
 
 	public static Logger logger=Logger.getLogger(AdminOperation.class);
 	AdminDAOInterfaceIMPL adminInterface=new AdminDAOInterfaceIMPL();
-	Scanner sc=new Scanner(System.in);
 
 	/**
 	 * method to add course
 	 */
 	@Override
-	public void addCourse() {
+	public boolean addCourse(Course course) {
 		// TODO Auto-generated method stub
 		try {
-			Course course=new Course();
-			System.out.println("Enter the course id");
-			int id=sc.nextInt();
-			course.setCourseID(id);
-			System.out.println("Enter course name");
-			String name=sc.next();
-			course.setCourseName(name);
-			System.out.println("Enter course credits");
-			int credits=sc.nextInt();
-			course.setCredits(credits);
-			adminInterface.addCourse(course);
+			return adminInterface.addCourse(course);
 		}catch(InputMismatchException e){
-			sc.next();
 			logger.error("The input formal is invalid\n");
 		}catch(Exception e) {
-			sc.next();
 			logger.error(e.getMessage());
 		}
+		return false;
 	}
 
 	/**
 	 * method to remove course
 	 */
 	@Override
-	public void removeCourse() {
+	public boolean removeCourse(int id) {
 		// TODO Auto-generated method stub
 		try {
-			Course course=new Course();
-			System.out.println("Enter the course id");
-			int id=sc.nextInt();
-			course.setCourseID(id);
-			adminInterface.removeCourse(course);
+			return adminInterface.removeCourse(id);
 		}catch(InputMismatchException e){
-			sc.next();
 			logger.error("The input formal is invalid\n");
 		}catch(Exception e) {
-			sc.next();
 			logger.error(e.getMessage());
 		}
+		return false;
 	}
 
 	/**
 	 * method to generate report card
 	 */
 	@Override
-	public void generateReportCard() {
+	public Vector<Grades> generateReportCard(int id) {
 		// TODO Auto-generated method stub
 
-		System.out.println("\n============Generate Report Card============\n");
+		
 		try {
-			Student student=new Student();
-			System.out.print("Enter student id : ");
-			int id=sc.nextInt();
-			student.setId(id);
-			adminInterface.viewReportCard(student);
+			return adminInterface.viewReportCard(id);
 		}catch(InputMismatchException e){
-			sc.next();
 			logger.error("\nThe input format is invalid\n");
 		}catch(Exception e) {
-			sc.next();
 			logger.error("\n"+e.getMessage()+"\n");
 		}
+		return null;
 	}
 
 	/**
 	 * method to add professor
 	 */
 	@Override
-	public void addProfessor() {
+	public boolean addProfessor(Professor professor) {
 		// TODO Auto-generated method stub
 		System.out.println("\n============Add Professor============\n");
 		try {
-			Professor professor=new Professor();
-			System.out.print("Enter new professor id : ");
-			int id=sc.nextInt();
-			professor.setId(id);
-			System.out.print("Enter professor email : ");
-			String email=sc.next();
-			professor.setEmail(email);
-			System.out.print("Enter password :");
-			String password=sc.next();
-			professor.setPassword(password);
-			professor.setRole("professor");
-			professor.setLoggedin(false);
-			System.out.print("Enter professor name :");
-			String name=sc.next();
-			professor.setName(name);
-			adminInterface.addProfessor(professor);
+			return adminInterface.addProfessor(professor);
 		}catch(InputMismatchException e){
-			sc.next();
 			logger.error("\nThe input formal is invalid\n");
 		}catch(Exception e) {
-			sc.next();
 			logger.error("\n"+e.getMessage()+"\n");
 		}
+		return false;
 	}
 
 	/**
 	 *method to remove professor
 	 */
 	@Override
-	public void removeProfessor() {
+	public boolean removeProfessor(int id) {
 		// TODO Auto-generated method stub
-		System.out.println("\n============Remove Professor============\n");
 		try {
-			Professor professor=new Professor();
-			System.out.print("Enter professor id : ");
-			int id=sc.nextInt();
-			professor.setId(id);
-			adminInterface.removeProfessor(professor);
+			return adminInterface.removeProfessor(id);
 		}catch(InputMismatchException e){
-			sc.next();
 			logger.error("\nThe input formal is invalid\n");
 		}catch(Exception e) {
-			sc.next();
 			logger.error("\n"+e.getMessage()+"\n");
 		}
+		return false;
 	}
 
 	/**
 	 *method to remove student
 	 */
 	@Override
-	public void removeStudent() {
+	public boolean removeStudent(int id) {
 		// TODO Auto-generated method stub
-		System.out.println("\n============Remove Student============\n");
 		try {
-			Student student=new Student();
-			System.out.print("Enter student id : ");
-			int id=sc.nextInt();
-			student.setId(id);
-			adminInterface.removeStudent(student);
+			return adminInterface.removeStudent(id);
 		}catch(InputMismatchException e){
-			sc.next();
 			logger.error("\nThe input formal is invalid\n");
 		}catch(Exception e) {
-			sc.next();
 			logger.error("\n"+e.getMessage()+"\n");
 		}
+		return false;
 	}
 
 	/**
@@ -185,54 +136,49 @@ public class AdminOperation implements AdminInterface {
 	 *method to approve registration of students
 	 */
 	@Override
-	public void approveStudentsRequest() {
+	public boolean approveStudentsRequest(int id) {
 		AdminDAOInterface addao = new AdminDAOInterfaceIMPL();
 		try {
-			addao.viewUnapprovedStudent();
-			System.out.print("Enter Student id to approve : ");
-			int id = sc.nextInt();
-
-			addao.approveStudentsRequest(id);
+			return addao.approveStudentsRequest(id);
 		}catch(InputMismatchException e){
-			sc.next();
 			logger.error("\nThe input formal is invalid\n");
 		}catch(Exception e) {
-			sc.next();
 			logger.error("\n"+e.getMessage()+"\n");
 		}
+		return false;
 	}
 
 	/**
 	 *method to approve courses of students
 	 */
 	@Override
-	public void approveStudents() {
+	public boolean approveStudents() {
 		// TODO Auto-generated method stub
-		adminInterface.approveStudents();
+		return adminInterface.approveStudents();
 	}
 
 	/**
 	 *method to view all professors
 	 */
-	public void viewProfessors() {
+	public Vector<Professor> viewProfessors() {
 		// TODO Auto-generated method stub
-		adminInterface.viewProfessors();
+		return adminInterface.viewProfessors();
 	}
 
 	/**
 	 *method to view all students
 	 */
-	public void viewStudents() {
+	public Vector<Student> viewStudents() {
 		// TODO Auto-generated method stub
-		adminInterface.viewStudents();
+		return adminInterface.viewStudents();
 	}
 
 	/**
 	 *method to view all courses
 	 */
-	public void viewCourses() {
+	public Vector<Course> viewCourses() {
 		// TODO Auto-generated method stub
-		adminInterface.viewCourses();
+		return adminInterface.viewCourses();
 	}
 
 }

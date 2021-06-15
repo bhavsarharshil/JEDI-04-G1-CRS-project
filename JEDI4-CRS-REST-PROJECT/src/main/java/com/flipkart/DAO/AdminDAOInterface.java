@@ -6,16 +6,16 @@ import java.util.Vector;
 
 public interface AdminDAOInterface {
 	public Admin getAdminById(int id);
-	public Vector<Grades> viewReportCard(Student student);
+	public Vector<Grades> viewReportCard(int id);
 	public boolean addProfessor(Professor professor);
-	public boolean removeProfessor(Professor professor);
-	public boolean removeStudent(Student student);
+	public boolean removeProfessor(int id);
+	public boolean removeStudent(int id);
 	public boolean addCourse(Course course);
-	public boolean removeCourse(Course course);
+	public boolean removeCourse(int id);
 	public Vector<Professor> viewProfessors();
 	public Vector<Student> viewStudents();
 	public Vector<Course> viewCourses();
 	public boolean approveStudents();
 	public Vector<Student> viewUnapprovedStudent();
-	public void approveStudentsRequest(int id);
+	public boolean approveStudentsRequest(int id);
 }
