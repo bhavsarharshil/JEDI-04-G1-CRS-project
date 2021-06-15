@@ -119,6 +119,7 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 				System.out.println("\nThere are no payments to show\n");
 			}
 			else {
+				resultSet.next();
 				int status = resultSet.getInt("status");
 				int amount = resultSet.getInt("amount");
 				if(status == 1)
@@ -483,20 +484,22 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 			ps = connection.prepareStatement(SQLQueriesConstant.GET_PAYMENTS);
 			ps.setInt(1, student.getId());
 			ResultSet resultSet = ps.executeQuery();
-			if(!resultSet.isBeforeFirst()) {
-				System.out.println("\nThere are no payments to show\n");
-			}
-			else {
-				resultSet.next();
+
+			if(resultSet.next()) {
 				int status = resultSet.getInt("status");
 				int amount = resultSet.getInt("amount");
 				if(status == 1)
 				{
-					System.out.println("Payment is already done !\n");
+					logger.info("-----------------------------------------------------------------------------");
+					logger.info(String.format("%10s %30s %20s  ", "TRANSACTION ID",  "AMOUNT", "PAYMENT DATE"));
+					logger.info("-----------------------------------------------------------------------------");
+					logger.info(String.format("%10s %30s %20s",resultSet.getInt("paymentid"),resultSet.getInt("amount"),resultSet.getDate("paymentdate")));
+					logger.info("\n");
+					logger.info("Payment is already done !\n");
 				}
 				else
 				{
-					System.out.println("Amount to be paid :" + String.valueOf(amount));
+					System.out.println("Amount to be paid :" + amount);
 					ps = connection.prepareStatement(SQLQueriesConstant.SET_PAYMENT_STATUS_QUERY);
 					
 					ps.setString(2, String.valueOf(LocalDate.now()));
@@ -504,6 +507,9 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 					ps.executeUpdate();
 					System.out.println("Payment done successfully!\n");
 				}
+			}
+			else{
+				System.out.println("\nThere are no payments to show\n");
 			}
 		}
 		catch(SQLException e) {

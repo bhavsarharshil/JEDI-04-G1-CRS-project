@@ -243,6 +243,7 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 				}
 			}
 			stmt=conn.prepareStatement(SQLQueriesConstant.SELECT_DISTINCT_SEM_REGISTRATION);
+			System.out.println(stmt);
 			rs=stmt.executeQuery();
 			LocalDateTime cur_date=LocalDateTime.now();
 			String date="";
@@ -252,6 +253,7 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 				stmt.setInt(1,cur_date.getNano());
 				stmt.setInt(2,rs.getInt("studentid"));
 				stmt.setString(3, String.valueOf(LocalDate.now()));
+				System.out.println(stmt);
 				stmt.executeUpdate();
 			}
 			stmt=conn.prepareStatement(SQLQueriesConstant.DELETE_SEM_REGISTRATION);

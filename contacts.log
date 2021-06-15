@@ -136,3 +136,81 @@
 
 11:55:10,971 ERROR AdminOperation,main:88 - The input formal is invalid
 
+12:14:30,026 ERROR CRSApplication,main:100 - 
+The input format is invalid
+
+
+12:14:32,525 ERROR CRSApplication,main:100 - 
+The input format is invalid
+
+
+12:19:59,207 ERROR StudentDAOInterface,main:141 - 
+Before start of result set
+
+12:21:05,923 ERROR StudentDAOInterface,main:510 - 
+No value specified for parameter 1
+
+12:45:13,901 ERROR StudentCRSMenu,main:124 - 
+The input format is invalid
+
+
+12:45:20,976 ERROR StudentDAOInterface,main:141 - 
+Before start of result set
+
+12:47:52,631 ERROR StudentDAOInterface,main:141 - 
+Before start of result set
+
+12:49:01,632 ERROR StudentDAOInterface,main:141 - 
+Before start of result set
+
+12:50:46,147 ERROR StudentDAOInterface,main:141 - 
+Before start of result set
+
+12:51:26,804 ERROR StudentDAOInterface,main:141 - 
+Before start of result set
+
+12:51:30,538 ERROR StudentDAOInterface,main:510 - 
+No value specified for parameter 1
+
+12:52:04,930 ERROR StudentDAOInterface,main:510 - 
+No value specified for parameter 1
+
+12:56:59,611 ERROR StudentDAOInterface,main:141 - 
+Before start of result set
+
+12:59:25,864 ERROR StudentDAOInterface,main:141 - 
+Before start of result set
+
+13:00:04,435 ERROR StudentDAOInterface,main:511 - 
+No value specified for parameter 1
+
+13:00:12,944 ERROR StudentDAOInterface,main:141 - 
+Before start of result set
+
+13:01:24,989 ERROR StudentDAOInterface,main:141 - 
+Before start of result set
+
+13:07:45,760  INFO StudentDAOInterface,main:493 - -----------------------------------------------------------------------------
+13:07:45,763  INFO StudentDAOInterface,main:494 - TRANSACTION ID                         AMOUNT PAYMENT DATE  
+13:07:45,763  INFO StudentDAOInterface,main:495 - -----------------------------------------------------------------------------
+13:07:45,765 ERROR StudentDAOInterface,main:519 - 
+Format specifier '%10s'
+
+13:08:02,976  INFO StudentDAOInterface,main:493 - -----------------------------------------------------------------------------
+13:08:02,977  INFO StudentDAOInterface,main:494 - TRANSACTION ID                         AMOUNT PAYMENT DATE  
+13:08:02,977  INFO StudentDAOInterface,main:495 - -----------------------------------------------------------------------------
+13:08:02,977 ERROR StudentDAOInterface,main:519 - 
+Format specifier '%10s'
+
+13:08:36,379  INFO StudentDAOInterface,main:493 - -----------------------------------------------------------------------------
+13:08:36,383  INFO StudentDAOInterface,main:494 - TRANSACTION ID                         AMOUNT PAYMENT DATE  
+13:08:36,384  INFO StudentDAOInterface,main:495 - -----------------------------------------------------------------------------
+13:08:36,384  INFO StudentDAOInterface,main:496 -  971000000                           5000 2021-06-15
+13:09:09,746  INFO StudentDAOInterface,main:493 - -----------------------------------------------------------------------------
+13:09:09,749  INFO StudentDAOInterface,main:494 - TRANSACTION ID                         AMOUNT PAYMENT DATE  
+13:09:09,750  INFO StudentDAOInterface,main:495 - -----------------------------------------------------------------------------
+13:09:09,751  INFO StudentDAOInterface,main:496 -  971000000                           5000 2021-06-15
+13:09:44,887  INFO StudentDAOInterface,main:493 - -----------------------------------------------------------------------------
+13:09:44,890  INFO StudentDAOInterface,main:494 - TRANSACTION ID                         AMOUNT         PAYMENT DATE  
+13:09:44,890  INFO StudentDAOInterface,main:495 - -----------------------------------------------------------------------------
+13:09:44,891  INFO StudentDAOInterface,main:496 -  971000000                           5000           2021-06-15
