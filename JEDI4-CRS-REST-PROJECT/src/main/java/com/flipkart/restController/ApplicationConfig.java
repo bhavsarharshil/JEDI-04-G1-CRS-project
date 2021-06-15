@@ -12,7 +12,8 @@ import org.glassfish.jersey.server.ResourceConfig;
 public class ApplicationConfig extends ResourceConfig {
 	public ApplicationConfig() {
 		register(StudentRESTAPI.class);
-		register(AdminRESTAPI.class);
+		register(AdminRestApi.class);
+		register(UserRestApi.class);
 		register(ProfessorRESTAPI.class);
 	}
 }
