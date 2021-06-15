@@ -73,10 +73,10 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 			stmt.setInt(1,student.getId());
 			ResultSet res =stmt.executeQuery();
 			logger.info("-----------------------------------------------------------------------------");
-			logger.info(String.format("%10s %30s ", "Course NAME",  "GRADE"));
+			logger.info(String.format("%10s %20s ", "Course NAME",  "GRADE"));
 			logger.info("-----------------------------------------------------------------------------");
 			while(res.next()) {
-				logger.info(String.format("%10s %30s ",res.getString("coursename"),res.getString("grade")));
+				logger.info(String.format("%10s %20s ",res.getString("coursename"),res.getString("grade")));
 			}
 			logger.info("\n\n");
 		}catch (SQLException e) {
@@ -264,10 +264,10 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 			stmt=conn.prepareStatement(SQLQueriesConstant.VIEW_UNAPPROVED_STUDENTS);
 			ResultSet rs=stmt.executeQuery();
 			logger.info("-----------------------------------------------------------------------------");
-			logger.info(String.format("%10s %30s ", "USER ID",  "USER NAME"));
+			logger.info(String.format("%10s %20s ", "USER ID",  "USER NAME"));
 			logger.info("-----------------------------------------------------------------------------");
 			while(rs.next()) {
-				logger.info(String.format("%10s %30s ",rs.getInt("user.id"),rs.getString("user.name")));
+				logger.info(String.format("%10s %20s ",rs.getInt("user.id"),rs.getString("user.name")));
 			}
 			logger.info("\n\n");
 
@@ -307,11 +307,11 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 			stmt=conn.prepareStatement(SQLQueriesConstant.SELECT_PROFESSORS);
 			ResultSet rs=stmt.executeQuery();
 			logger.info("-----------------------------------------------------------------------------");
-			logger.info(String.format("%10s %30s ", "PROFESSOR ID",  "PROFESSOR NAME"));
+			logger.info(String.format("%10s %20s ", "PROFESSOR ID",  "PROFESSOR NAME"));
 			logger.info("-----------------------------------------------------------------------------");
 
 			while(rs.next()) {
-				logger.info(String.format("%10s %30s ",rs.getInt("id"),rs.getString("name")));
+				logger.info(String.format("%10s %20s ",rs.getInt("id"),rs.getString("name")));
 			}
 			logger.info("\n\n");
 		}catch (SQLException e) {
@@ -332,10 +332,10 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 			stmt=conn.prepareStatement(SQLQueriesConstant.SELECT_STUDENTS);
 			ResultSet rs=stmt.executeQuery();
 			logger.info("-----------------------------------------------------------------------------");
-			logger.info(String.format("%10s %30s ", "STUDENT ID",  "STUDENT NAME"));
+			logger.info(String.format("%10s %20s ", "STUDENT ID",  "STUDENT NAME"));
 			logger.info("-----------------------------------------------------------------------------");
 			while(rs.next()) {
-				logger.info(String.format("%10s %30s ",rs.getInt("id"),rs.getString("name")));
+				logger.info(String.format("%10s %20s ",rs.getInt("id"),rs.getString("name")));
 			}
 			logger.info("\n\n");
 		}catch (SQLException e) {
@@ -356,10 +356,10 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 			stmt=conn.prepareStatement(SQLQueriesConstant.SELECT_COURSES);
 			ResultSet rs=stmt.executeQuery();
 			logger.info("-----------------------------------------------------------------------------");
-			logger.info(String.format("%10s %30s ", "COURSE ID",  "COURSE NAME"));
+			logger.info(String.format("%10s %20s ", "COURSE ID",  "COURSE NAME"));
 			logger.info("-----------------------------------------------------------------------------");
 			while(rs.next()) {
-				logger.info(String.format("%10s %30s ",rs.getInt("id"),rs.getString("name")));
+				logger.info(String.format("%10s %20s ",rs.getInt("id"),rs.getString("name")));
 			}
 			logger.info("\n\n");
 		}catch (SQLException e) {

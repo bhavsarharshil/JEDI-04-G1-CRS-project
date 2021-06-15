@@ -145,14 +145,14 @@ public class ProfessorDAOInterfaceIMPL implements ProfessorDAOInterface {
 			}
 			else {
 				logger.info("-----------------------------------------------------------------------------");
-				logger.info(String.format("%10s %30s %50s", "Course ID","Student ID","Grade"));
+				logger.info(String.format("%15s %15s %10s", "Course ID","Student ID","Grade"));
 				logger.info("-----------------------------------------------------------------------------");
 				do
 				{
 					courseID=rs.getInt("courseid");
 					studentID=rs.getInt("studentid");
 					String grade = rs.getString("grade");
-					logger.info(String.format("%10s %30s %50s", courseID,studentID,grade));
+					logger.info(String.format("%15s %15s %10s", courseID,studentID,grade));
 				}while(rs.next());
 			}
 		

@@ -24,10 +24,10 @@ public class CourseInterfaceImpl implements CourseInterface {
 			System.out.println("The course catalog is EMPTY\n");
 		}
 		else {
-			System.out.println("Course ID\t\tCourse Name\t\tCredits");
+			System.out.println(String.format("%10s %20s %10s", "Course ID","Course Name","Credits"));
 			System.out.println("________________________________________________________\n");
 			for(Course i:courseArray) {
-				System.out.println(i.getCourseID() +"\t\t\t"+i.getCourseName()+"\t\t"+ i.getCredits());
+				System.out.println(String.format("%10s %20s %10s", i.getCourseID(),i.getCourseName(),i.getCredits()));
 			}
 		}
 		System.out.println("________________________________________________________\n\n");

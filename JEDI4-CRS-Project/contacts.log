@@ -327,3 +327,9 @@ Course successfully added
 
 
 21:14:46,612  INFO AdminDAOInterfaceIMPL,main:113 - Professor successfully added.
+22:19:21,589  INFO UserDAOInterface,main:49 - 
+---Logged in successfully---
+
+22:19:45,131 ERROR AdminOperation,main:123 - 
+The input formal is invalid
+

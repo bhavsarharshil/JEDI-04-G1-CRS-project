@@ -120,7 +120,7 @@ public class AdminOperation implements AdminInterface {
 			adminInterface.addProfessor(professor);
 		}catch(InputMismatchException e){
 			sc.next();
-			logger.error("\nThe input formal is invalid\n");
+			logger.error("\nThe input format is invalid\n");
 		}catch(Exception e) {
 			sc.next();
 			logger.error("\n"+e.getMessage()+"\n");
@@ -142,7 +142,7 @@ public class AdminOperation implements AdminInterface {
 			adminInterface.removeProfessor(professor);
 		}catch(InputMismatchException e){
 			sc.next();
-			logger.error("\nThe input formal is invalid\n");
+			logger.error("\nThe input format is invalid\n");
 		}catch(Exception e) {
 			sc.next();
 			logger.error("\n"+e.getMessage()+"\n");
@@ -164,7 +164,7 @@ public class AdminOperation implements AdminInterface {
 			adminInterface.removeStudent(student);
 		}catch(InputMismatchException e){
 			sc.next();
-			logger.error("\nThe input formal is invalid\n");
+			logger.error("\nThe input format is invalid\n");
 		}catch(Exception e) {
 			sc.next();
 			logger.error("\n"+e.getMessage()+"\n");
@@ -195,7 +195,7 @@ public class AdminOperation implements AdminInterface {
 			addao.approveStudentsRequest(id);
 		}catch(InputMismatchException e){
 			sc.next();
-			logger.error("\nThe input formal is invalid\n");
+			logger.error("\nThe input format is invalid\n");
 		}catch(Exception e) {
 			sc.next();
 			logger.error("\n"+e.getMessage()+"\n");
