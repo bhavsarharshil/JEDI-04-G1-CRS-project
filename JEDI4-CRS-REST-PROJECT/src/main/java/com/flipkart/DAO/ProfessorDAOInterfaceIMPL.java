@@ -5,10 +5,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.LogRecord;
 
 import org.apache.log4j.Logger;
 
+import com.flipkart.bean.Course;
+import com.flipkart.bean.Grades;
 import com.flipkart.bean.Professor;
 import com.flipkart.utils.DBConnection;
 import com.flipkart.constant.SQLQueriesConstant;
@@ -108,7 +111,7 @@ public class ProfessorDAOInterfaceIMPL implements ProfessorDAOInterface {
 			stmt.executeUpdate();
 			
 			update=true;
-			System.out.println("Grade added successfully\n\n");
+			logger.info("Grade added successfully\n\n");
 
 		}catch(SQLException e){
 			logger.error("\n"+e.getMessage()+"\n");
@@ -124,11 +127,9 @@ public class ProfessorDAOInterfaceIMPL implements ProfessorDAOInterface {
 	 * method to view grades
 	 */
 	@Override
-	public void viewGrades(int courseID,int studentID) {
+	public Grade viewGrades(int courseID,int studentID) {
 		// TODO Auto-generated method stub
-		System.out.println("\n========================================================================");
-		System.out.println("\t\t\tGrades");
-		System.out.println("========================================================================\n");
+		Grades grade ;
 		Connection conn = null;
 		PreparedStatement stmt = null;
 
@@ -141,17 +142,15 @@ public class ProfessorDAOInterfaceIMPL implements ProfessorDAOInterface {
 			stmt.setInt(2,studentID);
 			ResultSet rs = stmt.executeQuery();
 			if(!rs.next()) {
-				System.out.println("\nThere are no grades to show\n");
+				logger.info("\nThere are no grades to show\n");
 			}
 			else {
 				do
 				{
-					courseID=rs.getInt("courseid");
-					studentID=rs.getInt("studentid");
-					String grade = rs.getString("grade");
-					System.out.print("courseID: " + courseID);
-					System.out.print(" stduentID: " + studentID);
-					System.out.println(" grade: " + grade);
+					grade.setCourseID(rs.getInt("courseid"));
+					grade.setStudentId(rs.getInt("studentid"));
+					grade.setGrade(rs.getString("grade"));
+					
 				}while(rs.next());
 			}
 		
@@ -162,6 +161,7 @@ public class ProfessorDAOInterfaceIMPL implements ProfessorDAOInterface {
 
 			logger.error("\n"+e.getMessage()+"\n");
 		}
+		return grade;
 	}
 
 	/**
@@ -169,39 +169,40 @@ public class ProfessorDAOInterfaceIMPL implements ProfessorDAOInterface {
 	 * method to show courses taught by professors
 	 */
 	@Override
-	public void showAssignedCourses(int profID) {
+	public ArrayList<Integer> showAssignedCourses(int profID) {
 		// TODO Auto-generated method stub
 		// TODO Auto-generated method stub
-				Connection conn = null;
-				PreparedStatement stmt = null;
+		ArrayList<Integer> courses;
+		Connection conn = null;
+		PreparedStatement stmt = null;
 
-				try{
+		try{
 
 					
-					conn = DBConnection.getConnection();
+			conn = DBConnection.getConnection();
 					
-					String sql =SQLQueriesConstant.GET_PROF_WITH_ID;
-					stmt = conn.prepareStatement(sql);
-					stmt.setInt(1,profID);
+			String sql =SQLQueriesConstant.GET_PROF_WITH_ID;
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1,profID);
 					
-					ResultSet rs = stmt.executeQuery();
-					System.out.println("=======Assigned Courses=======");
-					while(rs.next())
-					{
-						int courseID1  = rs.getInt("courseid");
-						System.out.println("ID: " + courseID1);
-					}
+			ResultSet rs = stmt.executeQuery();
+			while(rs.next())
+			{
+				int courseID1  = rs.getInt("courseid");
+				courses.add(courseID1);
+			}
 
 				
 
-				}
-				catch(SQLException e){
+			}
+			catch(SQLException e){
 
-					logger.error("\n"+e.getMessage()+"\n");
-				}catch(Exception e){
+				logger.error("\n"+e.getMessage()+"\n");
+			}catch(Exception e){
 
-					logger.error("\n"+e.getMessage()+"\n");
-				}
+				logger.error("\n"+e.getMessage()+"\n");
+			}
+		return courses;
 	}
 
 	/**
@@ -218,7 +219,6 @@ public class ProfessorDAOInterfaceIMPL implements ProfessorDAOInterface {
 
 		try{
 			conn = DBConnection.getConnection();
-			// System.out.println("Creating statement...");
 			String sql=SQLQueriesConstant.INSERT_INTO_COURSEPROF;
 			stmt = conn.prepareStatement(sql);
 
@@ -227,7 +227,7 @@ public class ProfessorDAOInterfaceIMPL implements ProfessorDAOInterface {
 			stmt.executeUpdate();
 		
 			added=true;
-			System.out.println("Course assigned successfully");
+			logger.info("Course assigned successfully");
 
 		}catch(SQLException e){
 			logger.error("\n"+e.getMessage()+"\n");
@@ -259,7 +259,7 @@ public class ProfessorDAOInterfaceIMPL implements ProfessorDAOInterface {
 			stmt.executeUpdate();
 			
 			remove=true;
-			System.out.println("Course removed successfully");
+			logger.info("Course removed successfully");
 
 		}catch(SQLException e){
 
@@ -272,14 +272,14 @@ public class ProfessorDAOInterfaceIMPL implements ProfessorDAOInterface {
 	}
 
 	@Override
-	public boolean viewEnrolledStudentsInCourse(int courseID) {
+	public ArrayList<Integer> viewEnrolledStudentsInCourse(int courseID) {
 		// TODO Auto-generated method stub
 		Connection conn = null;
 		PreparedStatement stmt = null;
-
+		ArrayList<Integer> students;
 		try{
 
-			System.out.println("=====Enrolled Students in course"+String.valueOf(courseID)+"======");
+			
 			conn = DBConnection.getConnection();
 			String sql = SQLQueriesConstant.SELECT_FROM_STUDENTCOURSE;
 			stmt = conn.prepareStatement(sql);
@@ -288,7 +288,7 @@ public class ProfessorDAOInterfaceIMPL implements ProfessorDAOInterface {
 			while(rs.next())
 			{
 				int studentID1  = rs.getInt("studentid");
-				System.out.println("ID: " + studentID1);
+				students.add(studentID1);
 			}
 
 	
@@ -299,7 +299,7 @@ public class ProfessorDAOInterfaceIMPL implements ProfessorDAOInterface {
 
 			logger.error("\n"+e.getMessage()+"\n");
 		}
-		return false;
+		return students;
 	}
 
 	/**

@@ -6,15 +6,12 @@ import com.flipkart.DAO.ProfessorDAOInterface;
 import com.flipkart.DAO.ProfessorDAOInterfaceIMPL;
 import com.flipkart.DAO.UserDAOInterface;
 import com.flipkart.DAO.UserDAOInterfaceIMPL;
-import com.flipkart.bean.Course;
-import com.flipkart.bean.Grades;
 import com.flipkart.bean.Professor;
 import com.flipkart.exception.CourseAssignedException;
 import com.flipkart.exception.NoAssignedCourseException;
 import com.flipkart.exception.ProfessorException;
 import com.flipkart.exception.StudentCountException;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 import org.apache.log4j.Logger;
@@ -29,7 +26,7 @@ public class ProfessorInterfaceImpl implements ProfessorInterface {
 	 */
 	@Override
 	public boolean gradeStudents(Professor professor) {
-		logger.info("==================Grade Students===============");
+		System.out.println("==================Grade Students===============");
 		// TODO Auto-generated method stub
 		try{
 			int courseID,studentID;
@@ -37,13 +34,13 @@ public class ProfessorInterfaceImpl implements ProfessorInterface {
 			String grade;
 			Scanner sc= new Scanner(System.in);
 			showAssignedCourses(professor);
-			logger.info("Enter the course ID : ");
+			System.out.print("Enter the course ID : ");
 			courseID=sc.nextInt();
-			logger.info("\n");
+			System.out.println("\n");
 			professorDAOInterface.viewEnrolledStudentsInCourse(courseID);
-			logger.info("Enter the StudentID : ");
+			System.out.print("Enter the StudentID : ");
 			studentID=sc.nextInt();
-			logger.info("Enter the grade : ");
+			System.out.print("Enter the grade : ");
 			grade=sc.next();
 			int no_students = 0;
 			no_students = professorDAOInterface.getStudentCount(courseID);
@@ -75,22 +72,14 @@ public class ProfessorInterfaceImpl implements ProfessorInterface {
 		// TODO Auto-generated method stub
 		try{
 			int courseID,studentID;
-			logger.info("Enter the course ID and StudentID to view grade");
+			System.out.println("Enter the course ID and StudentID to view grade");
 			Scanner sc= new Scanner(System.in);
 			courseID=sc.nextInt();
 			studentID=sc.nextInt();
 			int no_students = professorDAOInterface.getStudentCount(courseID);
-			Grades grade;
 			if(no_students>0)
 			{
-				grade = professorDAOInterface.viewGrades(courseID, studentID);
-				logger.info("\n========================================================================");
-				logger.info("\t\t\tGrades");
-				logger.info("========================================================================\n");
-				
-				logger.info("courseID: " + grade.getCourseId() );
-				logger.info(" stduentID: " + grade.getStudentId());
-				logger.info(" grade: " + grade.getGrade());
+				professorDAOInterface.viewGrades(courseID, studentID);
 			}
 			else
 			{
@@ -115,7 +104,6 @@ public class ProfessorInterfaceImpl implements ProfessorInterface {
 	@Override
 	public void showAssignedCourses(Professor professor) {
 		// TODO Auto-generated method stub
-		ArrayList<Integer> courses;
 		try 
 		{
 			int profID=professor.getId();
@@ -123,10 +111,7 @@ public class ProfessorInterfaceImpl implements ProfessorInterface {
 			coursePresence = professorDAOInterface.NoCoursePresence(profID);
 			if(coursePresence == true)
 			{
-				courses = professorDAOInterface.showAssignedCourses(profID);
-				logger.info("=======Assigned Courses=======");
-				for(int c : courses)
-					logger.info("  ID: " + c);
+				professorDAOInterface.showAssignedCourses(profID);
 			}
 			else
 			{
@@ -156,7 +141,7 @@ public class ProfessorInterfaceImpl implements ProfessorInterface {
 			
 			courseInterface.viewCourseCatalog();
 			int courseID;
-			logger.info(" Enter the courseID : ");
+			System.out.print(" Enter the courseID : ");
 			Scanner sc= new Scanner(System.in);
 			courseID=sc.nextInt();
 			
@@ -190,7 +175,7 @@ public class ProfessorInterfaceImpl implements ProfessorInterface {
 	public boolean removeAssignedCourse(Professor professor) {
 		// TODO Auto-generated method stub
 		try{
-			logger.info("Enter courseID");
+			System.out.println("Enter courseID");
 		
 			int courseID,profID;
 			Scanner sc= new Scanner(System.in);
@@ -222,11 +207,10 @@ public class ProfessorInterfaceImpl implements ProfessorInterface {
 	 * @return boolean: true if enrolled students viewed correctly
 	 */
 	@Override
-	public void viewEnrolledStudentsInCourse(Professor professor) {
+	public boolean viewEnrolledStudentsInCourse(Professor professor) {
 		// TODO Auto-generated method stub
-		ArrayList<Integer> students;
 		try{
-			logger.info("Enter course id");
+			System.out.println("Enter course id");
 		
 			int courseID;
 			Scanner sc= new Scanner(System.in);
@@ -234,15 +218,10 @@ public class ProfessorInterfaceImpl implements ProfessorInterface {
 			
 			int no_students = 0;
 			no_students = professorDAOInterface.getStudentCount(courseID);
-			
 			//insert DAO func
 			if(no_students>0)
 			{
-				students = professorDAOInterface.viewEnrolledStudentsInCourse(courseID);
-				logger.info("=====Enrolled Students in course "+String.valueOf(courseID)+"======");
-				for(int s : students)
-					logger.info("  ID: " + s);
-				
+				return professorDAOInterface.viewEnrolledStudentsInCourse(courseID);
 			}
 			else
 			{
@@ -257,7 +236,7 @@ public class ProfessorInterfaceImpl implements ProfessorInterface {
 		catch (Exception e) {
 			logger.error("\n"+e.getMessage()+"\n");
 		}
-		return students;
+		return false;
 	}
 
 	/**
