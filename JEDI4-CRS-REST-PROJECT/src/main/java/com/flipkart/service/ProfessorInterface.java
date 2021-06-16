@@ -5,7 +5,6 @@ package com.flipkart.service;
 
 import java.util.ArrayList;
 
-import com.flipkart.bean.Course;
 import com.flipkart.bean.Grades;
 import com.flipkart.bean.Professor;
 
@@ -14,16 +13,17 @@ import com.flipkart.bean.Professor;
  *
  */
 public interface ProfessorInterface {
-	public boolean gradeStudents(Professor professor);
+	public boolean gradeStudents(int professorID,int courseID,int studentID,String grade);
 	
-	public void viewGrades(Professor professor);
+	public Grades viewGrades(int professorid,int studentid,int courseid);
 	
-	public void showAssignedCourses(Professor professor);
+	public ArrayList<Integer> showAssignedCourses(int profID) ;
 	
-	public boolean addAssignedCourse(Professor professor);
-	public boolean removeAssignedCourse(Professor professor);
+	public boolean addAssignedCourse(int professorID,int courseID);
 	
-	public ArrayList<Integer> viewEnrolledStudentsInCourse(Professor professor);
+	public boolean removeAssignedCourse(int professorID,int courseID);
+	
+	public ArrayList<Integer> viewEnrolledStudentsInCourse(int professorID,int courseID) ;
 	
 	public Professor getProfessorById(int id);
 }

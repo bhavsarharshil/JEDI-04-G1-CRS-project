@@ -179,16 +179,6 @@ public class StudentDAOInterfaceIMPL implements StudentDAOInterface {
 		} catch (Exception e) {
 			logger.error("\n"+e.getMessage()+"\n");
 		}
-		finally{
-		      try{
-		         if(stmt!=null)
-		        	 stmt.close();
-		      } 
-		      catch(SQLException se2){
-		    	  logger.error(se2.getMessage());
-		      }
-		      
-	   }
 		return student;
 	}
 	/**

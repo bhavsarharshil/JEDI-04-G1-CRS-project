@@ -14,6 +14,6 @@ public class ApplicationConfig extends ResourceConfig {
 		register(StudentRESTAPI.class);
 		register(AdminRestApi.class);
 		register(UserRestApi.class);
-		register(ProfessorRESTAPI.class);
+		register(ProfessorRestApi.class);
 	}
 }

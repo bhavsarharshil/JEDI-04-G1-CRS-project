@@ -117,6 +117,10 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 			stmt.setString(4, professor.getName());
 			int res=stmt.executeUpdate();
 			if(res==1) {
+				stmt=conn.prepareStatement(SQLQueriesConstant.INSERT_PROFESSOR_PROFESSOR);
+				stmt.setInt(1, professor.getId());
+				stmt.setString(2,professor.getDepartment());
+				res=stmt.executeUpdate();
 				logger.info("Professor successfully added.");
 				return true;
 			}
@@ -162,10 +166,15 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 		// TODO Auto-generated method stub
 		try {
 			conn = DBConnection.getConnection();
-			stmt=conn.prepareStatement(SQLQueriesConstant.DELETE_USER_BY_ID);
+
+			stmt=conn.prepareStatement(SQLQueriesConstant.DELETE_STUDENT_BY_ID);
 			stmt.setInt(1, id);
 			int res=stmt.executeUpdate();
+			
 			if(res==1) {
+				stmt=conn.prepareStatement(SQLQueriesConstant.DELETE_USER_BY_ID);
+				stmt.setInt(1, id);
+				res=stmt.executeUpdate();
 				logger.info("Student successfully deleted.");
 				return true;
 			}

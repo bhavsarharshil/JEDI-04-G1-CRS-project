@@ -55,6 +55,8 @@ public class SQLQueriesConstant {
 	public static final String GET_PROFCOURSE_COUNT = "select * from courseprof where profid = ? ";
 	
 	public static final String GET_PAYMENTS = "SELECT * FROM payment WHERE studentid =?";
+	public static final String INSERT_PROFESSOR_PROFESSOR = "Insert into professor values(?,null,?,null)";
+	public static final String DELETE_STUDENT_BY_ID = "Delete from student where id=?";
 
 
 }

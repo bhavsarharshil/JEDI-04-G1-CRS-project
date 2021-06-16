@@ -29,7 +29,7 @@ import com.flipkart.service.StudentOperation;
  * @author hp
  *
  */
-@Path("/student")
+@Path("/studentApi")
 public class StudentRESTAPI {
 	
 	StudentInterface stdao = new StudentOperation();
@@ -44,7 +44,7 @@ public class StudentRESTAPI {
 	
 	@GET
 	@Path("/details/{id}")
-	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
 	public Student getStudentDetails(@PathParam("id") int id)  {
 		Student student = stdao.getStudentById(id);
 		return student;

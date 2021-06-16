@@ -4,7 +4,6 @@
 package com.flipkart.service;
 
 import com.flipkart.DAO.UserDAOInterfaceIMPL;
-import com.flipkart.application.CRSApplication;
 import org.apache.log4j.Logger;
 
 /**
