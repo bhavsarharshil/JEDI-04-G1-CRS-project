@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -23,19 +24,19 @@ import com.flipkart.service.ProfessorInterfaceImpl;
 public class ProfessorRestApi {
 	@POST
 	@Path("/gradeStudents")
-	@Consumes("application/json")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response gradeStudents(
-			@NotNull @QueryParam("professorid") int professorid,
-			@NotNull @QueryParam("courseid") int courseid,
-			@NotNull @QueryParam("studentid") int studentid,
-			@NotNull @QueryParam("courseid") String grade
+			@NotNull @FormParam("professorid") int professorid,
+			@NotNull @FormParam("courseid") int courseid,
+			@NotNull @FormParam("studentid") int studentid,
+			@NotNull @FormParam("grade") String grade
 			) {
 
 		//  client --- service ---- dao ----> SQL
 		ProfessorInterfaceImpl professorInterface = new ProfessorInterfaceImpl();
 		String result;
-		boolean status = professorInterface.gradeStudents(professorid,studentid,courseid,grade);
+		System.out.println(professorid +"\t" +grade + "\t"+ courseid+ "\t"+ studentid );
+		boolean status = professorInterface.gradeStudents(professorid,courseid,studentid,grade);
 		if(status == true)
 		{
 			result = "Students Graded Successfully!!";

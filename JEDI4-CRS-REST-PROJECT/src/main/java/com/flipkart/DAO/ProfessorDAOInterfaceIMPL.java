@@ -317,10 +317,12 @@ public class ProfessorDAOInterfaceIMPL implements ProfessorDAOInterface {
 			String sql = SQLQueriesConstant.GET_STUDENT_COUNT;
 			stmt = conn.prepareStatement(sql);
 			stmt.setInt(1,courseID);
+			logger.error(stmt);
 			ResultSet rs = stmt.executeQuery();
 			rs.next();
 			int count = rs.getInt("total");
-			
+
+			logger.error("----------------"+count);
 			return count ; 
 		}
 		catch(SQLException e){

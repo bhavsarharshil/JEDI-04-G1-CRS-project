@@ -321,7 +321,6 @@ public class ProfessorDAOInterfaceIMPL implements ProfessorDAOInterface {
 			ResultSet rs = stmt.executeQuery();
 			rs.next();
 			int count = rs.getInt("total");
-			
 			return count ; 
 		}
 		catch(SQLException e){

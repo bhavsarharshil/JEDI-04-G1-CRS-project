@@ -23,10 +23,10 @@ public class UserDAOInterfaceIMPL implements UserDAOInterface{
 	public String verifyLoginCredentials(int id, String password) {
 		PreparedStatement stmt = null;
 		logger.info("bbbbbbbbb");
-		Connection conn = DBConnection.getConnection();
-		logger.info("ccccccccccc");
+		
 		try {
-			
+			Connection conn = DBConnection.getConnection();
+			logger.debug(String.valueOf(conn));
 			stmt = conn.prepareStatement(SQLQueriesConstant.VERIFY_LOGIN_QUERY);
 			
 			stmt.setInt(1, id);

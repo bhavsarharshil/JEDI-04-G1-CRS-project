@@ -82,7 +82,8 @@ public class ProfessorInterfaceImpl implements ProfessorInterface {
 			courseID=sc.nextInt();
 			studentID=sc.nextInt();*/
 			int no_students = professorDAOInterface.getStudentCount(courseID);
-			
+			System.out.println(no_students +" "+ professorid + " "+ studentID+" "+courseID);
+			logger.debug(no_students +" "+ professorid + " "+ studentID+" "+courseID );
 			if(no_students>0)
 			{
 				grade = professorDAOInterface.viewGrades(courseID, studentID);
@@ -170,6 +171,8 @@ public class ProfessorInterfaceImpl implements ProfessorInterface {
 			coursePresence = professorDAOInterface.getCoursePresence(courseID);
 			if(coursePresence == false)
 			{
+
+				System.out.println(courseID+"    aaaaaaaaaaa"+professorID);
 				return professorDAOInterface.addAssignedCourse(courseID, professorID);
 			}
 			else
