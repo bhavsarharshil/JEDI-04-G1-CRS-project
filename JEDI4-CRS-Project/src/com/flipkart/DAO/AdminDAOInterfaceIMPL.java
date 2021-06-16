@@ -93,16 +93,20 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 		// TODO Auto-generated method stub
 		try {
 		   	conn = DBConnection.getConnection();
-		    stmt=conn.prepareStatement(SQLQueriesConstant.INSERT_PROFESSOR);
-		    stmt.setInt(1, professor.getId());
-		    stmt.setString(2, professor.getEmail());
-		    stmt.setString(3, professor.getPassword());
-		    stmt.setString(4, professor.getName());
-		    int res=stmt.executeUpdate();
-		    if(res==1) {
-				logger.info("\nProfessor successfully added\n");
-		    	return true;
-		    }
+		   	stmt=conn.prepareStatement(SQLQueriesConstant.INSERT_PROFESSOR);
+			stmt.setInt(1, professor.getId());
+			stmt.setString(2, professor.getEmail());
+			stmt.setString(3, professor.getPassword());
+			stmt.setString(4, professor.getName());
+			int res=stmt.executeUpdate();
+			if(res==1) {
+				stmt=conn.prepareStatement(SQLQueriesConstant.INSERT_PROFESSOR_PROFESSOR);
+				stmt.setInt(1, professor.getId());
+				stmt.setString(2,professor.getDepartment());
+				res=stmt.executeUpdate();
+				logger.info("Professor successfully added.");
+				return true;
+			}
 			logger.info("\nUnable to add Professor\n");
 		    return false;
 		}catch (SQLException e) {
@@ -145,13 +149,17 @@ public class AdminDAOInterfaceIMPL implements AdminDAOInterface {
 		// TODO Auto-generated method stub
 		try {
 			conn = DBConnection.getConnection();
-		    stmt=conn.prepareStatement(SQLQueriesConstant.DELETE_USER_BY_ID);
-		    stmt.setInt(1, student.getId());
-		    int res=stmt.executeUpdate();
-		    if(res==1) {
-				logger.info("\nStudent successfully removed\n");
-		    	return true;
-		    }
+			stmt=conn.prepareStatement(SQLQueriesConstant.DELETE_STUDENT_BY_ID);
+			stmt.setInt(1, student.getId());
+			int res=stmt.executeUpdate();
+			
+			if(res==1) {
+				stmt=conn.prepareStatement(SQLQueriesConstant.DELETE_USER_BY_ID);
+				stmt.setInt(1, student.getId());
+				res=stmt.executeUpdate();
+				logger.info("Student successfully deleted.");
+				return true;
+			}
 			logger.info("\nUnable to remove Student\n");
 		    return false;
 		}catch (SQLException e) {

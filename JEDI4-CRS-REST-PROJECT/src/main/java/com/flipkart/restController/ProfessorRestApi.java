@@ -8,6 +8,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
@@ -94,11 +95,9 @@ public class ProfessorRestApi {
 		
 	}
 	@POST
-	@Path("/addAssignedCourse")
-	@Consumes("application/json")
+	@Path("/addAssignedCourse/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response addAssignedCourse(@NotNull @QueryParam("professorid") int professorID,
-			@NotNull @QueryParam("courseid") int courseID)
+	public Response addAssignedCourse(@PathParam("id") int professorID, int courseID)
 	{
 		ProfessorInterfaceImpl professorInterface = new ProfessorInterfaceImpl();
 		boolean status = professorInterface.addAssignedCourse(professorID,courseID);
@@ -115,11 +114,9 @@ public class ProfessorRestApi {
 		return Response.status(201).entity(result).build();
 	}	
 	@POST
-	@Path("/removeAssignedCourse")
-	@Consumes("application/json")
+	@Path("/removeAssignedCourse/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response removeAssignedCourse(@NotNull @QueryParam("professorid") int professorID,
-			@NotNull @QueryParam("courseid") int courseID)
+	public Response removeAssignedCourse(@PathParam("id") int professorID,int courseID)
 	{
 		ProfessorInterfaceImpl professorInterface = new ProfessorInterfaceImpl();
 		boolean status = professorInterface.removeAssignedCourse(professorID,courseID);

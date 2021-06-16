@@ -56,7 +56,7 @@ public class AdminRestApi {
     @POST
 	@Path("/addStudent")
 	@Consumes("application/json")
-	@Produces(MediaType.APPLICATION_JSON)
+//	@Produces(MediaType.APPLICATION_JSON)
 	public Response addStudent(Student student) throws ValidationException
 	{
     	StudentDAOInterface studentDao = new StudentDAOInterfaceIMPL();
@@ -80,7 +80,7 @@ public class AdminRestApi {
     @POST
 	@Path("/addProfessor")
 	@Consumes("application/json")
-	@Produces(MediaType.APPLICATION_JSON)
+//	@Produces(MediaType.APPLICATION_JSON)
 	public Response addProfessor(Professor professor) throws ValidationException
 	{
 		if(adminOperation.addProfessor(professor)) {
