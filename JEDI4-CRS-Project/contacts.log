@@ -569,3 +569,38 @@ Payment done successfully!
 14:49:01,506  INFO StudentDAOInterface,main:506 - 
 
 
+17:23:31,588  INFO UserDAOInterface,main:44 - 
+---Your application is not yet approved by the admin---
+
+17:23:39,002  INFO UserDAOInterface,main:49 - 
+---Logged in successfully---
+
+17:23:46,704  INFO AdminDAOInterfaceIMPL,main:274 - -----------------------------------------------------------------------------
+17:23:46,706  INFO AdminDAOInterfaceIMPL,main:275 -    USER ID            USER NAME 
+17:23:46,707  INFO AdminDAOInterfaceIMPL,main:276 - -----------------------------------------------------------------------------
+17:23:46,707  INFO AdminDAOInterfaceIMPL,main:278 -        208           student208 
+17:23:46,707  INFO AdminDAOInterfaceIMPL,main:278 -        209           student209 
+17:23:46,708  INFO AdminDAOInterfaceIMPL,main:278 -        219           student219 
+17:23:46,710  INFO AdminDAOInterfaceIMPL,main:278 -        229           student229 
+17:23:46,710  INFO AdminDAOInterfaceIMPL,main:278 -        299                 name 
+17:23:46,710  INFO AdminDAOInterfaceIMPL,main:280 - 
+
+
+17:24:22,548  INFO StudentDAOInterface,main:212 - 
+Course 501 added successfully
+
+17:24:34,497  INFO UserDAOInterface,main:49 - 
+---Logged in successfully---
+
+17:25:00,349  INFO StudentDAOInterface,main:133 - Amount to be paid :5000
+17:25:00,355  INFO StudentDAOInterface,main:139 - 
+Payment done successfully!
+
+17:25:17,953  INFO StudentDAOInterface,main:501 - -------------------------------------------------PAYMENT DETAILS---------------------------------------------------
+17:25:17,953  INFO StudentDAOInterface,main:502 - Payment ID		MODE			Bill Date		Payment Date		Amount
+17:25:17,953  INFO StudentDAOInterface,main:503 - -------------------------------------------------------------------------------------------------------------------
+17:25:17,955  INFO StudentDAOInterface,main:504 - 653000000		Netbanking 		2021-06-16			2021-06-16		5000     
+
+17:25:17,955  INFO StudentDAOInterface,main:506 - 
+
+
